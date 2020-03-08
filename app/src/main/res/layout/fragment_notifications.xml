@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="#B2D7F5"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/h_back"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <ImageView
+            android:id="@+id/h_head"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="66dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/my_user_default" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/h_back"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="张三"
+                android:textColor="#ffffff"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+        <com.atyume.ibabym.ui.navbar_title.nav_bar
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:id="@+id/user_info"
+            app:icon="@mipmap/info_personal"
+            app:hint="用户信息"
+            android:background="@color/nav_bar"
+            >
+        </com.atyume.ibabym.ui.navbar_title.nav_bar>
+
+        <View
+            style="@style/bg_line"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <com.atyume.ibabym.ui.navbar_title.nav_bar
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:id="@+id/edit_pwd"
+            app:icon="@mipmap/edit"
+            app:hint="修改密码"
+            android:padding="@dimen/qmui_tab_segment_indicator_height"
+            android:background="@color/nav_bar"
+            >
+        </com.atyume.ibabym.ui.navbar_title.nav_bar>
+
+        <View
+            style="@style/bg_line"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <com.atyume.ibabym.ui.navbar_title.nav_bar
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:id="@+id/user_baby"
+            app:icon="@mipmap/mychild"
+            android:padding="@dimen/qmui_tab_segment_indicator_height"
+            app:hint="我的宝宝"
+            android:background="@color/nav_bar"
+            >
+        </com.atyume.ibabym.ui.navbar_title.nav_bar>
+
+        <View
+            style="@style/bg_line"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <com.atyume.ibabym.ui.navbar_title.nav_bar
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:id="@+id/user_order"
+            app:icon="@mipmap/myorder"
+            android:padding="@dimen/qmui_tab_segment_indicator_height"
+            app:hint="我的预约"
+            android:background="@color/nav_bar"
+            >
+        </com.atyume.ibabym.ui.navbar_title.nav_bar>
+
+        <View
+            style="@style/bg_line"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <com.atyume.ibabym.ui.navbar_title.nav_bar
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:id="@+id/setting"
+            app:icon="@mipmap/settings"
+            android:padding="@dimen/qmui_tab_segment_indicator_height"
+            app:hint="设置"
+            android:background="@color/nav_bar"
+            >
+        </com.atyume.ibabym.ui.navbar_title.nav_bar>
+
+    </LinearLayout>
+
+
+</LinearLayout>

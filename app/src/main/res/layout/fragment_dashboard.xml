@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="#B2D7F5"
+        tools:ignore="MissingConstraints">
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="45dp"
+            android:columnCount="2"
+            android:layout_marginRight="20dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+            <Button
+                style="@style/main_button"
+                android:text="疫苗预约"
+                />
+            <Button
+                style="@style/main_button"
+                android:text="接种信息"
+                />
+            <Button
+                style="@style/main_button"
+                android:text="已种疫苗"
+                />
+            <Button
+                style="@style/main_button"
+                android:text="体检预约"
+                />
+            <Button
+                style="@style/main_button"
+                android:text="体检记录"
+                />
+            <Button
+                style="@style/main_button"
+                android:text="自助建档"
+                />
+        </GridLayout>
+    </LinearLayout>
+
+</LinearLayout>
