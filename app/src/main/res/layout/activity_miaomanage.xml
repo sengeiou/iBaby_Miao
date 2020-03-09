@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="1"
+        android:layout_gravity="center"
+        android:layout_margin="50dp">
+        <Button
+            android:id="@+id/add_miao"
+            style="@style/manage_button"
+            android:text="增加">
+        </Button>
+        <Button
+            android:id="@+id/modify_miao"
+            style="@style/manage_button"
+            android:text="修改">
+        </Button>
+        <Button
+            android:id="@+id/delete_miao"
+            style="@style/manage_button"
+            android:text="删除">
+        </Button>
+        <Button
+            android:id="@+id/select_miao"
+            style="@style/manage_button"
+            android:text="查找">
+        </Button>
+    </GridLayout>
+</LinearLayout>
