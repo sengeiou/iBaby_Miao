@@ -18,10 +18,11 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"></activity>
-        <activity android:name=".ui.home.MiaoManage">
+        <activity android:name=".ui.home.MiaoManage"></activity>
+        <activity android:name=".ui.home.MiaoViewActivity"></activity>
+        <activity android:name=".ui.home.MiaoViewRecyclerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
