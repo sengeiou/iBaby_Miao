@@ -45,14 +45,13 @@ public class HomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         adm_editMiao = (Button)getActivity().findViewById(R.id.adm_editMiao);
-        adm_editMiao.setOnClickListener(new View.OnClickListener(){
+        /*adm_editMiao.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(),MiaoManage.class);
                     startActivity(intent);
-
                 }
-            });
+            });*/
         /*adm_editBaby = (Button)getActivity().findViewById(R.id.adm_editBaby);
         adm_editBaby.setOnClickListener(new View.OnClickListener(){
             @Override

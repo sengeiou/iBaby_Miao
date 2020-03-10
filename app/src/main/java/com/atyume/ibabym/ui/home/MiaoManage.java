@@ -27,7 +27,6 @@ public class MiaoManage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MiaoManage.this, EditBaby.class);
                 startActivity(intent);//返回页面1
-                finish();
             }
         });
     }
