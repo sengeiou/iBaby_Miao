@@ -25,16 +25,9 @@ public class MiaoManage extends AppCompatActivity {
         add_miao.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                new Thread(){
-                    @Override
-                    public void run() {
-                        super.run();
-                        Intent intent = new Intent(MiaoManage.this, null);
-                        startActivity(intent);//返回页面1
-                        finish();
-                        //  startActivity(intent);
-                    }
-                }.start();
+                Intent intent = new Intent(MiaoManage.this, EditBaby.class);
+                startActivity(intent);//返回页面1
+                finish();
             }
         });
     }

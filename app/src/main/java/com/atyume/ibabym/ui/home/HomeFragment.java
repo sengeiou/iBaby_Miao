@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.atyume.ibabym.MainActivity;
 import com.atyume.ibabym.R;
 
 import butterknife.BindView;
@@ -49,9 +50,10 @@ public class HomeFragment extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(),MiaoManage.class);
                     startActivity(intent);
+
                 }
             });
-        adm_editBaby = (Button)getActivity().findViewById(R.id.adm_editBaby);
+        /*adm_editBaby = (Button)getActivity().findViewById(R.id.adm_editBaby);
         adm_editBaby.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -90,7 +92,7 @@ public class HomeFragment extends Fragment {
                 Intent intent = new Intent(getActivity(),EditBaby.class);
                 startActivity(intent);
             }
-        });
+        });*/
         /*final TextView textView = root.findViewById(R.id.text_home);
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override
