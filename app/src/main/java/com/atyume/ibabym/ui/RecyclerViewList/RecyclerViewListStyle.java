@@ -1,4 +1,4 @@
-package com.atyume.ibabym.ui.home;
+package com.atyume.ibabym.ui.RecyclerViewList;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
-import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
+import com.atyume.ibabym.ui.home.EditBaby;
+import com.atyume.ibabym.ui.home.MiaoRecycleActivity;
 import com.atyume.ibabym.utils.MyLiveList;
 
 import java.util.ArrayList;
@@ -26,8 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
-public class MiaoRecycleActivity extends Activity implements View.OnClickListener, MineRadioAdapter.OnItemClickListener {
+public class RecyclerViewListStyle extends Activity implements View.OnClickListener, MineRadioAdapter.OnItemClickListener {
 
     private static final int MYLIVE_MODE_CHECK = 0;
     private static final int MYLIVE_MODE_EDIT = 1;
@@ -224,13 +223,7 @@ public class MiaoRecycleActivity extends Activity implements View.OnClickListene
     }
 
     private void addItem(){
-        mBtnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MiaoRecycleActivity.this,EditBaby.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     private void clearAll() {
@@ -265,4 +258,3 @@ public class MiaoRecycleActivity extends Activity implements View.OnClickListene
         }
     }
 }
-
