@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.atyume.ibabym.ui.navbar_title.TitleLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
