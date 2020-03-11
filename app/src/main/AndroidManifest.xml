@@ -18,18 +18,19 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"/>
-        <activity android:name=".ui.home.MiaoViewRecyclerActivity"></activity>
-        <activity android:name=".ui.home.MiaoRecycleActivity"></activity>
-        <activity android:name=".ui.home.ProjectViewActivity"/>
-        <activity android:name=".ui.home.MiaoViewActivity">
-
+        <activity android:name=".ui.home.ProjectViewActivity"></activity>
+        <activity android:name=".ui.home.MiaoViewActivity"></activity>
+        <activity android:name=".ui.home.ExamViewActivity"></activity>
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.RegisterActivity"></activity>
         <activity android:name=".ui.home.MiaoManage"></activity>
         <activity android:name=".ui.home.EditProject"></activity>
+        <activity android:name=".ui.home.EditExam"></activity>
         <activity android:name=".ui.home.BabyViewActivity"></activity>
         <activity android:name=".ui.home.testActivity"></activity>
         <activity android:name=".ui.home.EditBaby"></activity>

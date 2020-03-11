@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
-
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.ui.RecyclerViewList.RecyclerViewListStyle;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -14,14 +12,16 @@ import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BabyViewActivity extends RecyclerViewListStyle {
+public class ExamViewActivity  extends RecyclerViewListStyle {
 
     @BindView(R.id.btn_editor_add)
     TextView mBtnAdd;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //initTopBar();
         setContentView(R.layout.miao_recycle_muti);
         ButterKnife.bind(this);
 
@@ -31,6 +31,7 @@ public class BabyViewActivity extends RecyclerViewListStyle {
     @Override
     protected void initTopBar(){
         super.initTopBar();
+        /*topbar.setTitle("体检项目管理");*/
     }
     @Override
     protected void initData(){
@@ -45,9 +46,10 @@ public class BabyViewActivity extends RecyclerViewListStyle {
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BabyViewActivity.this,EditBaby.class);
+                Intent intent = new Intent(ExamViewActivity.this,EditExam.class);
                 startActivity(intent);
             }
         });
     }
 }
+

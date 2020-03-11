@@ -19,13 +19,10 @@ public class ProjectViewActivity  extends RecyclerViewListStyle {
     @BindView(R.id.btn_editor_add)
     TextView mBtnAdd;
 
-    @BindView(R.id.topbar)
-    QMUITopBarLayout topbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //initTopBar();
+
         setContentView(R.layout.miao_recycle_muti);
         ButterKnife.bind(this);
 
@@ -35,7 +32,7 @@ public class ProjectViewActivity  extends RecyclerViewListStyle {
     @Override
     protected void initTopBar(){
         super.initTopBar();
-        /*topbar.setTitle("体检项目管理");*/
+
     }
     @Override
     protected void initData(){
