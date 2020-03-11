@@ -20,13 +20,13 @@ import com.atyume.ibabym.MainActivity;
 import com.atyume.ibabym.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
 
-    @BindView(R.id.adm_editMiao)
-    Button adm_editMiao;
+    private Button adm_editMiao;
     @BindView(R.id.adm_editBaby)
     Button adm_editBaby;
     @BindView(R.id.adm_editExam)
@@ -44,8 +44,8 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        adm_editMiao = (Button)getActivity().findViewById(R.id.adm_editMiao);
-        /*adm_editMiao.setOnClickListener(new View.OnClickListener(){
+        /*adm_editMiao = (Button)getActivity().findViewById(R.id.adm_editMiao);
+        adm_editMiao.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(),MiaoManage.class);

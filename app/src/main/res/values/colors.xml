@@ -9,4 +9,8 @@
     <color name="border_clo">#ccc</color>
     <color name="color_b7b8bd">#b7b8bd</color>
 
+    <color name="common_red">#EB0000</color>
+    <color name="bottom_icon_up">#b5b5b5</color>
+    <color name="common_line_two">#dcdcdc</color>
+
 </resources>
