@@ -3,6 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        android:id="@+id/main_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"
+        />
+
     <RelativeLayout
         android:background="@color/color_b7b8bd"
         android:layout_width="match_parent"
@@ -10,7 +17,7 @@
         <TextView
             android:textColor="#ffffff"
             android:layout_centerInParent="true"
-            android:text="RecyclerView批量操作"
+            android:text="选择操作"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView

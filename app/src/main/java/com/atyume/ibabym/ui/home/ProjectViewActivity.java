@@ -3,11 +3,8 @@ package com.atyume.ibabym.ui.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.atyume.ibabym.R;
@@ -17,17 +14,18 @@ import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MiaoViewActivity extends RecyclerViewListStyle {
-    /*private String[] data = {"九价HPV","四价HPV","二价HPV","三价流感疫苗","四价流感疫苗","狂犬病疫苗","水痘疫苗"};*/
+public class ProjectViewActivity  extends RecyclerViewListStyle {
 
     @BindView(R.id.btn_editor_add)
     TextView mBtnAdd;
 
+    @BindView(R.id.topbar)
+    QMUITopBarLayout topbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //initTopBar();
         setContentView(R.layout.miao_recycle_muti);
         ButterKnife.bind(this);
 
@@ -37,7 +35,7 @@ public class MiaoViewActivity extends RecyclerViewListStyle {
     @Override
     protected void initTopBar(){
         super.initTopBar();
-
+        /*topbar.setTitle("体检项目管理");*/
     }
     @Override
     protected void initData(){
@@ -52,9 +50,10 @@ public class MiaoViewActivity extends RecyclerViewListStyle {
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MiaoViewActivity.this,EditMiao.class);
+                Intent intent = new Intent(ProjectViewActivity.this,EditProject.class);
                 startActivity(intent);
             }
         });
     }
 }
+

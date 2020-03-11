@@ -76,7 +76,7 @@ public class MiaoRecycleActivity extends Activity implements View.OnClickListene
         itemDecorationHeader.setDividerDrawable(ContextCompat.getDrawable(this, R.drawable.divider_main_bg_height_1));
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 10; i++) {
             MyLiveList myLiveList = new MyLiveList();
             myLiveList.setTitle("这是第" + i + "个条目");
             myLiveList.setSource("来源" + i);

@@ -19,6 +19,7 @@ import com.atyume.ibabym.adapter.MineRadioAdapter;
 import com.atyume.ibabym.ui.home.EditBaby;
 import com.atyume.ibabym.ui.home.MiaoRecycleActivity;
 import com.atyume.ibabym.utils.MyLiveList;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,21 +54,32 @@ public class RecyclerViewListStyle extends Activity implements View.OnClickListe
     private boolean editorStatus = false;
     private int index = 0;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.miao_recycle_muti);
         ButterKnife.bind(this);
 
-        initView();
         initData();
         initListener();
     }
 
-    private void initView() {
+    protected void initTopBar() {
+        /*topbar.setTitle("信息管理");
+        topbar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //返回
+                finish();
+            }
+        });*/
     }
 
-    private void initData() {
+
+    protected void initData() {
         mRadioAdapter = new MineRadioAdapter(this);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerview.setLayoutManager(mLinearLayoutManager);
@@ -75,7 +87,8 @@ public class RecyclerViewListStyle extends Activity implements View.OnClickListe
         itemDecorationHeader.setDividerDrawable(ContextCompat.getDrawable(this, R.drawable.divider_main_bg_height_1));
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
-        for (int i = 0; i < 30; i++) {
+        //数据
+        for (int i = 0; i < 10; i++) {
             MyLiveList myLiveList = new MyLiveList();
             myLiveList.setTitle("这是第" + i + "个条目");
             myLiveList.setSource("来源" + i);
@@ -90,7 +103,7 @@ public class RecyclerViewListStyle extends Activity implements View.OnClickListe
      *
      * @param size
      */
-    private void setBtnBackground(int size) {
+    protected void setBtnBackground(int size) {
         if (size != 0) {
             mBtnDelete.setBackgroundResource(R.drawable.button_shape);
             mBtnDelete.setEnabled(true);
@@ -102,7 +115,7 @@ public class RecyclerViewListStyle extends Activity implements View.OnClickListe
         }
     }
 
-    private void initListener() {
+    protected void initListener() {
         mRadioAdapter.setOnItemClickListener(this);
         mBtnDelete.setOnClickListener(this);
         mSelectAll.setOnClickListener(this);
@@ -133,7 +146,7 @@ public class RecyclerViewListStyle extends Activity implements View.OnClickListe
     /**
      * 全选和反选
      */
-    private void selectAllMain() {
+    protected void selectAllMain() {
         if (mRadioAdapter == null) return;
         if (!isSelectAll) {
             for (int i = 0, j = mRadioAdapter.getMyLiveList().size(); i < j; i++) {
@@ -160,7 +173,7 @@ public class RecyclerViewListStyle extends Activity implements View.OnClickListe
     /**
      * 删除逻辑
      */
-    private void deleteVideo() {
+    protected void deleteVideo() {
         if (index == 0){
             mBtnDelete.setEnabled(false);
             return;
@@ -207,7 +220,7 @@ public class RecyclerViewListStyle extends Activity implements View.OnClickListe
             }
         });
     }
-    private void updataEditMode() {
+    protected void updataEditMode() {
         mEditMode = mEditMode == MYLIVE_MODE_CHECK ? MYLIVE_MODE_EDIT : MYLIVE_MODE_CHECK;
         if (mEditMode == MYLIVE_MODE_EDIT) {
             mBtnEditor.setText("取消");
@@ -222,11 +235,11 @@ public class RecyclerViewListStyle extends Activity implements View.OnClickListe
         mRadioAdapter.setEditMode(mEditMode);
     }
 
-    private void addItem(){
+    protected void addItem(){
 
     }
 
-    private void clearAll() {
+    protected void clearAll() {
         mTvSelectNum.setText(String.valueOf(0));
         isSelectAll = false;
         mSelectAll.setText("全选");
