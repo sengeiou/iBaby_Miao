@@ -26,7 +26,8 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
 
-    private Button adm_editMiao;
+    @BindView(R.id.adm_editMiao)
+    Button adm_editMiao;
     @BindView(R.id.adm_editBaby)
     Button adm_editBaby;
     @BindView(R.id.adm_editExam)
@@ -44,47 +45,47 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        /*adm_editMiao = (Button)getActivity().findViewById(R.id.adm_editMiao);
+        ButterKnife.bind(this,root);
         adm_editMiao.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(),MiaoManage.class);
+                    Intent intent = new Intent(getActivity(),MiaoViewActivity.class);
                     startActivity(intent);
                 }
-            });*/
-        /*adm_editBaby = (Button)getActivity().findViewById(R.id.adm_editBaby);
+            });
+
         adm_editBaby.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),EditBaby.class);
+                Intent intent = new Intent(getActivity(),BabyViewActivity.class);
                 startActivity(intent);
             }
         });
-        adm_editExam = (Button)getActivity().findViewById(R.id.adm_editExam);
+
         adm_editExam.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),EditBaby.class);
+                Intent intent = new Intent(getActivity(),ExamViewActivity.class);
                 startActivity(intent);
             }
         });
-        adm_editExPr = (Button)getActivity().findViewById(R.id.adm_editExPr);
+
         adm_editExPr.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),EditBaby.class);
+                Intent intent = new Intent(getActivity(),ProjectViewActivity.class);
                 startActivity(intent);
             }
         });
-        adm_editOrder = (Button)getActivity().findViewById(R.id.adm_editOrder);
-        adm_editOrder.setOnClickListener(new View.OnClickListener(){
+
+        /*adm_editOrder.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),EditBaby.class);
                 startActivity(intent);
             }
         });
-        adm_editHos = (Button)getActivity().findViewById(R.id.adm_editHos);
+
         adm_editHos.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

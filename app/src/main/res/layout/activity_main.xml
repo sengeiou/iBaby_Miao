@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <com.qmuiteam.qmui.widget.QMUITopBar
-        android:id="@+id/baby_topbar"
+        android:id="@+id/main_topbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/qmui_topbar_height"
         android:fitsSystemWindows="true"/>

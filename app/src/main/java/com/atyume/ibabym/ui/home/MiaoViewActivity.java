@@ -9,10 +9,18 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.ibabym.R;
+import com.atyume.ibabym.adapter.MineRadioAdapter;
+import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
 import com.atyume.ibabym.ui.RecyclerViewList.RecyclerViewListStyle;
+import com.atyume.ibabym.utils.MyLiveList;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,9 +28,14 @@ import butterknife.ButterKnife;
 public class MiaoViewActivity extends RecyclerViewListStyle {
     /*private String[] data = {"九价HPV","四价HPV","二价HPV","三价流感疫苗","四价流感疫苗","狂犬病疫苗","水痘疫苗"};*/
 
+    @BindView(R.id.recyclerview)
+    RecyclerView mRecyclerview;
     @BindView(R.id.btn_editor_add)
     TextView mBtnAdd;
 
+    private MineRadioAdapter mRadioAdapter = null;
+    private LinearLayoutManager mLinearLayoutManager;
+    private List<MyLiveList> mList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +55,7 @@ public class MiaoViewActivity extends RecyclerViewListStyle {
     @Override
     protected void initData(){
         super.initData();
+
     }
     @Override
     protected void initListener(){
