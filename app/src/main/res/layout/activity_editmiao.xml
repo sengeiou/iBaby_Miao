@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.qmuiteam.qmui.widget.QMUITopBar
+    <!--<com.qmuiteam.qmui.widget.QMUITopBar
         android:id="@+id/miao_topbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/qmui_topbar_height" />
+        android:layout_height="?attr/qmui_topbar_height" />-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,15 +22,9 @@
             <!--注册标题文字-->
             <TextView
                 android:id="@+id/textview_Yimiao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/qmui_group_list_section_header_footer_padding_vertical"
-                android:paddingLeft="?attr/qmui_content_padding_horizontal"
-                android:paddingRight="?attr/qmui_content_padding_horizontal"
-                android:paddingTop="@dimen/qmui_group_list_section_header_footer_padding_vertical"
+                style="@style/header_bar"
                 android:text="疫苗录入"
-                android:textColor="?attr/qmui_config_color_gray_3"
-                android:textSize="@dimen/qmui_tab_segment_text_size" />
+                />
             <!--边框分割细线-->
             <LinearLayout
                 android:layout_width="match_parent"

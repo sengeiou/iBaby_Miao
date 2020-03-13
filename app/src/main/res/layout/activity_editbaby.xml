@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.qmuiteam.qmui.widget.QMUITopBar
+    <!--<com.qmuiteam.qmui.widget.QMUITopBar
         android:id="@+id/baby_topbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/qmui_topbar_height"
-        android:fitsSystemWindows="true"/>
+        android:fitsSystemWindows="true"/>-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,15 +23,9 @@
             <!--注册标题文字-->
             <TextView
                 android:id="@+id/textview_Baby"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/qmui_group_list_section_header_footer_padding_vertical"
-                android:paddingLeft="?attr/qmui_content_padding_horizontal"
-                android:paddingRight="?attr/qmui_content_padding_horizontal"
-                android:paddingTop="@dimen/qmui_group_list_section_header_footer_padding_vertical"
+                style="@style/header_bar"
                 android:text="自助建档"
-                android:textColor="?attr/qmui_config_color_gray_3"
-                android:textSize="@dimen/qmui_tab_segment_text_size" />
+                />
             <!--边框分割细线-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,6 +38,7 @@
                 android:background="@color/qmui_config_color_white"
                 android:layout_margin="15dp"
                 android:columnCount="2"
+                android:padding="20dp"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
                 <!--接种地区-->
@@ -52,8 +47,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill_horizontal"
                     android:gravity="center_vertical"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
                     android:paddingRight="@dimen/qmui_content_spacing_horizontal"
                     android:text="接种地区"
                     android:textColor="?attr/qmui_config_color_gray_1"
@@ -65,7 +58,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
                 <!--宝宝姓名-->
@@ -75,7 +67,6 @@
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
                     android:paddingRight="@dimen/qmui_content_spacing_horizontal"
                     android:text="宝宝姓名"
                     android:textColor="?attr/qmui_config_color_gray_1"
@@ -87,6 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
                     android:inputType="text"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
@@ -97,61 +89,61 @@
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
                     android:paddingRight="@dimen/qmui_content_spacing_horizontal"
                     android:text="出生日期"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-                    <!--出生日期输入框-->
-                    <EditText
-                        android:id="@+id/edittext_babyBirth"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/qmui_divider_bottom_bitmap"
-                        android:inputType="time"
-                        android:layout_gravity="fill"
-                        android:textColor="?attr/qmui_config_color_gray_5"
-                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+                <!--出生日期输入框-->
+                <EditText
+                    android:id="@+id/edittext_babyBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/qmui_divider_bottom_bitmap"
+                    android:inputType="time"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:layout_gravity="fill"
+                    android:textColor="?attr/qmui_config_color_gray_5"
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
                 <!--宝宝性别-->
-                <!--<LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/qmui_divider_bottom_bitmap">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/qmui_list_item_height"
-                        android:background="@drawable/qmui_s_list_item_bg_1"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                        android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                        android:text="宝宝性别"
-                        android:textColor="?attr/qmui_config_color_gray_1"
-                        android:textSize="?attr/qmui_common_list_item_title_h_text_size"/>
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:text="宝宝性别"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size"/>
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:paddingTop="9dp">
                     //单选按钮
                     <RadioGroup
                         android:id="@+id/edittext_babySex"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_gravity="fill"
-                        android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                        android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                        android:paddingTop="10dp">
+                        >
                         <RadioButton
                             android:id="@+id/male"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="1"
                             android:text="男"/>
                         <RadioButton
                             android:id="@+id/female"
+                            android:layout_gravity="center_horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="女"/>
                     </RadioGroup>
-                </LinearLayout>-->
+                </GridLayout>
                 <!--户口地址-->
                 <TextView
                     android:layout_width="wrap_content"
@@ -159,7 +151,6 @@
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
                     android:paddingRight="@dimen/qmui_content_spacing_horizontal"
                     android:text="户口地址"
                     android:textColor="?attr/qmui_config_color_gray_1"
@@ -170,6 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:inputType="text"
                     android:textColor="?attr/qmui_config_color_gray_5"
@@ -181,9 +173,7 @@
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
                     android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                    android:layout_marginBottom="18dp"
                     android:text="现居地址"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
@@ -194,42 +184,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
-                    android:layout_marginBottom="18dp"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
                     android:inputType="text"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                <!--生产情况-->
-                <!--<LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/qmui_divider_bottom_bitmap">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/qmui_list_item_height"
-                        android:background="@drawable/qmui_s_list_item_bg_1"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                        android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                        android:text="生产情况"
-                        android:textColor="?attr/qmui_config_color_gray_1"
-                        android:textSize="?attr/qmui_common_list_item_title_h_text_size"/>
-                    //单选按钮
-                    <Spinner
-                        android:id="@+id/edit_babyBirth"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_gravity="fill"
-                        android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                        android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                        android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                        android:entries="array/birthSituation"
-                        android:spinnerMode="dialog">
 
-                    </Spinner>
-                </LinearLayout>-->
-                
             </GridLayout>
             <!--提交按钮位置-->
             <LinearLayout
@@ -237,7 +196,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/qmui_config_color_white"
                 android:orientation="horizontal"
-                android:padding="@dimen/qmui_content_spacing_horizontal">
+                android:padding="@dimen/qmui_content_spacing_horizontal"
+                android:layout_margin="15dp">
 
                 <Space
                     android:layout_width="0dp"
