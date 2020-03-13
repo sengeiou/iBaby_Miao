@@ -27,8 +27,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    private QMUITopBar mTopBar;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +51,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
             }
-        });*/
+        });
         mTopBar = (QMUITopBar) findViewById(R.id.main_topbar);
 
         mTopBar.setTitle("自助");
+         */
     }
 
 }

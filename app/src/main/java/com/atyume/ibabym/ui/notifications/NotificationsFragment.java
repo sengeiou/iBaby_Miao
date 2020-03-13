@@ -13,16 +13,25 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.atyume.ibabym.R;
+import com.qmuiteam.qmui.widget.QMUITopBar;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
+
+    @BindView(R.id.mine_topbar)
+    QMUITopBar mbtnMineTopBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+        ButterKnife.bind(this,root);
+        initTopBar();
         /*final TextView textView = root.findViewById(R.id.text_notifications);
         notificationsViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -32,4 +41,8 @@ public class NotificationsFragment extends Fragment {
         });*/
         return root;
     }
+    private void initTopBar(){
+        mbtnMineTopBar.setTitle("我的");
+    }
+
 }

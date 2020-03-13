@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.atyume.ibabym.MainActivity;
 import com.atyume.ibabym.R;
+import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +39,8 @@ public class HomeFragment extends Fragment {
     Button adm_editOrder;
     @BindView(R.id.adm_editHos)
     Button adm_editHos;
-
+    @BindView(R.id.home_topbar)
+    QMUITopBar mbtnHomeTorBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class HomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this,root);
+        initTopBar();
         adm_editMiao.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
@@ -103,6 +106,9 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    private void initTopBar(){
+        mbtnHomeTorBar.setTitle("首页");
+    }
     /*@Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
