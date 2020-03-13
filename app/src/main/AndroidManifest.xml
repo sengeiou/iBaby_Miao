@@ -36,6 +36,7 @@
         <!--宝宝信息-->
         <activity android:name=".ui.home.BabyViewActivity"></activity>
         <activity android:name=".ui.home.EditBaby"></activity>
+        <activity android:name=".ui.dashboard.ViewBabyInfo"></activity>
         <!--医院信息-->
         <activity android:name=".ui.home.EditHos"></activity>
         <activity android:name=".ui.home.HosViewActivity"></activity>

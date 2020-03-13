@@ -35,26 +35,32 @@
             android:focusable="true"
             android:focusableInTouchMode="true">
             <Button
+                android:id="@+id/order_miao"
                 style="@style/main_button"
                 android:text="疫苗预约"
                 />
             <Button
+                android:id="@+id/view_baby_information"
                 style="@style/main_button"
                 android:text="接种信息"
                 />
             <Button
+                android:id="@+id/already_miao"
                 style="@style/main_button"
                 android:text="已种疫苗"
                 />
             <Button
+                android:id="@+id/order_exam"
                 style="@style/main_button"
                 android:text="体检预约"
                 />
             <Button
+                android:id="@+id/already_exam"
                 style="@style/main_button"
                 android:text="体检记录"
                 />
             <Button
+                android:id="@+id/edit_baby_information"
                 style="@style/main_button"
                 android:text="自助建档"
                 />

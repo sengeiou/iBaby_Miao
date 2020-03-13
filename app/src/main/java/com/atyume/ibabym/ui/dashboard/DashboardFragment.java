@@ -1,9 +1,11 @@
 package com.atyume.ibabym.ui.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,6 +15,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.atyume.ibabym.R;
+import com.atyume.ibabym.ui.home.EditBaby;
 import com.qmuiteam.qmui.layout.QMUIButton;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
@@ -25,6 +28,10 @@ public class DashboardFragment extends Fragment {
 
     @BindView(R.id.read_topbar)
     QMUITopBar mbtnReadTopbar;
+    @BindView(R.id.edit_baby_information)
+    Button mbtnEditBaby;
+    @BindView(R.id.view_baby_information)
+    Button mbtnViewBaby;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +48,24 @@ public class DashboardFragment extends Fragment {
                 textView.setText(s);
             }
         });*/
+
+        /*接种信息*/
+        mbtnViewBaby.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ViewBabyInfo.class);
+                startActivity(intent);
+            }
+        });
+        /*自主建档*/
+        mbtnEditBaby.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditBaby.class);
+                startActivity(intent);
+            }
+        });
+
         return root;
     }
     private void initTopBar(){
