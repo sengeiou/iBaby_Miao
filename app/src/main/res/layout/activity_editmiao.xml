@@ -69,7 +69,7 @@
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
                     android:layout_marginTop="15dp"
-                    android:text="疫苗简介"
+                    android:text="预防疾病"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
@@ -80,7 +80,7 @@
                     android:layout_gravity="fill"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:layout_marginTop="8dp"
-                    android:hint="请输入疫苗简介"
+                    android:hint="请输入预防的疾病"
                     android:inputType="text"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
@@ -104,28 +104,6 @@
                     android:layout_marginTop="8dp"
                     android:hint="请输入疫苗批号"
                     android:inputType="number"
-                    android:textColor="?attr/qmui_config_color_gray_5"
-                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                <!--接种部位-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/qmui_s_list_item_bg_1"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="15dp"
-                    android:text="接种部位"
-                    android:textColor="?attr/qmui_config_color_gray_1"
-                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-                <!--输入框-->
-                <EditText
-                    android:id="@+id/edittext_certiPart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/qmui_divider_bottom_bitmap"
-                    android:hint="请输入接种部位"
-                    android:layout_gravity="fill"
-                    android:layout_marginTop="8dp"
-                    android:inputType="text"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
                 <!--生产单位-->

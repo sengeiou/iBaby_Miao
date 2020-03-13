@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/qmui_config_color_white"
                 android:layout_margin="15dp"
+                android:padding="20dp"
                 android:columnCount="1"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
@@ -46,7 +47,6 @@
                     android:layout_gravity="fill_horizontal"
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
                     android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
                     android:paddingRight="@dimen/qmui_content_spacing_horizontal"
                     android:text="项目名称"
@@ -59,7 +59,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
                     android:hint="请输入体检项目名称"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
                     android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
                     android:paddingRight="@dimen/qmui_content_spacing_horizontal"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
@@ -93,33 +92,7 @@
                     android:inputType="text"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                <!--检查意义-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/qmui_s_list_item_bg_1"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="fill"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                    android:text="检查意义"
-                    android:textColor="?attr/qmui_config_color_gray_1"
-                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-                <!--输入框-->
-                <EditText
-                    android:id="@+id/edittext_projectEffect"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="fill"
-                    android:background="@drawable/qmui_divider_bottom_bitmap"
-                    android:hint="请输入体检项目检查意义"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                    android:inputType="text"
-                    android:textColor="?attr/qmui_config_color_gray_5"
-                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
                 <!--项目价格-->
                 <TextView
                     android:layout_width="wrap_content"

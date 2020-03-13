@@ -78,12 +78,17 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         //数据
         for (int i = 0; i < data.length; i++) {
             MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle("这是第" + data[i] + "个条目");
+            myLiveList.setTitle(data[i]);
             myLiveList.setSource("来源" + i);
             mList.add(myLiveList);
             mRadioAdapter.notifyAdapter(mList, false);
         }
+    }
 
+    protected void makeClicked(){
+        for (int i=0;i<mList.size();i++){
+            mList.get(i);
+        }
     }
 
     /**

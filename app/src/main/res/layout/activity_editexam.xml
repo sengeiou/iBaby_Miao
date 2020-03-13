@@ -67,33 +67,7 @@
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
 
-                <!--套餐简介-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/qmui_s_list_item_bg_1"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="fill"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                    android:text="套餐简介"
-                    android:textColor="?attr/qmui_config_color_gray_1"
-                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-                <!--输入框-->
-                <EditText
-                    android:id="@+id/edittext_examDetial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="fill"
-                    android:background="@drawable/qmui_divider_bottom_bitmap"
-                    android:hint="请输入体检套餐简介"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                    android:inputType="text"
-                    android:textColor="?attr/qmui_config_color_gray_5"
-                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
                 <!--体检医院-->
                 <TextView
                     android:layout_width="wrap_content"
