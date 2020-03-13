@@ -4,14 +4,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="60dp"
-        android:text="iBabyM"
-        android:textSize="50sp" />
+        android:id="@+id/textview_ResetPwd"
+        style="@style/header_bar"
+        android:text="重置密码"
+        />
 
     <GridLayout
         android:layout_width="match_parent"
@@ -21,7 +19,7 @@
         android:padding="15dp">
 
         <EditText
-            android:id="@+id/edt_setusername"
+            android:id="@+id/edit_user_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -30,7 +28,7 @@
             android:hint="请输入手机号"
             android:inputType="phone"
             android:padding="5dp"
-            android:textSize="18sp"/>
+            android:textSize="16sp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +39,7 @@
             android:orientation="horizontal">
             <!--验证码输入框-->
             <EditText
-                android:id="@+id/edittext_verifycode"
+                android:id="@+id/edit_reset_verifycode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -49,10 +47,10 @@
                 android:hint="4位数字验证码"
                 android:inputType="number"
                 android:maxLength="4"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                android:id="@+id/button_getverifycode"
+                android:id="@+id/button_get_reset_verifycode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -66,28 +64,28 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/edt_setpassword"
+            android:id="@+id/edt_setnew_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:hint="请输入密码"
+            android:hint="请输入新密码"
             android:inputType="textPassword"
             android:padding="5dp"
-            android:textSize="18sp"/>
+            android:textSize="16sp"/>
 
         <EditText
-            android:id="@+id/edt_confirm_password"
+            android:id="@+id/edt_confirm_new_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:hint="再输入密码"
+            android:hint="再输入新密码"
             android:inputType="textPassword"
             android:padding="5dp"
-            android:textSize="18sp"/>
+            android:textSize="16sp"/>
     </GridLayout>
 
     <LinearLayout
@@ -95,13 +93,13 @@
         android:layout_height="65dp"
         android:orientation="horizontal">
         <Button
-            android:id="@+id/btn_register"
+            android:id="@+id/btn_resetPwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="35dp"
             android:background="@android:color/white"
-            android:text="确定注册"
-            android:textSize="20sp" />
+            android:text="确定"
+            android:textSize="18sp" />
     </LinearLayout>
 </LinearLayout>

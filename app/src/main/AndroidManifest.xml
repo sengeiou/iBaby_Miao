@@ -43,6 +43,10 @@
         <!--登陆注册-->
         <activity android:name=".ui.LoginActivity"></activity>
         <activity android:name=".ui.RegisterActivity"></activity>
+        <activity android:name=".ui.notifications.EditPassword"></activity>
+        <activity android:name=".ui.ResetPwd"></activity>
+        <!--用户信息-->
+        <activity android:name=".ui.notifications.ViewUser"></activity>
 
     </application>
 

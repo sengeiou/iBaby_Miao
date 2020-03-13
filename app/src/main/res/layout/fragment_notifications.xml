@@ -65,7 +65,7 @@
         tools:ignore="MissingConstraints">
         <com.atyume.ibabym.ui.navbar_title.nav_bar
             android:layout_width="match_parent"
-            android:layout_height="33dp"
+            android:layout_height="35dp"
             android:id="@+id/user_info"
             app:icon="@mipmap/info_personal"
             app:hint="用户信息"
@@ -81,7 +81,7 @@
 
         <com.atyume.ibabym.ui.navbar_title.nav_bar
             android:layout_width="match_parent"
-            android:layout_height="33dp"
+            android:layout_height="35dp"
             android:id="@+id/edit_pwd"
             app:icon="@mipmap/edit"
             app:hint="修改密码"
@@ -98,7 +98,7 @@
 
         <com.atyume.ibabym.ui.navbar_title.nav_bar
             android:layout_width="match_parent"
-            android:layout_height="33dp"
+            android:layout_height="35dp"
             android:id="@+id/user_baby"
             app:icon="@mipmap/mychild"
             android:padding="@dimen/qmui_tab_segment_indicator_height"
@@ -115,7 +115,7 @@
 
         <com.atyume.ibabym.ui.navbar_title.nav_bar
             android:layout_width="match_parent"
-            android:layout_height="33dp"
+            android:layout_height="35dp"
             android:id="@+id/user_order"
             app:icon="@mipmap/myorder"
             android:padding="@dimen/qmui_tab_segment_indicator_height"
@@ -124,24 +124,15 @@
             >
         </com.atyume.ibabym.ui.navbar_title.nav_bar>
 
-        <View
-            style="@style/bg_line"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="10dp"
-            />
-
-        <com.atyume.ibabym.ui.navbar_title.nav_bar
-            android:layout_width="match_parent"
-            android:layout_height="33dp"
-            android:id="@+id/setting"
-            app:icon="@mipmap/settings"
-            android:padding="@dimen/qmui_tab_segment_indicator_height"
-            app:hint="设置"
-            android:background="@color/nav_bar"
-            >
-        </com.atyume.ibabym.ui.navbar_title.nav_bar>
-
     </LinearLayout>
+
+    <com.qmuiteam.qmui.layout.QMUIButton
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="退出登录"
+        android:background="@color/white"
+        />
 
 
 </LinearLayout>

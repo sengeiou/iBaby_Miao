@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--注册标题文字-->
+            <TextView
+                android:id="@+id/textview_Baby"
+                style="@style/header_bar"
+                android:text="我" />
+            <!--边框分割细线-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/qmui_s_list_item_bg_1" />
+            <!--输入框-->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/qmui_config_color_white"
+                android:layout_margin="15dp"
+                android:columnCount="2"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+                <!--昵称-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:text="昵  称"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--输入框-->
+                <TextView
+                    android:id="@+id/edittext_certiArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:hint="大南瓜"
+                    android:background="@drawable/qmui_divider_bottom_bitmap"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:textColor="?attr/qmui_config_color_gray_5"
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+                <!--真实姓名-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:text="真实姓名"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--输入框-->
+                <TextView
+                    android:id="@+id/edittext_babyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:hint="大南瓜"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:background="@drawable/qmui_divider_bottom_bitmap"
+                    android:textColor="?attr/qmui_config_color_gray_5"
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+                <!--联系方式-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:text="联系方式"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--输入框-->
+                <TextView
+                    android:id="@+id/edittext_babyBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/qmui_divider_bottom_bitmap"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:hint="18359736039"
+                    android:layout_gravity="fill"
+                    android:textColor="?attr/qmui_config_color_gray_5"
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+                <!--工作单位-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:text="工作地址"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size"/>
+                <TextView
+                    android:id="@+id/edittext_babySex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/qmui_divider_bottom_bitmap"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:hint="福建省厦门市"
+                    android:layout_gravity="fill"
+                    android:textColor="?attr/qmui_config_color_gray_5"
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
+            </GridLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
