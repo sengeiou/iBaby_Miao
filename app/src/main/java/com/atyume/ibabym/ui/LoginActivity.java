@@ -19,6 +19,8 @@ public class LoginActivity extends AppCompatActivity{
     Button mBtnLogin;
     @BindView(R.id.btn_go_register)
     Button mBtnGoRegister;
+    @BindView(R.id.login_error)
+    Button mBtnLoginError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,45 +44,15 @@ public class LoginActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-        /*intiListener();*/
+        mBtnLoginError.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(LoginActivity.this, "点击了忘记密码", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, ResetPwd.class);
+                startActivity(intent);
+            }
+        });
 
     }
-    /*protected void intiListener(){
-        mBtnLogin.setOnClickListener(this);
-        mBtnGoRegister.setOnClickListener(this);
-    }
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_login:
-                login();
-                break;
-            case R.id.btn_go_register:
-                register();
-                break;
-            default:
-                break;
-        }
-    }
-    private void login(){
-        mBtnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "点击了登录", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-    private void register(){
-        mBtnGoRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "点击了注册", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
-    }*/
 
 }
