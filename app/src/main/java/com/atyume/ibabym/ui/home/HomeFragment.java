@@ -87,15 +87,15 @@ public class HomeFragment extends Fragment {
                 Intent intent = new Intent(getActivity(),EditBaby.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         adm_editHos.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),EditBaby.class);
+                Intent intent = new Intent(getActivity(),EditHos.class);
                 startActivity(intent);
             }
-        });*/
+        });
         /*final TextView textView = root.findViewById(R.id.text_home);
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override

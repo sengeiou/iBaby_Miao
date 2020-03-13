@@ -23,18 +23,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    <activity android:name=".ui.home.ProjectViewActivity"></activity>
-    <activity android:name=".ui.home.MiaoViewActivity"></activity>
-    <activity android:name=".ui.home.ExamViewActivity"></activity>
-    <activity android:name=".ui.LoginActivity"></activity>
-    <activity android:name=".ui.RegisterActivity"></activity>
-    <activity android:name=".ui.home.MiaoManage"></activity>
-    <activity android:name=".ui.home.EditProject"></activity>
-    <activity android:name=".ui.home.EditExam"></activity>
-    <activity android:name=".ui.home.BabyViewActivity"></activity>
-    <activity android:name=".ui.home.testActivity"></activity>
-    <activity android:name=".ui.home.EditBaby"></activity>
-    <activity android:name=".ui.home.EditMiao"></activity>
+        <!--体检项目-->
+        <activity android:name=".ui.home.ProjectViewActivity"></activity>
+        <activity android:name=".ui.home.EditProject"></activity>
+        <!--体检套餐-->
+        <activity android:name=".ui.home.ExamViewActivity"></activity>
+        <activity android:name=".ui.home.EditExam"></activity>
+        <!--疫苗-->
+        <activity android:name=".ui.home.MiaoManage"></activity>
+        <activity android:name=".ui.home.EditMiao"></activity>
+        <activity android:name=".ui.home.MiaoViewActivity"></activity>
+        <!--宝宝信息-->
+        <activity android:name=".ui.home.BabyViewActivity"></activity>
+        <activity android:name=".ui.home.EditBaby"></activity>
+        <!--医院信息-->
+        <activity android:name=".ui.home.EditHos"></activity>
+        <activity android:name=".ui.home.HosViewActivity"></activity>
+        <!--登陆注册-->
+        <activity android:name=".ui.LoginActivity"></activity>
+        <activity android:name=".ui.RegisterActivity"></activity>
 
     </application>
 

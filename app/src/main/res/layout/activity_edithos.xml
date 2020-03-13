@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--<com.qmuiteam.qmui.widget.QMUITopBar
+        android:id="@+id/exam_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"
+        android:fitsSystemWindows="true"/>
+-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--注册标题文字-->
+            <TextView
+                android:id="@+id/textview_Hospit"
+                style="@style/header_bar"
+                android:text="医院信息录入"
+                 />
+            <!--边框分割细线-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/qmui_s_list_item_bg_1" />
+            <!--输入框-->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/qmui_config_color_white"
+                android:layout_margin="15dp"
+                android:columnCount="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+                <!--医院名称-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:text="医院名称"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--输入框-->
+                <EditText
+                    android:id="@+id/edittext_hosName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:hint="请输入医院名称"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:background="@drawable/qmui_divider_bottom_bitmap"
+                    android:textColor="?attr/qmui_config_color_gray_5"
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
+                <!--医院地址-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="fill"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:text="医院地址"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--输入框-->
+                <EditText
+                    android:id="@+id/edittext_hosAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/qmui_divider_bottom_bitmap"
+                    android:hint="请输入医院地址"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:inputType="text"
+                    android:textColor="?attr/qmui_config_color_gray_5"
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+                <!--疫苗名称-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:text="疫苗名称"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--输入框-->
+                <EditText
+                    android:id="@+id/edittext_miaoName_Hos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:hint="请输入疫苗名称"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:background="@drawable/qmui_divider_bottom_bitmap"
+                    android:textColor="?attr/qmui_config_color_gray_5"
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
+                <!--疫苗库存-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="fill"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:text="疫苗数量"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--输入框-->
+                <EditText
+                    android:id="@+id/edittext_miaoAmount_Hos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/qmui_divider_bottom_bitmap"
+                    android:layout_gravity="fill"
+                    android:hint="请输入疫苗数量"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:inputType="number"
+                    android:textColor="?attr/qmui_config_color_gray_5"
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
+            </GridLayout>
+            <!--提交按钮位置-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/qmui_config_color_white"
+                android:orientation="horizontal"
+                android:padding="@dimen/qmui_content_spacing_horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/button_add_hos_miao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="确定提交"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size"
+                    app:qmui_isRadiusAdjustBounds="true" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

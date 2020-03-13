@@ -17,10 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
-import com.atyume.ibabym.ui.home.EditBaby;
-import com.atyume.ibabym.ui.home.MiaoRecycleActivity;
+import com.atyume.ibabym.ui.RecyclerViewList.RecyclerViewListStyle;
 import com.atyume.ibabym.utils.MyLiveList;
-import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MiaoViewActivity extends Activity implements View.OnClickListener, MineRadioAdapter.OnItemClickListener {
-    private String[] data = {"九价HPV","四价HPV","二价HPV","三价流感疫苗","四价流感疫苗","狂犬病疫苗","水痘疫苗"};
+public class HosViewActivity extends Activity implements View.OnClickListener, MineRadioAdapter.OnItemClickListener {
 
     private static final int MYLIVE_MODE_CHECK = 0;
     private static final int MYLIVE_MODE_EDIT = 1;
@@ -56,10 +53,11 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
     private boolean editorStatus = false;
     private int index = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //initTopBar();
         setContentView(R.layout.miao_recycle_muti);
         ButterKnife.bind(this);
 
@@ -76,14 +74,13 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
         //数据
-        for (int i = 0; i < data.length; i++) {
+        for (int i = 0; i < 10; i++) {
             MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle("这是第" + data[i] + "个条目");
+            myLiveList.setTitle("这是第" + i + "个医院信息");
             myLiveList.setSource("来源" + i);
             mList.add(myLiveList);
             mRadioAdapter.notifyAdapter(mList, false);
         }
-
     }
 
     /**
@@ -135,7 +132,7 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MiaoViewActivity.this,EditMiao.class);
+                Intent intent = new Intent(HosViewActivity.this,EditHos.class);
                 startActivity(intent);
             }
         });
@@ -266,3 +263,4 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         }
     }
 }
+

@@ -37,4 +37,15 @@
         <item name="qmui_topbar_height">48dp</item>
         <item name="qmui_topbar_image_btn_height">48dp</item>
     </style>
+    <style name="header_bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">@dimen/qmui_group_list_section_header_footer_padding_vertical</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingLeft">?attr/qmui_content_padding_horizontal</item>
+        <item name="android:paddingRight">?attr/qmui_content_padding_horizontal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">?attr/qmui_config_color_gray_3</item>
+        <item name="android:textSize">@dimen/qmui_tab_segment_text_size</item>
+    </style>
 </resources>
