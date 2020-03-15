@@ -32,6 +32,10 @@ public class DashboardFragment extends Fragment {
     Button mbtnEditBaby;
     @BindView(R.id.view_baby_information)
     Button mbtnViewBaby;
+    @BindView(R.id.order_miao)
+    Button mbtnOrderMiao;
+    @BindView(R.id.order_exam)
+    Button mbtnOrderExam;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +66,22 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditBaby.class);
+                startActivity(intent);
+            }
+        });
+        /*疫苗预约*/
+        mbtnOrderMiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RecyclerMiaoActivity.class);
+                startActivity(intent);
+            }
+        });
+        /*体检预约*/
+        mbtnOrderExam.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getActivity(), RecyclerExamActivity.class);
                 startActivity(intent);
             }
         });

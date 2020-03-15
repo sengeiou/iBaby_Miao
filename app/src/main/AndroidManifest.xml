@@ -47,7 +47,14 @@
         <activity android:name=".ui.ResetPwd"></activity>
         <!--用户信息-->
         <activity android:name=".ui.notifications.ViewUser"></activity>
-
+        <!--预约-查看疫苗-->
+        <activity android:name=".ui.dashboard.RecyclerMiaoActivity"></activity>
+        <activity android:name=".ui.dashboard.ViewMiaoDetail"></activity>
+        <activity android:name=".ui.dashboard.OrderMiao"></activity>
+        <!--预约-查看体检套餐-->
+        <activity android:name=".ui.dashboard.RecyclerExamActivity"></activity>
+        <activity android:name=".ui.dashboard.ViewExamDetail"></activity>
+        <activity android:name=".ui.dashboard.OrderExam"></activity>
     </application>
 
 </manifest>

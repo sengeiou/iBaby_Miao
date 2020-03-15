@@ -40,12 +40,19 @@
     <style name="header_bar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingBottom">@dimen/qmui_group_list_section_header_footer_padding_vertical</item>
+        <item name="android:paddingBottom">18dp</item>
         <item name="android:paddingTop">20dp</item>
         <item name="android:paddingLeft">?attr/qmui_content_padding_horizontal</item>
         <item name="android:paddingRight">?attr/qmui_content_padding_horizontal</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">?attr/qmui_config_color_gray_3</item>
         <item name="android:textSize">@dimen/qmui_tab_segment_text_size</item>
+        <item name="android:background">@color/nav_bar</item>
+    </style>
+    <!--返回箭头-->
+    <style name="img_back">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@mipmap/back</item>
     </style>
 </resources>
