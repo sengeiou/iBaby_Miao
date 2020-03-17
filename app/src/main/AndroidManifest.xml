@@ -13,12 +13,14 @@
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup"
         android:usesCleartextTraffic="true"
-        android:name=".MyApplication"
+        android:name=".basics.MyApplication"
         >
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"></activity>
+        <activity android:name=".ui.home.testActivity"></activity>
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -42,7 +44,7 @@
         <activity android:name=".ui.home.EditHos"></activity>
         <activity android:name=".ui.home.HosViewActivity"></activity>
         <!--登陆注册-->
-        <activity android:name=".ui.LoginActivity"></activity>
+        <!--<activity android:name=".ui.LoginActivity"></activity>-->
         <activity android:name=".ui.RegisterActivity"></activity>
         <activity android:name=".ui.notifications.EditPassword"></activity>
         <activity android:name=".ui.ResetPwd"></activity>

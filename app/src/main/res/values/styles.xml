@@ -33,6 +33,12 @@
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/border_clo</item>
     </style>
+    <style name="relative_bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/nav_bar</item>
+        <item name="android:padding">8dp</item>
+    </style>
     <style name="QDTopBar" parent="QMUI.TopBar">
         <item name="qmui_topbar_height">48dp</item>
         <item name="qmui_topbar_image_btn_height">48dp</item>
@@ -49,10 +55,18 @@
         <item name="android:textSize">@dimen/qmui_tab_segment_text_size</item>
         <item name="android:background">@color/nav_bar</item>
     </style>
-    <!--返回箭头-->
-    <style name="img_back">
+    <style name="top_bar">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:src">@mipmap/back</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textSize">20sp</item>
     </style>
+    <!--返回箭头-->
+    <style name="img_back">
+        <item name="android:layout_width">38dp</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:background">@mipmap/arrow_lift</item>
+    </style>
+
 </resources>

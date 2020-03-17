@@ -4,10 +4,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/textview_Baby"
-        style="@style/header_bar"
-        android:text="修改密码" />
+    <RelativeLayout
+        style="@style/relative_bar"
+        >
+        <TextView
+            android:id="@+id/comeBack"
+            style="@style/img_back"/>
+        <TextView
+            android:id="@+id/textview_Baby"
+            style="@style/top_bar"
+            android:text="修改密码"
+            />
+    </RelativeLayout>
+
     <!--边框分割细线-->
     <LinearLayout
         android:layout_width="match_parent"

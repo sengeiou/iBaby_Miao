@@ -5,6 +5,19 @@
     android:layout_height="match_parent"
     android:clipToPadding="true"
     android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        style="@style/relative_bar"
+        >
+        <TextView
+            android:id="@+id/comeBack"
+            style="@style/img_back"/>
+        <TextView
+            style="@style/top_bar"
+            android:text="疫苗信息"
+            />
+    </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dip"

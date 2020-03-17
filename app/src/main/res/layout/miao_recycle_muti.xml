@@ -5,6 +5,19 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        style="@style/relative_bar"
+        >
+        <TextView
+            android:id="@+id/comeBack"
+            style="@style/img_back"/>
+        <TextView
+            android:id="@+id/textview_Hospit"
+            style="@style/top_bar"
+            android:text="信息列表"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:background="@color/color_b7b8bd"
         android:layout_width="match_parent"
         android:layout_height="44dp">

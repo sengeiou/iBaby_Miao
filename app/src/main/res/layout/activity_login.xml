@@ -21,7 +21,7 @@
         >
 
         <EditText
-            android:id="@+id/edt_username"
+            android:id="@+id/edt_loginTell"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入账号："
@@ -31,7 +31,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/edt_password"
+            android:id="@+id/edt_loginPwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入密码："

@@ -61,7 +61,7 @@ public class DashboardFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        /*自主建档*/
+        /*自助建档*/
         mbtnEditBaby.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

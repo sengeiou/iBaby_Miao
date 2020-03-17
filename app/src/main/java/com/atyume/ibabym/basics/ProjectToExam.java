@@ -3,6 +3,7 @@ package com.atyume.ibabym.basics;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
 public class ProjectToExam {            //套餐-单项关系表
@@ -13,11 +14,18 @@ public class ProjectToExam {            //套餐-单项关系表
     @NotNull
     private Long projectId;               //体检单项Id
 
-    public ProjectToExam(Long id, Long examId, Long projectId) {
+
+    @Generated(hash = 2056752857)
+    public ProjectToExam(Long id, @NotNull Long examId, @NotNull Long projectId) {
         this.id = id;
         this.examId = examId;
         this.projectId = projectId;
     }
+
+    @Generated(hash = 430865244)
+    public ProjectToExam() {
+    }
+
 
     public Long getId() {
         return id;

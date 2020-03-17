@@ -5,21 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textview_ResetPwd"
-        style="@style/header_bar"
-        android:text="重置密码"
+    <RelativeLayout
+        style="@style/relative_bar"
+        >
+        <TextView
+            android:id="@+id/comeBack"
+            style="@style/img_back"/>
+        <TextView
+            android:id="@+id/textview_ResetPwd"
+            style="@style/top_bar"
+            android:text="重置密码"
         />
+    </RelativeLayout>
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="1"
         android:layout_margin="10dp"
-        android:padding="15dp">
+        android:padding="@dimen/qmui_content_spacing_horizontal"
+        android:background="@color/nav_bar">
 
         <EditText
-            android:id="@+id/edit_user_phone"
+            android:id="@+id/edit_ResetTell"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -39,7 +47,7 @@
             android:orientation="horizontal">
             <!--验证码输入框-->
             <EditText
-                android:id="@+id/edit_reset_verifycode"
+                android:id="@+id/edit_ResetVerifyCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -64,7 +72,7 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/edt_setnew_password"
+            android:id="@+id/edit_SetNewPwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -76,7 +84,7 @@
             android:textSize="16sp"/>
 
         <EditText
-            android:id="@+id/edt_confirm_new_password"
+            android:id="@+id/edit_ConfirmNewPwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -96,8 +104,8 @@
             android:id="@+id/btn_resetPwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@android:color/white"
             android:text="确定"
             android:textSize="18sp" />

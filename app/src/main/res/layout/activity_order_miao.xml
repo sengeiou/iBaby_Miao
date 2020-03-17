@@ -5,21 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        style="@style/relative_bar"
+        >
+        <TextView
+            android:id="@+id/comeBack"
+            style="@style/img_back"/>
+        <TextView
+            android:id="@+id/textview_Yimiao"
+            style="@style/top_bar"
+            android:text="疫苗详情"
+            />
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!--注册标题文字-->
-            <TextView
-                android:id="@+id/textview_Yimiao"
-                style="@style/header_bar"
-                android:text="疫苗详情"
-                />
+
             <!--边框分割细线-->
             <LinearLayout
                 android:layout_width="match_parent"

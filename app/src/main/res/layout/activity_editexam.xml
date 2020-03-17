@@ -5,27 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<com.qmuiteam.qmui.widget.QMUITopBar
-        android:id="@+id/exam_topbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/qmui_topbar_height"
-        android:fitsSystemWindows="true"/>-->
+    <RelativeLayout
+        style="@style/relative_bar"
+        >
+        <TextView
+            android:id="@+id/comeBack"
+            style="@style/img_back"/>
+        <TextView
+            android:id="@+id/textview_Yimiao"
+            style="@style/top_bar"
+            android:text="体检套餐录入"
+            />
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!--注册标题文字-->
-            <TextView
-                android:id="@+id/textview_Yimiao"
-                style="@style/header_bar"
-                android:text="体检套餐录入"
-                />
+
             <!--边框分割细线-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,6 +40,7 @@
                 android:background="@color/qmui_config_color_white"
                 android:layout_margin="15dp"
                 android:columnCount="1"
+                android:padding="@dimen/qmui_content_spacing_horizontal"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
                 <!--套餐名称-->
@@ -47,9 +50,7 @@
                     android:layout_gravity="fill_horizontal"
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:text="套餐名称"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
@@ -61,8 +62,7 @@
                     android:layout_gravity="fill"
                     android:hint="请输入体检套餐名称"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
@@ -76,8 +76,7 @@
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:text="体检医院"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
@@ -89,8 +88,7 @@
                     android:layout_gravity="fill"
                     android:hint="请输入体检医院名称"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
@@ -103,8 +101,7 @@
                     android:gravity="center_vertical"
                     android:layout_gravity="fill"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:text="套餐价格"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
@@ -117,8 +114,7 @@
                     android:layout_gravity="fill"
                     android:hint="请输入体检套餐价格"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:inputType="number"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
@@ -130,15 +126,14 @@
                     android:gravity="center_vertical"
                     android:layout_gravity="fill"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:text="套餐包含体检项目"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
+                    android:layout_margin="10dp"
                     android:columnCount="4"
                     android:focusable="true"
                     android:focusableInTouchMode="true">

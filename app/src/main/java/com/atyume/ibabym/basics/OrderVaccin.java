@@ -5,6 +5,7 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 
 import java.util.Date;
+import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
 public class OrderVaccin {         //疫苗订单信息
@@ -23,7 +24,12 @@ public class OrderVaccin {         //疫苗订单信息
     @NotNull
     private Integer isSucceed;    /*判断是否已接种，未接种为0*/
 
-    public OrderVaccin(Long id, Date inocluTime, Date orderVaccinTime, Long inocluId, Long vaccinId, Long hosId, Integer isSucceed) {
+
+    @Generated(hash = 1051131363)
+    public OrderVaccin(Long id, @NotNull Date inocluTime,
+            @NotNull Date orderVaccinTime, @NotNull Long inocluId,
+            @NotNull Long vaccinId, @NotNull Long hosId,
+            @NotNull Integer isSucceed) {
         this.id = id;
         this.inocluTime = inocluTime;
         this.orderVaccinTime = orderVaccinTime;
@@ -32,6 +38,12 @@ public class OrderVaccin {         //疫苗订单信息
         this.hosId = hosId;
         this.isSucceed = isSucceed;
     }
+
+
+    @Generated(hash = 1311314865)
+    public OrderVaccin() {
+    }
+
 
     public Long getId() {
         return id;

@@ -5,6 +5,7 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 
 import java.util.Date;
+import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
 public class Inoculation {       //接种档案信息
@@ -15,19 +16,37 @@ public class Inoculation {       //接种档案信息
     private Date babyData;     /*出生日期*/
     private String babySex;       /*宝宝性别*/
     private String babyAdress;    /*户口地址*/
-    private String babyhome;         /*常住地址*/
+    private String babyHome;         /*常住地址*/
     @NotNull
     private Long parentId;          /*宝宝父母*/
 
-    public Inoculation(Long id, String inoculBaby, Date babyData, String babySex, String babyAdress, String babyhome, Long parentId) {
+
+    public Inoculation(Long id,String inoculBaby, String babySex, String babyAdress, String babyHome, Long parentId) {
+        this.id = id;
+        this.inoculBaby = inoculBaby;
+        this.babySex = babySex;
+        this.babyAdress = babyAdress;
+        this.babyHome = babyHome;
+        this.parentId = parentId;
+    }
+
+    @Generated(hash = 771586055)
+    public Inoculation(Long id, @NotNull String inoculBaby, Date babyData,
+            String babySex, String babyAdress, String babyHome,
+            @NotNull Long parentId) {
         this.id = id;
         this.inoculBaby = inoculBaby;
         this.babyData = babyData;
         this.babySex = babySex;
         this.babyAdress = babyAdress;
-        this.babyhome = babyhome;
+        this.babyHome = babyHome;
         this.parentId = parentId;
     }
+
+    @Generated(hash = 1426994754)
+    public Inoculation() {
+    }
+
 
     public Long getId() {
         return id;
@@ -69,12 +88,12 @@ public class Inoculation {       //接种档案信息
         this.babyAdress = babyAdress;
     }
 
-    public String getBabyhome() {
-        return babyhome;
+    public String getBabyHome() {
+        return babyHome;
     }
 
-    public void setBabyhome(String babyhome) {
-        this.babyhome = babyhome;
+    public void setBabyHome(String babyHome) {
+        this.babyHome = babyHome;
     }
 
     public Long getParentId() {

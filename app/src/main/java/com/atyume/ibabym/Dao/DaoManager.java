@@ -2,9 +2,10 @@ package com.atyume.ibabym.Dao;
 
 import android.content.Context;
 
+import com.atyume.greendao.gen.DaoMaster;
+import com.atyume.greendao.gen.DaoSession;
 import com.atyume.ibabym.BuildConfig;
-import com.shufeng.greendao.gen.DaoMaster;
-import com.shufeng.greendao.gen.DaoSession;
+
 
 import org.greenrobot.greendao.query.QueryBuilder;
 

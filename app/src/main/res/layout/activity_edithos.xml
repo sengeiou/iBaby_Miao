@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!--<com.qmuiteam.qmui.widget.QMUITopBar
-        android:id="@+id/exam_topbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/qmui_topbar_height"
-        android:fitsSystemWindows="true"/>
--->
+
+    <RelativeLayout
+        style="@style/relative_bar"
+        >
+        <TextView
+            android:id="@+id/comeBack"
+            style="@style/img_back"/>
+        <TextView
+            android:id="@+id/textview_Hospit"
+            style="@style/top_bar"
+            android:text="医院信息录入"
+        />
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,11 +29,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <!--注册标题文字-->
-            <TextView
-                android:id="@+id/textview_Hospit"
-                style="@style/header_bar"
-                android:text="医院信息录入"
-                 />
+
             <!--边框分割细线-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,6 +42,7 @@
                 android:background="@color/qmui_config_color_white"
                 android:layout_margin="15dp"
                 android:columnCount="1"
+                android:padding="@dimen/qmui_content_spacing_horizontal"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
                 <!--医院名称-->
@@ -46,9 +52,6 @@
                     android:layout_gravity="fill_horizontal"
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
                     android:text="医院名称"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
@@ -60,8 +63,7 @@
                     android:layout_gravity="fill"
                     android:hint="请输入医院名称"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
@@ -74,8 +76,7 @@
                     android:gravity="center_vertical"
                     android:layout_gravity="fill"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:text="医院地址"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
@@ -88,8 +89,7 @@
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:hint="请输入医院地址"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:inputType="text"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
@@ -101,8 +101,7 @@
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:text="疫苗名称"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
@@ -114,8 +113,7 @@
                     android:layout_gravity="fill"
                     android:hint="请输入疫苗名称"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
@@ -128,8 +126,7 @@
                     android:gravity="center_vertical"
                     android:layout_gravity="fill"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:text="疫苗数量"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
@@ -142,8 +139,7 @@
                     android:layout_gravity="fill"
                     android:hint="请输入疫苗数量"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingLeft="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+
                     android:inputType="number"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />

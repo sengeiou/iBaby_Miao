@@ -2,21 +2,31 @@ package com.atyume.ibabym.basics;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
 public class ParentInfo {
     @Id(autoincrement = true)
     private Long id;
     @NotNull
-    private Long parentTell;     //电话（账号）
+    private String parentTell;     //电话（账号）
     private String parentName;     //姓名
     private String  parentWorkAdress;    //工作单位
     private String parentNick;       //昵称
     @NotNull
     private String parentPwd;     //账号密码
 
-    public ParentInfo(Long id, Long parentTell, String parentName, String parentWorkAdress, String parentNick, String parentPwd) {
+    @Keep
+    public ParentInfo(String parentTell, String parentPwd) {
+        this.parentTell = parentTell;
+        this.parentPwd = parentPwd;
+    }
+
+    @Generated(hash = 2044119123)@Keep
+    public ParentInfo(Long id, @NotNull String parentTell, String parentName,
+            String parentWorkAdress, String parentNick, @NotNull String parentPwd) {
         this.id = id;
         this.parentTell = parentTell;
         this.parentName = parentName;
@@ -24,6 +34,11 @@ public class ParentInfo {
         this.parentNick = parentNick;
         this.parentPwd = parentPwd;
     }
+
+    @Generated(hash = 462531552)@Keep
+    public ParentInfo() {
+    }
+
 
     public Long getId() {
         return id;
@@ -33,11 +48,11 @@ public class ParentInfo {
         this.id = id;
     }
 
-    public Long getParentTell() {
+    public String getParentTell() {
         return parentTell;
     }
 
-    public void setParentTell(Long parentTell) {
+    public void setParentTell(String parentTell) {
         this.parentTell = parentTell;
     }
 
@@ -71,5 +86,17 @@ public class ParentInfo {
 
     public void setParentPwd(String parentPwd) {
         this.parentPwd = parentPwd;
+    }
+
+    @Override
+    public String toString() {
+        return "ParentInfo{" +
+                "id=" + id +
+                ", parentTell='" + parentTell + '\'' +
+                ", parentName='" + parentName + '\'' +
+                ", parentWorkAdress='" + parentWorkAdress + '\'' +
+                ", parentNick='" + parentNick + '\'' +
+                ", parentPwd='" + parentPwd + '\'' +
+                '}';
     }
 }

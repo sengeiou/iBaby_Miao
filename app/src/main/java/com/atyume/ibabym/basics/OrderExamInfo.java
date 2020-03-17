@@ -3,6 +3,7 @@ package com.atyume.ibabym.basics;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
 public class OrderExamInfo {     //体检订单
@@ -15,11 +16,17 @@ public class OrderExamInfo {     //体检订单
     @NotNull
     private Integer isSucced;             //体检是否完成，0为未完成
 
-    public OrderExamInfo(Long id, String examHosName, Long inoculId, Integer isSucced) {
+    @Generated(hash = 335874105)
+    public OrderExamInfo(Long id, @NotNull String examHosName,
+            @NotNull Long inoculId, @NotNull Integer isSucced) {
         this.id = id;
         this.examHosName = examHosName;
         this.inoculId = inoculId;
         this.isSucced = isSucced;
+    }
+
+    @Generated(hash = 1818395719)
+    public OrderExamInfo() {
     }
 
     public Long getId() {
