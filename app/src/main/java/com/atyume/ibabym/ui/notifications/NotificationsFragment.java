@@ -1,6 +1,7 @@
 package com.atyume.ibabym.ui.notifications;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +25,12 @@ import com.qmuiteam.qmui.widget.QMUITopBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class NotificationsFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
+    private SharedPreferences sharedPreferences;
+    /*private NotificationsViewModel notificationsViewModel;*/
 
     @BindView(R.id.mine_topbar)
     QMUITopBar mbtnMineTopBar;
@@ -39,13 +43,22 @@ public class NotificationsFragment extends Fragment {
     @BindView(R.id.logout)
     QMUIButton mbtnLogout;
 
+    @BindView(R.id.show_UserName)
+    TextView mshowUserName;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
+        /*notificationsViewModel =
+                ViewModelProviders.of(this).get(NotificationsViewModel.class);*/
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         ButterKnife.bind(this,root);
         initTopBar();
+
+        sharedPreferences = getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
+        Long userId = sharedPreferences.getLong("loginUserId",0L);
+        String userName = userId+"";
+        initUser(userName);
 
         mbtUserInfo.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -79,17 +92,19 @@ public class NotificationsFragment extends Fragment {
             }
         });
 
-        /*final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(this, new Observer<String>() {
+        /*notificationsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                mshowUserName.setText(s);
             }
         });*/
         return root;
     }
     private void initTopBar(){
         mbtnMineTopBar.setTitle("我的");
+    }
+    private void initUser(String userName){
+        mshowUserName.setText(userName);
     }
 
 }

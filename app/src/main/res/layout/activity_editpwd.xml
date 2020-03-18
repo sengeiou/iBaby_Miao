@@ -44,7 +44,7 @@
             android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
 
         <EditText
-            android:id="@+id/edittext_certiArea"
+            android:id="@+id/edit_oldPwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="fill"
@@ -65,7 +65,7 @@
             android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
 
         <EditText
-            android:id="@+id/edittext_babyName"
+            android:id="@+id/edit_newPwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="fill"
@@ -87,7 +87,7 @@
             android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
 
         <EditText
-            android:id="@+id/edittext_babyBirth"
+            android:id="@+id/edit_newRePwd"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/qmui_divider_bottom_bitmap"
@@ -113,7 +113,7 @@
             android:layout_weight="1" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/button_add_baby"
+            android:id="@+id/button_modifyPwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
