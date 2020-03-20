@@ -14,7 +14,8 @@
             style="@style/img_back"/>
         <TextView
             style="@style/top_bar"
-            android:text="疫苗信息"
+            android:id="@+id/list_title"
+
             />
     </RelativeLayout>
 

@@ -123,7 +123,7 @@
                     android:layout_weight="1" />
 
                 <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                    android:id="@+id/button_take_order_exam"
+                    android:id="@+id/button_sure_order_exam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"

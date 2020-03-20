@@ -4,6 +4,7 @@ package com.atyume.ibabym.ui.dashboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,5 +72,7 @@ public class RecyclerMiaoActivity extends AppCompatActivity {
 
     private void initView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        TextView mShowTitle = (TextView) findViewById(R.id.list_title);
+        mShowTitle.setText("疫苗预约");
     }
 }

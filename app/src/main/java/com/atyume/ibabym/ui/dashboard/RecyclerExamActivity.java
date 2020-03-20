@@ -3,6 +3,7 @@ package com.atyume.ibabym.ui.dashboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,7 +43,7 @@ public class RecyclerExamActivity extends AppCompatActivity {
             public void myClick(View v, int pos) {
                 Toast.makeText(RecyclerExamActivity.this,"onClick---"+pos,Toast.LENGTH_LONG).show();
                 System.out.println("onClick---"+pos);
-                Intent intent = new Intent(RecyclerExamActivity.this, ViewMiaoDetail.class);
+                Intent intent = new Intent(RecyclerExamActivity.this, ViewExamDetail.class);
                 startActivity(intent);
 
                 /*recyclerAdapter.addItem(pos);*/
@@ -70,5 +71,7 @@ public class RecyclerExamActivity extends AppCompatActivity {
 
     private void initView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        TextView mShowTitle = (TextView) findViewById(R.id.list_title);
+        mShowTitle.setText("体检预约");
     }
 }

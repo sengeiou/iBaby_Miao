@@ -1,14 +1,11 @@
-package com.atyume.ibabym.ui.home;
+package com.atyume.ibabym.ui.notifications;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,19 +13,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.InoculationDao;
-
 import com.atyume.ibabym.MainActivity;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
-
-import com.atyume.ibabym.ui.notifications.EditUser;
+import com.atyume.ibabym.ui.home.EditBaby;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EditBaby extends AppCompatActivity {
+public class UpdateBaby  extends AppCompatActivity {
 
     @BindView(R.id.comeBack)
     TextView mComeBack;
@@ -51,21 +46,23 @@ public class EditBaby extends AppCompatActivity {
 
     private InoculationDao babydao = MyApplication.getInstances().getDaoSession().getInoculationDao();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editbaby);
         ButterKnife.bind(this);
-        /*mdaoUtils = new DaoUtils(this);*/
+
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
         Long userId = sharedPreferences.getLong("loginUserId",0L);
 
+        Inoculation inoculation = selectBaby(userId);
+        initView(inoculation);
+
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditBaby.this.finish();
+                UpdateBaby.this.finish();
             }
         });
 
@@ -74,18 +71,14 @@ public class EditBaby extends AppCompatActivity {
             public void onClick(View view){
                 getEditText();
                 if (TextUtils.isEmpty(babyName)){
-                    Toast.makeText(EditBaby.this,"请输入宝宝姓名",Toast.LENGTH_LONG).show();
+                    Toast.makeText(UpdateBaby.this,"请输入宝宝姓名",Toast.LENGTH_LONG).show();
                     return;
                 }
                 else{
-                    insertBaby(babyName,babyHome,babyNow,userId);
+                    updateBaby(inoculation,babyName,babyHome,babyNow);
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putLong("babyId",selectBabyId(babyName));
-                    editor.apply();
-
-                    Intent intent = new Intent(EditBaby.this, MainActivity.class);
-                    Toast.makeText(EditBaby.this,"添加了"+babyName+"宝宝",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(UpdateBaby.this, MainActivity.class);
+                    Toast.makeText(UpdateBaby.this,"修改了"+babyName+"宝宝",Toast.LENGTH_LONG).show();
                     startActivity(intent);
                     finish();
                 }
@@ -93,16 +86,33 @@ public class EditBaby extends AppCompatActivity {
 
         });
     }
+    private void initView(Inoculation inoculation){
+        mEditBabyName.setText(inoculation.getInoculBaby());
+        mEditHomeAd.setText(inoculation.getBabyHome());
+        mEditNowAd.setText(inoculation.getBabyAdress());
+    }
     private void getEditText(){
         babyName = mEditBabyName.getText().toString();
         babyHome = mEditHomeAd.getText().toString();
         babyNow = mEditNowAd.getText().toString();
     }
-    private void insertBaby(String babyName,String babyHome,String babyNow,Long userId){
-        babydao.insert(new Inoculation(babyName,babyHome,babyNow,userId));
+    private void updateBaby(Inoculation inoculation,String babyName,String babyHome,String babyNow){
+        inoculation.setInoculBaby(babyName);
+        inoculation.setBabyHome(babyHome);
+        inoculation.setBabyAdress(babyNow);
+        babydao.update(inoculation);
     }
-    private Long selectBabyId(String babyName){
-        Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.InoculBaby.eq(babyName)).unique();
-        return inoculation.getId();
+
+    private void updateBaby(Long babyId,String babyName,String babyHome,String babyNow){
+        Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.Id.eq(babyId)).unique();
+        inoculation.setInoculBaby(babyName);
+        inoculation.setBabyHome(babyHome);
+        inoculation.setBabyAdress(babyNow);
+        babydao.update(inoculation);
+    }
+    private Inoculation selectBaby(Long parentId){
+        Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(parentId)).unique();
+        return inoculation;
     }
 }
+

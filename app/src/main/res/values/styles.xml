@@ -69,4 +69,9 @@
         <item name="android:background">@mipmap/arrow_lift</item>
     </style>
 
+    <style name="TabStyle" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

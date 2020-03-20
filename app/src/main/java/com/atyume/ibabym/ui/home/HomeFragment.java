@@ -6,18 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.atyume.ibabym.MainActivity;
 import com.atyume.ibabym.R;
+
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import butterknife.BindView;
@@ -39,8 +35,10 @@ public class HomeFragment extends Fragment {
     Button adm_editOrder;
     @BindView(R.id.adm_editHos)
     Button adm_editHos;
+
     @BindView(R.id.home_topbar)
     QMUITopBar mbtnHomeTorBar;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

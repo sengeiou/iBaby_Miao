@@ -30,6 +30,13 @@ public class Inoculation {       //接种档案信息
         this.parentId = parentId;
     }
 
+    public Inoculation(String inoculBaby, String babyAdress, String babyHome, Long parentId) {
+        this.inoculBaby = inoculBaby;
+        this.babyAdress = babyAdress;
+        this.babyHome = babyHome;
+        this.parentId = parentId;
+    }
+
     @Generated(hash = 771586055)
     public Inoculation(Long id, @NotNull String inoculBaby, Date babyData,
             String babySex, String babyAdress, String babyHome,
@@ -102,5 +109,18 @@ public class Inoculation {       //接种档案信息
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    @Override
+    public String toString() {
+        return "Inoculation{" +
+                "id=" + id +
+                ", inoculBaby='" + inoculBaby + '\'' +
+                ", babyData=" + babyData +
+                ", babySex='" + babySex + '\'' +
+                ", babyAdress='" + babyAdress + '\'' +
+                ", babyHome='" + babyHome + '\'' +
+                ", parentId=" + parentId +
+                '}';
     }
 }

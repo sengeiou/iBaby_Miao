@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -13,6 +15,13 @@
             style="@style/top_bar"
             android:text="个人信息"
             />
+        <TextView
+            android:id="@+id/edit_myself"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/edit"
+            />
     </RelativeLayout>
 
     <ScrollView
@@ -22,7 +31,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <!--边框分割细线-->
@@ -54,7 +63,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <TextView
-                    android:id="@+id/edittext_certiArea"
+                    android:id="@+id/show_myNick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
@@ -76,7 +85,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <TextView
-                    android:id="@+id/edittext_babyName"
+                    android:id="@+id/show_myName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
@@ -98,7 +107,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <TextView
-                    android:id="@+id/edittext_babyBirth"
+                    android:id="@+id/show_myTell"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
@@ -119,7 +128,7 @@
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size"/>
                 <TextView
-                    android:id="@+id/edittext_babySex"
+                    android:id="@+id/show_myWork"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
@@ -130,7 +139,6 @@
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
 
             </GridLayout>
-
         </LinearLayout>
 
     </ScrollView>

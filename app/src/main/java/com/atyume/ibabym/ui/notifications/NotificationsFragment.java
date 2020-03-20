@@ -15,7 +15,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.atyume.greendao.gen.ParentInfoDao;
 import com.atyume.ibabym.R;
+import com.atyume.ibabym.basics.MyApplication;
+import com.atyume.ibabym.basics.ParentInfo;
 import com.atyume.ibabym.ui.LoginActivity;
 import com.atyume.ibabym.ui.dashboard.ViewBabyInfo;
 import com.atyume.ibabym.ui.navbar_title.nav_bar;
@@ -30,6 +33,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class NotificationsFragment extends Fragment {
 
     private SharedPreferences sharedPreferences;
+    private ParentInfoDao parentDao = MyApplication.getInstances().getDaoSession().getParentInfoDao();
     /*private NotificationsViewModel notificationsViewModel;*/
 
     @BindView(R.id.mine_topbar)
@@ -57,8 +61,7 @@ public class NotificationsFragment extends Fragment {
 
         sharedPreferences = getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
         Long userId = sharedPreferences.getLong("loginUserId",0L);
-        String userName = userId+"";
-        initUser(userName);
+        initUser(getUserNick(userId));
 
         mbtUserInfo.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -84,11 +87,16 @@ public class NotificationsFragment extends Fragment {
             }
         });
 
+        //退出登录
         mbtnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
+                //清除
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
             }
         });
 
@@ -106,5 +114,11 @@ public class NotificationsFragment extends Fragment {
     private void initUser(String userName){
         mshowUserName.setText(userName);
     }
-
+    private String getUserNick(Long userId){
+        ParentInfo parentInfo = parentDao.queryBuilder().where(ParentInfoDao.Properties.Id.eq(userId)).unique();
+        if (parentInfo.getParentNick()==null || parentInfo.getParentNick().equals("")){
+            return parentInfo.getParentTell();
+        }
+        return parentInfo.getParentNick();
+    }
 }

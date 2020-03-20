@@ -13,6 +13,13 @@
             style="@style/top_bar"
             android:text="接种信息"
             />
+        <TextView
+            android:id="@+id/edit_myBaby"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/edit"
+            />
     </RelativeLayout>
 
     <ScrollView
@@ -41,28 +48,6 @@
                 android:paddingRight="20dp"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
-                <!--接种地区-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="fill"
-                    android:gravity="center"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                    android:text="接种地区"
-                    android:textColor="?attr/qmui_config_color_gray_1"
-                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-                <!--接种地区输入框-->
-                <TextView
-                    android:id="@+id/edittext_certiArea"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="fill"
-                    android:hint="福建省厦门市湖里区"
-                    android:background="@drawable/qmui_divider_bottom_bitmap"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:textColor="?attr/qmui_config_color_gray_5"
-                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
                 <!--宝宝姓名-->
                 <TextView
                     android:layout_width="wrap_content"
@@ -76,11 +61,11 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--宝宝姓名输入框-->
                 <TextView
-                    android:id="@+id/edittext_babyName"
+                    android:id="@+id/show_babyName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
-                    android:hint="南瓜"
+
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:textColor="?attr/qmui_config_color_gray_5"
@@ -98,12 +83,12 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--出生日期输入框-->
                 <TextView
-                    android:id="@+id/edittext_babyBirth"
+                    android:id="@+id/show_babyBirth"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:hint="2019.03.05"
+                    android:text="2018.03.05"
                     android:layout_gravity="fill"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
@@ -119,7 +104,7 @@
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size"/>
                 <TextView
-                    android:id="@+id/edittext_babySex"
+                    android:id="@+id/show_babySex"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
@@ -141,13 +126,13 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--户口地址输入框-->
                 <TextView
-                    android:id="@+id/edittext_homead"
+                    android:id="@+id/show_homead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:hint="福建省龙岩市"
+
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
                 <!--现居地址-->
@@ -164,14 +149,14 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--现居地址输入框-->
                 <TextView
-                    android:id="@+id/edittext_nowad"
+                    android:id="@+id/show_nowad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:layout_marginBottom="18dp"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:hint="福建省厦门市"
+
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
 

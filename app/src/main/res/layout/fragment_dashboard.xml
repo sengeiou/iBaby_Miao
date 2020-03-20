@@ -14,12 +14,10 @@
         android:gravity="center"
         android:fitsSystemWindows="true"/>
 
-    <LinearLayout
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:background="#B2D7F5"
-        tools:ignore="MissingConstraints">
-    </LinearLayout>
+        android:layout_height="220dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
