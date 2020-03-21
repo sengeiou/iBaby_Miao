@@ -23,8 +23,6 @@ import butterknife.ButterKnife;
 
 public class OrderExamFragment  extends Fragment {
     private List<MyOrderList> mDatas = new ArrayList<>();
-    /*@BindView(R.id.order_miao_recycler_view)
-    RecyclerView mRecyclerView;*/
     private OrderRecyclerAdapter recyclerAdapter;
 
     private String[] data = {"儿童6个月体检套餐","儿童一岁体检套餐","儿童一岁半体检套餐","儿童二岁体检套餐","儿童二岁半体检套餐","儿童三岁体检套餐","儿童三岁半体检套餐"};

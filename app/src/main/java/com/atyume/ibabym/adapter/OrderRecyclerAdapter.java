@@ -14,10 +14,11 @@ import com.atyume.ibabym.utils.MyOrderList;
 
 import java.util.List;
 
-public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdapter.MyOrderViewHolder> {
+public class OrderRecyclerAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
 
     private List<MyOrderList> mDatas;
     private Context mContext;
+    private LayoutInflater mInflater;
 
 
     private OnMyItemClickListener listener;
@@ -34,6 +35,7 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
     public OrderRecyclerAdapter(Context mContext, List<MyOrderList> mDatas) {
         this.mDatas = mDatas;
         this.mContext = mContext;
+        mInflater = LayoutInflater.from(mContext);
     }
 
     /**
@@ -46,8 +48,7 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
     @NonNull
     @Override
     public MyOrderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.order_view_item, parent,false);
+        View view = mInflater.inflate(R.layout.order_view_item, null);
         MyOrderViewHolder viewHolder = new MyOrderViewHolder(view);
         return viewHolder;
     }
@@ -81,26 +82,26 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
     public int getItemCount() {
         return mDatas.size();
     }
+}
 
+/**
+ * 在Holder中对控件findviewbyid
+ */
+class MyOrderViewHolder extends RecyclerView.ViewHolder {
 
-    /**
-     * 在Holder中对控件findviewbyid
-     */
-    class MyOrderViewHolder extends RecyclerView.ViewHolder {
+    TextView textView_Title;
+    TextView textView_TakeOrderTime;
+    TextView textView_OrderTime;
+    TextView textView_IsFinish;
 
-        TextView textView_Title;
-        TextView textView_TakeOrderTime;
-        TextView textView_OrderTime;
-        TextView textView_IsFinish;
+    public MyOrderViewHolder(View itemView) {
+        super(itemView);
+        textView_Title = ((TextView) itemView.findViewById(R.id.take_order_title));
+        textView_IsFinish = ((TextView) itemView.findViewById(R.id.order_isfinish));
+        textView_TakeOrderTime = ((TextView) itemView.findViewById(R.id.take_order_time));
+        textView_OrderTime = ((TextView) itemView.findViewById(R.id.order_time));
 
-        public MyOrderViewHolder(View itemView) {
-            super(itemView);
-            textView_Title = ((TextView) itemView.findViewById(R.id.take_order_title));
-            textView_IsFinish = ((TextView) itemView.findViewById(R.id.order_isfinish));
-            textView_TakeOrderTime = ((TextView) itemView.findViewById(R.id.take_order_time));
-            textView_OrderTime = ((TextView) itemView.findViewById(R.id.order_time));
-
-        }
     }
 }
+
 

@@ -2,20 +2,18 @@ package com.atyume.ibabym.adapter;
 
 
 import android.content.Context;
-import android.content.Intent;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.ibabym.R;
-import com.atyume.ibabym.ui.dashboard.ViewMiaoDetail;
+
 import com.atyume.ibabym.utils.MyLiveList;
-import com.atyume.ibabym.utils.MyOrderList;
 
 import java.util.List;
 
@@ -131,9 +129,5 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         textView_Source = ((TextView) itemView.findViewById(R.id.re_source));
 
     }
-
-
-
-
 
 }

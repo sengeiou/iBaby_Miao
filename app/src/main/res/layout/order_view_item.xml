@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:id="@+id/root_view"
         android:layout_width="match_parent"
@@ -14,12 +15,11 @@
             android:id="@+id/take_order_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_alignParentLeft="true"
             android:ellipsize="end"
             android:lineSpacingExtra="6dp"
             android:maxLines="2"
-            android:text="疫苗名称"
+            android:text="名称"
             />
         <TextView
             android:id="@+id/order_isfinish"
@@ -57,11 +57,12 @@
             android:text="预约时间"
             android:textSize="9dp"/>
     </RelativeLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/qmui_s_list_item_bg_1"/>
+
+
 
 
 </LinearLayout>

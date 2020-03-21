@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.atyume.ibabym.adapter.MainViewAdapter;
 import com.atyume.ibabym.listener.OnTabSelectedListener;
+import com.atyume.ibabym.ui.OrderFragment;
 import com.atyume.ibabym.ui.dashboard.DashboardFragment;
 import com.atyume.ibabym.ui.home.HomeFragment;
 import com.atyume.ibabym.ui.notifications.NotificationsFragment;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TabContainerView tabContainerView = (TabContainerView) findViewById(R.id.tab_container);
         MainViewAdapter mainViewAdapter=new MainViewAdapter(getSupportFragmentManager(),
-                new Fragment[] {new HomeFragment(), new DashboardFragment(),new NotificationsFragment()});
+                new Fragment[] {new OrderFragment(), new DashboardFragment(),new NotificationsFragment()});
         mainViewAdapter.setHasMsgIndex(3);
         tabContainerView.setAdapter(mainViewAdapter);
         tabContainerView.setOnTabSelectedListener(new OnTabSelectedListener() {
