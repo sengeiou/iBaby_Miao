@@ -39,7 +39,7 @@ public class OrderFragment extends AppCompatActivity {
 
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new OrderMiaoFragment());
-        fragments.add(new HomeFragment());
+        fragments.add(new OrderExamFragment());
 
         TitleFragmentPagerAdapter adapter = new TitleFragmentPagerAdapter(getSupportFragmentManager(), fragments, new String[]{"疫苗预约", "体检预约"});
         viewpager.setAdapter(adapter);

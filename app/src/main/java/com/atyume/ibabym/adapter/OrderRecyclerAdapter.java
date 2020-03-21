@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.ibabym.R;
@@ -17,7 +18,6 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
 
     private List<MyOrderList> mDatas;
     private Context mContext;
-    private LayoutInflater mInflater;
 
 
     private OnMyItemClickListener listener;
@@ -34,7 +34,6 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
     public OrderRecyclerAdapter(Context mContext, List<MyOrderList> mDatas) {
         this.mDatas = mDatas;
         this.mContext = mContext;
-        mInflater = LayoutInflater.from(mContext);
     }
 
     /**
@@ -44,10 +43,11 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
      * @param viewType
      * @return
      */
+    @NonNull
     @Override
     public MyOrderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View view = mInflater.inflate(R.layout.order_view_item, null);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.order_view_item, parent,false);
         MyOrderViewHolder viewHolder = new MyOrderViewHolder(view);
         return viewHolder;
     }
