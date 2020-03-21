@@ -15,12 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.ui.dashboard.ViewMiaoDetail;
 import com.atyume.ibabym.utils.MyLiveList;
+import com.atyume.ibabym.utils.MyOrderList;
 
 import java.util.List;
-
-/**
- * Created by xiedong on 2017/3/10.
- */
 
 public class RecyclerAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
@@ -46,7 +43,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<MyViewHolder>{
         this.mContext = mContext;
         mInflater = LayoutInflater.from(mContext);
     }
-
 
     /**
      * 绑定布局文件，返回一个viewHolder

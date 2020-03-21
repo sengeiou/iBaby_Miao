@@ -46,8 +46,6 @@ public class RecyclerMiaoActivity extends AppCompatActivity {
                 System.out.println("onClick---"+pos);
                 Intent intent = new Intent(RecyclerMiaoActivity.this, ViewMiaoDetail.class);
                 startActivity(intent);
-
-                /*recyclerAdapter.addItem(pos);*/
             }
 
             @Override
@@ -57,7 +55,6 @@ public class RecyclerMiaoActivity extends AppCompatActivity {
                 /*recyclerAdapter.removeData(pos);*/
             }
         });
-
 
     }
 
