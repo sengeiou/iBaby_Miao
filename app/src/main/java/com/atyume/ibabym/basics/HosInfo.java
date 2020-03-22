@@ -18,6 +18,12 @@ public class HosInfo {           //卫生院信息
     @NotNull
     private Long vaccinAmount;           //卫生院疫苗数量
 
+    public HosInfo(String hosName, String hosAdress, Long vaccinId, Long vaccinAmount) {
+        this.hosName = hosName;
+        this.hosAdress = hosAdress;
+        this.vaccinId = vaccinId;
+        this.vaccinAmount = vaccinAmount;
+    }
 
     @Generated(hash = 1782750859)
     public HosInfo(Long id, @NotNull String hosName, @NotNull String hosAdress,
@@ -72,5 +78,16 @@ public class HosInfo {           //卫生院信息
 
     public void setVaccinAmount(Long vaccinAmount) {
         this.vaccinAmount = vaccinAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "HosInfo{" +
+                "id=" + id +
+                ", hosName='" + hosName + '\'' +
+                ", hosAdress='" + hosAdress + '\'' +
+                ", vaccinId=" + vaccinId +
+                ", vaccinAmount=" + vaccinAmount +
+                '}';
     }
 }

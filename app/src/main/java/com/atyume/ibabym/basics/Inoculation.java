@@ -6,6 +6,7 @@ import org.greenrobot.greendao.annotation.NotNull;
 
 import java.util.Date;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.ToMany;
 
 @Entity
 public class Inoculation {       //接种档案信息

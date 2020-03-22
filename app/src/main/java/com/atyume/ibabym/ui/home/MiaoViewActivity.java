@@ -70,13 +70,6 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         setContentView(R.layout.miao_recycle_muti);
         ButterKnife.bind(this);
 
-        mComeBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MiaoViewActivity.this.finish();
-            }
-        });
-
         initData();
         initListener();
 
@@ -132,6 +125,13 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
     }
 
     protected void initListener(){
+        mComeBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MiaoViewActivity.this.finish();
+            }
+        });
+
         mRadioAdapter.setOnItemClickListener(this);
         mBtnDelete.setOnClickListener(this);
         mSelectAll.setOnClickListener(this);

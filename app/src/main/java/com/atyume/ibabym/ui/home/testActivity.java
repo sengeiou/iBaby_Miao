@@ -8,10 +8,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.atyume.greendao.gen.HosInfoDao;
 import com.atyume.greendao.gen.InoculationDao;
 import com.atyume.greendao.gen.ParentInfoDao;
 import com.atyume.greendao.gen.VaccinDao;
 import com.atyume.ibabym.R;
+import com.atyume.ibabym.basics.HosInfo;
 import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.ParentInfo;
@@ -40,6 +42,7 @@ public class testActivity extends AppCompatActivity {
     private ParentInfoDao parentDao = MyApplication.getInstances().getDaoSession().getParentInfoDao();
     private InoculationDao babydao = MyApplication.getInstances().getDaoSession().getInoculationDao();
     private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
+    private HosInfoDao hosInfoDao = MyApplication.getInstances().getDaoSession().getHosInfoDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -70,10 +73,12 @@ public class testActivity extends AppCompatActivity {
         List<ParentInfo> parentInfos = parentDao.loadAll();
         List<Inoculation> inoculations = babydao.loadAll();
         List<Vaccin> vaccinList = vaccinDao.loadAll();
+        List<HosInfo> hosInfoList = hosInfoDao.loadAll();
         /*for(ParentInfo parentInfo:parentInfos){
             all=all.concat(parentInfo.toString());
         }*/
-        mtextShow.setText(parentInfos.toString()+"baby:"+inoculations.toString()+"vaccin:"+vaccinList.toString());
+       /* mtextShow.setText(parentInfos.toString()+"baby:"+inoculations.toString());*/
+        mtextShow.setText("vaccin:"+vaccinList.toString()+"hos:"+hosInfoList.toString());
 
     }
 
@@ -96,8 +101,10 @@ public class testActivity extends AppCompatActivity {
         /*parentDao.deleteByKey(2L);*/
         Long id1 = Long.valueOf(1004);
         Long id2 = Long.valueOf(1005);
-        babydao.deleteByKey(id1);
-        babydao.deleteByKey(id2);
+        Long id3 = Long.valueOf(2);
+        /*babydao.deleteByKey(id1);
+        babydao.deleteByKey(id2);*/
+        hosInfoDao.deleteByKey(id3);
 
     }
 

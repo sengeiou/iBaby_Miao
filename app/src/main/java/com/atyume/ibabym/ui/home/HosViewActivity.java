@@ -14,8 +14,13 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.atyume.greendao.gen.HosInfoDao;
+import com.atyume.greendao.gen.VaccinDao;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
+import com.atyume.ibabym.basics.HosInfo;
+import com.atyume.ibabym.basics.MyApplication;
+import com.atyume.ibabym.basics.Vaccin;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
 import com.atyume.ibabym.ui.RecyclerViewList.RecyclerViewListStyle;
 import com.atyume.ibabym.utils.MyLiveList;
@@ -30,6 +35,9 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
 
     private static final int MYLIVE_MODE_CHECK = 0;
     private static final int MYLIVE_MODE_EDIT = 1;
+
+    @BindView(R.id.comeBack)
+    TextView mComeBack;
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
@@ -53,6 +61,8 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
     private boolean editorStatus = false;
     private int index = 0;
 
+    private HosInfoDao hosInfoDao = MyApplication.getInstances().getDaoSession().getHosInfoDao();
+    private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +84,24 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
         //数据
-        for (int i = 0; i < 10; i++) {
+        List<HosInfo> hosInfoList = getData();
+        for (int i = 0; i < hosInfoList.size(); i++) {
             MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle("这是第" + i + "个医院信息");
-            myLiveList.setSource("来源" + i);
+            myLiveList.setTitle(hosInfoList.get(i).getHosName());
+            String MiaoName = getVaccinName(hosInfoList.get(i).getVaccinId());
+            myLiveList.setSource(MiaoName+"剩余数量:"+hosInfoList.get(i).getVaccinAmount());
+            myLiveList.setId(hosInfoList.get(i).getId());
             mList.add(myLiveList);
             mRadioAdapter.notifyAdapter(mList, false);
         }
+    }
+    private List<HosInfo> getData(){
+        List<HosInfo> hosInfoList = hosInfoDao.loadAll();
+        return hosInfoList;
+    }
+    private String getVaccinName(Long MiaoId){
+        Vaccin vaccin = vaccinDao.load(MiaoId);
+        return vaccin.getVaccinName();
     }
 
     /**
@@ -101,6 +122,13 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
     }
 
     protected void initListener(){
+        mComeBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HosViewActivity.this.finish();
+            }
+        });
+
         mRadioAdapter.setOnItemClickListener(this);
         mBtnDelete.setOnClickListener(this);
         mSelectAll.setOnClickListener(this);
@@ -202,6 +230,8 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
                     if (myLive.isSelect()) {
                         mRadioAdapter.getMyLiveList().remove(myLive);
                         index--;
+
+                        hosInfoDao.deleteByKey(myLive.getId());
                     }
                 }
                 index = 0;

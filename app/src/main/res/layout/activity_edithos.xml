@@ -57,7 +57,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_hosName"
+                    android:id="@+id/edit_hosName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
@@ -82,7 +82,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_hosAddress"
+                    android:id="@+id/edit_hosAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
@@ -93,7 +93,7 @@
                     android:inputType="text"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                <!--疫苗名称-->
+                <!--疫苗Id-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -102,16 +102,16 @@
                     android:gravity="center_vertical"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
 
-                    android:text="疫苗名称"
+                    android:text="疫苗编号"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_miaoName_Hos"
+                    android:id="@+id/edit_miaoId_Hos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
-                    android:hint="请输入疫苗名称"
+                    android:hint="请输入疫苗编号"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
 
                     android:background="@drawable/qmui_divider_bottom_bitmap"
@@ -132,7 +132,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_miaoAmount_Hos"
+                    android:id="@+id/edit_miaoAmount_Hos"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
