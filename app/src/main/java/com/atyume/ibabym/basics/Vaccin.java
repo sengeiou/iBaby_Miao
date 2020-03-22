@@ -26,6 +26,19 @@ public class Vaccin {
     @NotNull
     private Long vaccinAmount;              //疫苗数量
 
+    public Vaccin(String vaccinName, String vaccinEffect, String vaccinAttention, String vaccinDisadv, String vaccinAge, String vaccinProcess, Double vaccinPrice, String produceCompany, String vaccinNo, Long vaccinAmount) {
+        this.vaccinName = vaccinName;
+        this.vaccinEffect = vaccinEffect;
+        this.vaccinAttention = vaccinAttention;
+        this.vaccinDisadv = vaccinDisadv;
+        this.vaccinAge = vaccinAge;
+        this.vaccinProcess = vaccinProcess;
+        this.vaccinPrice = vaccinPrice;
+        this.produceCompany = produceCompany;
+        this.vaccinNo = vaccinNo;
+        this.vaccinAmount = vaccinAmount;
+    }
+
     @Generated(hash = 864148609)
     public Vaccin(Long id, @NotNull String vaccinName, String vaccinEffect,
             String vaccinAttention, String vaccinDisadv, @NotNull String vaccinAge,
@@ -135,5 +148,22 @@ public class Vaccin {
 
     public void setVaccinAmount(Long vaccinAmount) {
         this.vaccinAmount = vaccinAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "Vaccin{" +
+                "id=" + id +
+                ", vaccinName='" + vaccinName + '\'' +
+                ", vaccinEffect='" + vaccinEffect + '\'' +
+                ", vaccinAttention='" + vaccinAttention + '\'' +
+                ", vaccinDisadv='" + vaccinDisadv + '\'' +
+                ", vaccinAge='" + vaccinAge + '\'' +
+                ", vaccinProcess='" + vaccinProcess + '\'' +
+                ", vaccinPrice=" + vaccinPrice +
+                ", produceCompany='" + produceCompany + '\'' +
+                ", vaccinNo='" + vaccinNo + '\'' +
+                ", vaccinAmount=" + vaccinAmount +
+                '}';
     }
 }

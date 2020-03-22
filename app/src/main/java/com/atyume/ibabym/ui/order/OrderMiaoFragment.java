@@ -1,4 +1,4 @@
-package com.atyume.ibabym.ui;
+package com.atyume.ibabym.ui.order;
 
 import android.content.Intent;
 import android.os.Bundle;

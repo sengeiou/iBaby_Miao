@@ -1,4 +1,4 @@
-package com.atyume.ibabym.ui;
+package com.atyume.ibabym.adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

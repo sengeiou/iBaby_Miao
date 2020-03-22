@@ -1,4 +1,4 @@
-package com.atyume.ibabym.ui;
+package com.atyume.ibabym.ui.order;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

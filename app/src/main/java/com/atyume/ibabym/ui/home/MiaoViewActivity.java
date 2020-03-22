@@ -14,8 +14,11 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.atyume.greendao.gen.VaccinDao;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
+import com.atyume.ibabym.basics.MyApplication;
+import com.atyume.ibabym.basics.Vaccin;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
 import com.atyume.ibabym.ui.home.EditBaby;
 import com.atyume.ibabym.ui.home.MiaoRecycleActivity;
@@ -34,6 +37,8 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
     private static final int MYLIVE_MODE_CHECK = 0;
     private static final int MYLIVE_MODE_EDIT = 1;
 
+    @BindView(R.id.comeBack)
+    TextView mComeBack;
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
     @BindView(R.id.tv_select_num)
@@ -56,6 +61,8 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
     private boolean editorStatus = false;
     private int index = 0;
 
+    private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +70,17 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         setContentView(R.layout.miao_recycle_muti);
         ButterKnife.bind(this);
 
+        mComeBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MiaoViewActivity.this.finish();
+            }
+        });
+
         initData();
         initListener();
+
+
     }
 
     protected void initData(){
@@ -76,13 +92,20 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
         //数据
-        for (int i = 0; i < data.length; i++) {
+        List<Vaccin> vaccinList = getData();
+        for (int i = 0; i < vaccinList.size(); i++) {
             MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle(data[i]);
-            myLiveList.setSource("来源" + i);
+            myLiveList.setTitle(vaccinList.get(i).getVaccinName());
+            myLiveList.setSource("适用：" + vaccinList.get(i).getVaccinAge());
+            myLiveList.setId(vaccinList.get(i).getId());
             mList.add(myLiveList);
             mRadioAdapter.notifyAdapter(mList, false);
         }
+    }
+
+    private List<Vaccin> getData(){
+        List<Vaccin> vList = vaccinDao.loadAll();
+        return vList;
     }
 
     protected void makeClicked(){
@@ -208,8 +231,12 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
                 for (int i = mRadioAdapter.getMyLiveList().size(), j =0 ; i > j; i--) {
                     MyLiveList myLive = mRadioAdapter.getMyLiveList().get(i-1);
                     if (myLive.isSelect()) {
+                        //数据库中删除
+                        vaccinDao.deleteByKey(myLive.getId());
+
                         mRadioAdapter.getMyLiveList().remove(myLive);
                         index--;
+
                     }
                 }
                 index = 0;

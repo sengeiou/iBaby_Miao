@@ -25,7 +25,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <!--边框分割细线-->
@@ -55,7 +55,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_miaoName"
+                    android:id="@+id/edit_miaoName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
@@ -77,7 +77,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_miaoDetial"
+                    android:id="@+id/edit_miaoDetial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
@@ -99,14 +99,14 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_miaoNo"
+                    android:id="@+id/edit_miaoNo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:layout_gravity="fill"
                     android:layout_marginTop="8dp"
                     android:hint="请输入疫苗批号"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
                 <!--生产单位-->
@@ -121,7 +121,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_produced"
+                    android:id="@+id/edit_miaoFactory"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
@@ -143,14 +143,14 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_properAge"
+                    android:id="@+id/edit_properAge"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:hint="请输入适合年龄"
                     android:layout_marginTop="8dp"
                     android:layout_gravity="fill"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
                 <!--接种程序-->
@@ -165,7 +165,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_certiProces"
+                    android:id="@+id/edit_certiProces"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="fill"
@@ -187,14 +187,13 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_miaoPrice"
+                    android:id="@+id/edit_miaoPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:hint="请输入疫苗价格"
                     android:layout_marginTop="8dp"
                     android:layout_gravity="fill"
-                    android:inputType="number"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
                 <!--疫苗数量-->
@@ -209,14 +208,13 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_miaoAmount"
+                    android:id="@+id/edit_miaoAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:hint="请输入疫苗数量"
                     android:layout_marginTop="8dp"
                     android:layout_gravity="fill"
-                    android:inputType="number"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
                 <!--注意事项-->
@@ -231,11 +229,33 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_attention"
+                    android:id="@+id/edit_miaoAttention"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:hint="请输入注意事项"
+                    android:layout_marginTop="8dp"
+                    android:layout_gravity="fill"
+                    android:inputType="text"
+                    android:textColor="?attr/qmui_config_color_gray_5"
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:text="不良反应"
+                    android:layout_marginTop="15dp"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--输入框-->
+                <EditText
+                    android:id="@+id/edit_miaoEffect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/qmui_divider_bottom_bitmap"
+                    android:hint="请输入不良反应"
                     android:layout_marginTop="8dp"
                     android:layout_gravity="fill"
                     android:inputType="text"
@@ -257,7 +277,7 @@
                     android:layout_weight="1" />
 
                 <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                    android:id="@+id/button_register"
+                    android:id="@+id/button_add_miao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
