@@ -29,6 +29,7 @@ public class MineRadioAdapter extends RecyclerView.Adapter<MineRadioAdapter.View
     private Context context;
     private List<MyLiveList> mMyLiveList;
     private OnItemClickListener mOnItemClickListener;
+    private OnMyItemClickListener listener;
 
     public MineRadioAdapter(Context context) {
         this.context = context;
@@ -85,14 +86,32 @@ public class MineRadioAdapter extends RecyclerView.Adapter<MineRadioAdapter.View
                 mOnItemClickListener.onItemClickListener(holder.getAdapterPosition(), mMyLiveList);
             }
         });
+        holder.mTvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.myClick(v,position);
+            }
+        });
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
+
     }
     public interface OnItemClickListener {
         void onItemClickListener(int pos,List<MyLiveList> myLiveList);
+
     }
+
+    public void setOnMyItemClickListener(OnMyItemClickListener listener){
+        this.listener = listener;
+
+    }
+
+    public interface OnMyItemClickListener{
+        void myClick(View v, int pos);
+    }
+
     public void setEditMode(int editMode) {
         mEditMode = editMode;
         notifyDataSetChanged();

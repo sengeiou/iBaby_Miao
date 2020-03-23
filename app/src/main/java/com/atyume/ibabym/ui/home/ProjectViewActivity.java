@@ -83,22 +83,11 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
         itemDecorationHeader.setDividerDrawable(ContextCompat.getDrawable(this, R.drawable.divider_main_bg_height_1));
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
-        recyclerAdapter = new RecyclerAdapter(this,mList);
-        recyclerAdapter.setOnMyItemClickListener(new RecyclerAdapter.OnMyItemClickListener() {
-            @Override
-            public void myClick(View v, int pos) {
-                Toast.makeText(ProjectViewActivity.this,"onClick---"+pos+"mDatas:"+mList.get(pos).toString(),Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(ProjectViewActivity.this, MiaoAllInfo.class);
-                intent.putExtra("manageProjectId",(mList.get(pos)).getId());
-                startActivity(intent);
-            }
-
-            @Override
-            public void mLongClick(View v, int pos) {
-                Toast.makeText(ProjectViewActivity.this,"onLongClick---"+pos,Toast.LENGTH_LONG).show();
-
-                /*recyclerAdapter.removeData(pos);*/
-            }
+        mRadioAdapter.setOnMyItemClickListener((v, pos) -> {
+            Toast.makeText(ProjectViewActivity.this,"onClick---"+pos+"mDatas:"+mList.get(pos).toString(),Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(ProjectViewActivity.this, ProjectInfo.class);
+            intent.putExtra("manageProjectId",(mList.get(pos)).getId());
+            startActivity(intent);
         });
 
         List<ExamProject> examProjectList = getData();

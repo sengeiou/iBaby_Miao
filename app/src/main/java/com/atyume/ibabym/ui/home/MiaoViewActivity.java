@@ -57,7 +57,6 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
     TextView mBtnAdd;
 
     private MineRadioAdapter mRadioAdapter = null;
-    private RecyclerAdapter recyclerAdapter;
 
     private LinearLayoutManager mLinearLayoutManager;
     private List<MyLiveList> mList = new ArrayList<>();
@@ -89,22 +88,11 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         itemDecorationHeader.setDividerDrawable(ContextCompat.getDrawable(this, R.drawable.divider_main_bg_height_1));
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
-        recyclerAdapter = new RecyclerAdapter(this,mList);
-        recyclerAdapter.setOnMyItemClickListener(new RecyclerAdapter.OnMyItemClickListener() {
-            @Override
-            public void myClick(View v, int pos) {
-                Toast.makeText(MiaoViewActivity.this,"onClick---"+pos+"mDatas:"+mList.get(pos).toString(),Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(MiaoViewActivity.this, MiaoAllInfo.class);
-                intent.putExtra("manageMiaoId",(mList.get(pos)).getId());
-                startActivity(intent);
-            }
-
-            @Override
-            public void mLongClick(View v, int pos) {
-                Toast.makeText(MiaoViewActivity.this,"onLongClick---"+pos,Toast.LENGTH_LONG).show();
-
-                /*recyclerAdapter.removeData(pos);*/
-            }
+        mRadioAdapter.setOnMyItemClickListener((v, pos) -> {
+            Toast.makeText(MiaoViewActivity.this,"onClick---"+pos+"mDatas:"+mList.get(pos).toString(),Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(MiaoViewActivity.this, MiaoAllInfo.class);
+            intent.putExtra("manageMiaoId",(mList.get(pos)).getId());
+            startActivity(intent);
         });
         //数据
         List<Vaccin> vaccinList = getData();

@@ -23,8 +23,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<MyViewHolder>{
     private Context mContext;
     private LayoutInflater mInflater;
 
-
-
     private OnMyItemClickListener listener;
     public void setOnMyItemClickListener(OnMyItemClickListener listener){
         this.listener = listener;
