@@ -16,6 +16,7 @@ public class OrderExamInfo {     //体检订单
     @NotNull
     private Integer isSucced;             //体检是否完成，0为未完成
 
+
     @Generated(hash = 335874105)
     public OrderExamInfo(Long id, @NotNull String examHosName,
             @NotNull Long inoculId, @NotNull Integer isSucced) {
@@ -28,6 +29,7 @@ public class OrderExamInfo {     //体检订单
     @Generated(hash = 1818395719)
     public OrderExamInfo() {
     }
+
 
     public Long getId() {
         return id;

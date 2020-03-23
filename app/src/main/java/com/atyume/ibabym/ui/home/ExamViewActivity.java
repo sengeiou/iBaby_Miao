@@ -13,8 +13,11 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.atyume.greendao.gen.ExamInfoDao;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
+import com.atyume.ibabym.basics.ExamInfo;
+import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
 import com.atyume.ibabym.ui.RecyclerViewList.RecyclerViewListStyle;
 import com.atyume.ibabym.utils.MyLiveList;
@@ -30,6 +33,9 @@ public class ExamViewActivity extends RecyclerViewListStyle {
 
     private static final int MYLIVE_MODE_CHECK = 0;
     private static final int MYLIVE_MODE_EDIT = 1;
+
+    @BindView(R.id.comeBack)
+    TextView mComeBack;
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
@@ -53,6 +59,7 @@ public class ExamViewActivity extends RecyclerViewListStyle {
     private boolean editorStatus = false;
     private int index = 0;
 
+    private ExamInfoDao examInfoDao = MyApplication.getInstances().getDaoSession().getExamInfoDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,17 +97,30 @@ public class ExamViewActivity extends RecyclerViewListStyle {
         itemDecorationHeader.setDividerDrawable(ContextCompat.getDrawable(this, R.drawable.divider_main_bg_height_1));
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
+        List<ExamInfo> examInfoList = getThis();
         //数据
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < examInfoList.size(); i++) {
             MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle("这是第" + i + "个体检套餐");
-            myLiveList.setSource("来源" + i);
+            myLiveList.setTitle(examInfoList.get(i).getExamName());
+            myLiveList.setSource(examInfoList.get(i).getExamPrice().toString());
+            myLiveList.setId(examInfoList.get(i).getId());
             mList.add(myLiveList);
             mRadioAdapter.notifyAdapter(mList, false);
         }
     }
+    private List<ExamInfo> getThis(){
+        List<ExamInfo> examInfoList = examInfoDao.loadAll();
+        return examInfoList;
+    }
+
     @Override
     protected void initListener(){
+        mComeBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExamViewActivity.this.finish();
+            }
+        });
         mRadioAdapter.setOnItemClickListener(this);
         mBtnDelete.setOnClickListener(this);
         mSelectAll.setOnClickListener(this);
@@ -203,6 +223,8 @@ public class ExamViewActivity extends RecyclerViewListStyle {
                     if (myLive.isSelect()) {
                         mRadioAdapter.getMyLiveList().remove(myLive);
                         index--;
+
+                        examInfoDao.deleteByKey(myLive.getId());
                     }
                 }
                 index = 0;

@@ -18,7 +18,13 @@ import com.atyume.ibabym.utils.MyLiveList;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class RecyclerExamActivity extends AppCompatActivity {
+
+    @BindView(R.id.comeBack)
+    TextView mComeBack;
 
     private List<MyLiveList> mDatas = new ArrayList<>();
     private RecyclerView mRecyclerView;
@@ -30,6 +36,14 @@ public class RecyclerExamActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_view_miao);
+        ButterKnife.bind(this);
+
+        mComeBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecyclerExamActivity.this.finish();
+            }
+        });
 
         initView();
 
@@ -44,9 +58,11 @@ public class RecyclerExamActivity extends AppCompatActivity {
                 Toast.makeText(RecyclerExamActivity.this,"onClick---"+pos,Toast.LENGTH_LONG).show();
                 System.out.println("onClick---"+pos);
                 Intent intent = new Intent(RecyclerExamActivity.this, ViewExamDetail.class);
+                intent.putExtra("clickExamId",(mDatas.get(pos)).getId());
                 startActivity(intent);
 
                 /*recyclerAdapter.addItem(pos);*/
+
             }
 
             @Override

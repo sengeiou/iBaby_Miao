@@ -2,6 +2,7 @@ package com.atyume.ibabym.basics;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
 
 import java.util.Date;
@@ -21,7 +22,7 @@ public class Inoculation {       //接种档案信息
     @NotNull
     private Long parentId;          /*宝宝父母*/
 
-
+    @Keep
     public Inoculation(Long id,String inoculBaby, String babySex, String babyAdress, String babyHome, Long parentId) {
         this.id = id;
         this.inoculBaby = inoculBaby;
@@ -30,18 +31,16 @@ public class Inoculation {       //接种档案信息
         this.babyHome = babyHome;
         this.parentId = parentId;
     }
-
+    @Keep
     public Inoculation(String inoculBaby, String babyAdress, String babyHome, Long parentId) {
         this.inoculBaby = inoculBaby;
         this.babyAdress = babyAdress;
         this.babyHome = babyHome;
         this.parentId = parentId;
     }
-
     @Generated(hash = 771586055)
-    public Inoculation(Long id, @NotNull String inoculBaby, Date babyData,
-            String babySex, String babyAdress, String babyHome,
-            @NotNull Long parentId) {
+    public Inoculation(Long id, @NotNull String inoculBaby, Date babyData, String babySex, String babyAdress,
+            String babyHome, @NotNull Long parentId) {
         this.id = id;
         this.inoculBaby = inoculBaby;
         this.babyData = babyData;
@@ -50,7 +49,6 @@ public class Inoculation {       //接种档案信息
         this.babyHome = babyHome;
         this.parentId = parentId;
     }
-
     @Generated(hash = 1426994754)
     public Inoculation() {
     }

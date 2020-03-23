@@ -13,13 +13,21 @@ public class ExamInfo {        //体检套餐信息
     private String examName;             //套餐名称
     @NotNull
     private Double examPrice;             //套餐价格
+    private String examHosName;
 
+    public ExamInfo(String examName, Double examPrice, String examHosName) {
+        this.examName = examName;
+        this.examPrice = examPrice;
+        this.examHosName = examHosName;
+    }
 
-    @Generated(hash = 857160372)
-    public ExamInfo(Long id, @NotNull String examName, @NotNull Double examPrice) {
+    @Generated(hash = 1127825698)
+    public ExamInfo(Long id, @NotNull String examName, @NotNull Double examPrice,
+            String examHosName) {
         this.id = id;
         this.examName = examName;
         this.examPrice = examPrice;
+        this.examHosName = examHosName;
     }
 
     @Generated(hash = 467552702)
@@ -49,5 +57,13 @@ public class ExamInfo {        //体检套餐信息
 
     public void setExamPrice(Double examPrice) {
         this.examPrice = examPrice;
+    }
+
+    public String getExamHosName() {
+        return examHosName;
+    }
+
+    public void setExamHosName(String examHosName) {
+        this.examHosName = examHosName;
     }
 }

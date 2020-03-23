@@ -24,7 +24,6 @@ public class OrderVaccin {         //疫苗订单信息
     @NotNull
     private Integer isSucceed;    /*判断是否已接种，未接种为0*/
 
-
     @Generated(hash = 1051131363)
     public OrderVaccin(Long id, @NotNull Date inocluTime,
             @NotNull Date orderVaccinTime, @NotNull Long inocluId,
@@ -39,11 +38,9 @@ public class OrderVaccin {         //疫苗订单信息
         this.isSucceed = isSucceed;
     }
 
-
     @Generated(hash = 1311314865)
     public OrderVaccin() {
     }
-
 
     public Long getId() {
         return id;

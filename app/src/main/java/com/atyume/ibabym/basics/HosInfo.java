@@ -2,6 +2,7 @@ package com.atyume.ibabym.basics;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 
@@ -18,6 +19,7 @@ public class HosInfo {           //卫生院信息
     @NotNull
     private Long vaccinAmount;           //卫生院疫苗数量
 
+    @Keep
     public HosInfo(String hosName, String hosAdress, Long vaccinId, Long vaccinAmount) {
         this.hosName = hosName;
         this.hosAdress = hosAdress;
@@ -38,7 +40,6 @@ public class HosInfo {           //卫生院信息
     @Generated(hash = 1450780860)
     public HosInfo() {
     }
-
 
     public Long getId() {
         return id;

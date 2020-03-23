@@ -12,7 +12,7 @@
             android:id="@+id/comeBack"
             style="@style/img_back"/>
         <TextView
-            android:id="@+id/textview_Yimiao"
+            android:id="@+id/edit_ExamTop"
             style="@style/top_bar"
             android:text="体检套餐录入"
             />
@@ -56,7 +56,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_examName"
+                    android:id="@+id/edit_examName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
@@ -82,7 +82,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_examHos"
+                    android:id="@+id/edit_examHos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
@@ -107,7 +107,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <EditText
-                    android:id="@+id/edittext_examPrice"
+                    android:id="@+id/edit_examPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
@@ -134,54 +134,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:columnCount="4"
+                    android:columnCount="2"
                     android:focusable="true"
                     android:focusableInTouchMode="true">
                     <CheckBox
-                        android:id="@+id/projectcb_1"
+                        android:id="@+id/check_box_project"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="项目1"
-                        android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                        android:textColor="?attr/qmui_config_color_gray_5"
-                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                    <CheckBox
-                        android:id="@+id/projectcb_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="项目2"
-                        android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                        android:textColor="?attr/qmui_config_color_gray_5"
-                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                    <CheckBox
-                        android:id="@+id/projectcb_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="项目3"
-                        android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                        android:textColor="?attr/qmui_config_color_gray_5"
-                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                    <CheckBox
-                        android:id="@+id/projectcb_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="项目4"
-                        android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                        android:textColor="?attr/qmui_config_color_gray_5"
-                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                    <CheckBox
-                        android:id="@+id/projectcb_5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="项目5"
-                        android:paddingRight="@dimen/qmui_content_spacing_horizontal"
-                        android:textColor="?attr/qmui_config_color_gray_5"
-                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                    <CheckBox
-                        android:id="@+id/projectcb_6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="项目6"
                         android:paddingRight="@dimen/qmui_content_spacing_horizontal"
                         android:textColor="?attr/qmui_config_color_gray_5"
                         android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
@@ -202,7 +162,7 @@
                     android:layout_weight="1" />
 
                 <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                    android:id="@+id/button_register"
+                    android:id="@+id/button_add_exam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"

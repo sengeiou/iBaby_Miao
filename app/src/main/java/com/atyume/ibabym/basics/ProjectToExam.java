@@ -14,7 +14,6 @@ public class ProjectToExam {            //套餐-单项关系表
     @NotNull
     private Long projectId;               //体检单项Id
 
-
     @Generated(hash = 2056752857)
     public ProjectToExam(Long id, @NotNull Long examId, @NotNull Long projectId) {
         this.id = id;
@@ -25,7 +24,6 @@ public class ProjectToExam {            //套餐-单项关系表
     @Generated(hash = 430865244)
     public ProjectToExam() {
     }
-
 
     public Long getId() {
         return id;
