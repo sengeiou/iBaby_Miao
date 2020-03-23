@@ -19,7 +19,7 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EditProject extends AppCompatActivity {
+public class ProjectInfo extends AppCompatActivity {
     @BindView(R.id.comeBack)
     TextView mComeBack;
     @BindView(R.id.edit_project_topbar)
@@ -40,11 +40,14 @@ public class EditProject extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editproject);
         ButterKnife.bind(this);
+        /*初始化*/
         initTop();
+        setEditText();
+
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditProject.this.finish();
+                ProjectInfo.this.finish();
             }
         });
         mbtnAddProject.setOnClickListener(new View.OnClickListener() {
@@ -52,31 +55,44 @@ public class EditProject extends AppCompatActivity {
             public void onClick(View v) {
                 getEditText();
                 if(TextUtils.isEmpty(ProjectName)){
-                    Toast.makeText(EditProject.this, "请输入体检项目名称", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProjectInfo.this, "请输入体检项目名称", Toast.LENGTH_SHORT).show();
                 }
-                insertProject(ProjectName,ProjectDetail,ProjectPrice);
-                Intent intent = new Intent(EditProject.this, ProjectViewActivity.class);
+                updateProject(ProjectName,ProjectDetail,ProjectPrice);
+                Intent intent = new Intent(ProjectInfo.this, ProjectViewActivity.class);
                 startActivity(intent);//返回页面1
                 finish();
             }
         });
     }
 
+    private  ExamProject getThis(){
+        Intent intentGetId = getIntent();
+        Long ProjectId = intentGetId.getLongExtra("manageProjectId",0L);
+        ExamProject examProject = examProjectDao.load(ProjectId);
+        return examProject;
+    }
+    private void setEditText(){
+        ExamProject examProject = getThis();
+        mEditProjectName.setText(examProject.getProjectName());
+        mEditProjectDetail.setText(examProject.getProjectDetail());
+        mEditProjectPrice.setText(examProject.getProjectPrice().toString());
+    }
     private void getEditText(){
         ProjectName = mEditProjectName.getText().toString();
         ProjectDetail = mEditProjectDetail.getText().toString();
         ProjectPrice = Double.parseDouble(mEditProjectPrice.getText().toString());
     }
 
-    private void insertProject(String projectName,String projectDetail,Double projectPrice){
-        ExamProject examProject = new ExamProject(projectName,projectDetail,projectPrice);
-        long insert = examProjectDao.insert(examProject);
-        if(insert > 0){
-            Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
-        }
+    private void updateProject(String projectName,String projectDetail,Double projectPrice){
+        ExamProject examProject = getThis();
+        examProject.setProjectName(projectName);
+        examProject.setProjectDetail(projectDetail);
+        examProject.setProjectPrice(projectPrice);
+        examProjectDao.update(examProject);
+        Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
 
     }
     private void initTop(){
-        mTopBar.setText("新增疫苗");
+        mTopBar.setText("体检项目信息");
     }
 }

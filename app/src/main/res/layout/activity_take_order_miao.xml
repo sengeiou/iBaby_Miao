@@ -56,7 +56,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--宝宝姓名输入框-->
                 <EditText
-                    android:id="@+id/edittext_babyName"
+                    android:id="@+id/edit_OrderBabyName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
@@ -77,7 +77,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--接种地区输入框-->
                 <EditText
-                    android:id="@+id/edittext_certiArea"
+                    android:id="@+id/edit_OrderCertiArea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
@@ -98,7 +98,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--接种地区输入框-->
                 <EditText
-                    android:id="@+id/edittext_certiTime"
+                    android:id="@+id/edit_OrderCertiTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"

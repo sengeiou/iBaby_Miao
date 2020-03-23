@@ -8,14 +8,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.atyume.greendao.gen.ExamProjectDao;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
+import com.atyume.ibabym.adapter.RecyclerAdapter;
+import com.atyume.ibabym.basics.ExamProject;
+import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
 import com.atyume.ibabym.ui.RecyclerViewList.RecyclerViewListStyle;
 import com.atyume.ibabym.utils.MyLiveList;
@@ -32,6 +37,8 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
     private static final int MYLIVE_MODE_CHECK = 0;
     private static final int MYLIVE_MODE_EDIT = 1;
 
+    @BindView(R.id.comeBack)
+    TextView mComeBack;
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
     @BindView(R.id.tv_select_num)
@@ -53,6 +60,9 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
     private boolean isSelectAll = false;
     private boolean editorStatus = false;
     private int index = 0;
+    private RecyclerAdapter recyclerAdapter;
+
+    private ExamProjectDao examProjectDao = MyApplication.getInstances().getDaoSession().getExamProjectDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +83,39 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
         itemDecorationHeader.setDividerDrawable(ContextCompat.getDrawable(this, R.drawable.divider_main_bg_height_1));
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
+        recyclerAdapter = new RecyclerAdapter(this,mList);
+        recyclerAdapter.setOnMyItemClickListener(new RecyclerAdapter.OnMyItemClickListener() {
+            @Override
+            public void myClick(View v, int pos) {
+                Toast.makeText(ProjectViewActivity.this,"onClick---"+pos+"mDatas:"+mList.get(pos).toString(),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ProjectViewActivity.this, MiaoAllInfo.class);
+                intent.putExtra("manageProjectId",(mList.get(pos)).getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void mLongClick(View v, int pos) {
+                Toast.makeText(ProjectViewActivity.this,"onLongClick---"+pos,Toast.LENGTH_LONG).show();
+
+                /*recyclerAdapter.removeData(pos);*/
+            }
+        });
+
+        List<ExamProject> examProjectList = getData();
         //数据
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < examProjectList.size(); i++) {
             MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle("这是第" + i + "个体检项目");
-            myLiveList.setSource("来源" + i);
+            myLiveList.setTitle(examProjectList.get(i).getProjectName());
+            myLiveList.setSource(examProjectList.get(i).getProjectPrice().toString());
+            myLiveList.setId(examProjectList.get(i).getId());
             mList.add(myLiveList);
             mRadioAdapter.notifyAdapter(mList, false);
         }
+    }
+
+    private List<ExamProject> getData(){
+        List<ExamProject> vList = examProjectDao.loadAll();
+        return vList;
     }
     /**
      * 根据选择的数量是否为0来判断按钮的是否可点击.
@@ -100,6 +135,12 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
     }
 
     protected void initListener(){
+        mComeBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProjectViewActivity.this.finish();
+            }
+        });
         mRadioAdapter.setOnItemClickListener(this);
         mBtnDelete.setOnClickListener(this);
         mSelectAll.setOnClickListener(this);
@@ -201,6 +242,9 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
                     if (myLive.isSelect()) {
                         mRadioAdapter.getMyLiveList().remove(myLive);
                         index--;
+
+                        examProjectDao.deleteByKey(myLive.getId());
+
                     }
                 }
                 index = 0;

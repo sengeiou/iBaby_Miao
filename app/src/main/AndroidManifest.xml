@@ -32,6 +32,7 @@
         <!--体检项目-->
         <activity android:name=".ui.home.ProjectViewActivity"></activity>
         <activity android:name=".ui.home.EditProject"></activity>
+        <activity android:name=".ui.home.ProjectInfo"></activity>
         <!--体检套餐-->
         <activity android:name=".ui.home.ExamViewActivity"></activity>
         <activity android:name=".ui.home.EditExam"></activity>
@@ -39,6 +40,7 @@
         <activity android:name=".ui.home.MiaoManage"></activity>
         <activity android:name=".ui.home.EditMiao"></activity>
         <activity android:name=".ui.home.MiaoViewActivity"></activity>
+        <activity android:name=".ui.home.MiaoAllInfo"></activity>
         <!--宝宝信息-->
         <activity android:name=".ui.home.BabyViewActivity"></activity>
         <activity android:name=".ui.home.EditBaby"></activity>

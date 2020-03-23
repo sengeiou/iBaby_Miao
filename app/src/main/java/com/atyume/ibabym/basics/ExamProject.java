@@ -16,6 +16,12 @@ public class ExamProject {           //体检单项信息
     @NotNull
     private Double projectPrice;           //项目价格
 
+    public ExamProject(String projectName, String projectDetail, Double projectPrice) {
+        this.projectName = projectName;
+        this.projectDetail = projectDetail;
+        this.projectPrice = projectPrice;
+    }
+
     @Generated(hash = 509764768)
     public ExamProject(Long id, @NotNull String projectName,
             @NotNull String projectDetail, @NotNull Double projectPrice) {

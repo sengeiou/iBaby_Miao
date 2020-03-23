@@ -105,4 +105,5 @@ public class EditBaby extends AppCompatActivity {
         Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.InoculBaby.eq(babyName)).unique();
         return inoculation.getId();
     }
+
 }

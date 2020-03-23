@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.VaccinDao;
-import com.atyume.ibabym.MainActivity;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.Vaccin;
@@ -20,9 +19,10 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EditMiao extends AppCompatActivity {
+public class MiaoAllInfo extends AppCompatActivity {
     @BindView(R.id.comeBack)
     TextView mComeBack;
+
     @BindView(R.id.edit_miao_topbar)
     TextView mTopBar;
 
@@ -61,11 +61,12 @@ public class EditMiao extends AppCompatActivity {
         ButterKnife.bind(this);
 
         initTop();
+        setEditText();
 
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditMiao.this.finish();
+                MiaoAllInfo.this.finish();
             }
         });
 
@@ -73,30 +74,10 @@ public class EditMiao extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getEditText();
-                if(TextUtils.isEmpty(MiaoName)){
-                    Toast.makeText(EditMiao.this, "请输入疫苗名称", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(MiaoNo)){
-                    Toast.makeText(EditMiao.this, "请输入疫苗生产批号", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(MiaoProperAge)) {
-                    Toast.makeText(EditMiao.this, "请输入疫苗适用年龄", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(MiaoCertiProcess)) {
-                    Toast.makeText(EditMiao.this, "请输入疫苗接种程序", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                else {
-                    insertData();
-                    Intent intent = new Intent(EditMiao.this, MiaoViewActivity.class);
-                    startActivity(intent);//返回页面1
-                    finish();
-                }
-
+                updateData();
+                Intent intent = new Intent(MiaoAllInfo.this, MiaoViewActivity.class);
+                startActivity(intent);//返回页面1
+                finish();
             }
         });
 
@@ -113,15 +94,43 @@ public class EditMiao extends AppCompatActivity {
         MiaoAttention = mEditMiaoAttention.getText().toString();
         MiaoEffect = mEditMiaoEffect.getText().toString();
     }
-    private void insertData() {
-        Vaccin vaccin = new Vaccin(MiaoName,MiaoEffect,MiaoAttention,MiaoDetail,MiaoProperAge,MiaoCertiProcess,MiaoPrice,MiaoFactory,MiaoNo,MiaoAmount);
-        long insert = vaccinDao.insert(vaccin);
-        if (insert > 0) {
-            Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
-        }
+    private void setEditText(){
+        Vaccin vaccin = getThis();
+        mEditMiaoName.setText(vaccin.getVaccinName());
+        mEditMiaoDetail.setText(vaccin.getVaccinEffect());
+        mEditMiaoNo.setText(vaccin.getVaccinNo());
+        mEditMiaoFactory.setText(vaccin.getProduceCompany());
+        mEditProperAge.setText(vaccin.getVaccinAge());
+        mEditCertiProces.setText(vaccin.getVaccinProcess());
+        mEditMiaoPrice.setText(vaccin.getVaccinPrice().toString());
+        mEditMiaoAmount.setText(vaccin.getVaccinAmount().toString());
+        mEditMiaoAttention.setText(vaccin.getVaccinAttention());
+        mEditMiaoEffect.setText(vaccin.getVaccinDisadv());
     }
-    private void initTop(){
-        mTopBar.setText("新增疫苗");
+    private void updateData() {
+        Vaccin vaccin = getThis();
+        vaccin.setVaccinName(MiaoName);
+        vaccin.setVaccinEffect(MiaoDetail);
+        vaccin.setVaccinNo(MiaoNo);
+        vaccin.setProduceCompany(MiaoFactory);
+        vaccin.setVaccinAge(MiaoProperAge);
+        vaccin.setVaccinProcess(MiaoCertiProcess);
+        vaccin.setVaccinPrice(MiaoPrice);
+        vaccin.setVaccinAmount(MiaoAmount);
+        vaccin.setVaccinDisadv(MiaoEffect);
+
+        vaccinDao.update(vaccin);
+        Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+    }
+    private Vaccin getThis(){
+        Intent intentGetId = getIntent();
+        Long miaoId = intentGetId.getLongExtra("manageMiaoId",0L);
+        Vaccin vaccin = vaccinDao.queryBuilder().where(VaccinDao.Properties.Id.eq(miaoId)).unique();
+        return vaccin;
     }
 
+    private void initTop(){
+        mTopBar.setText("修改疫苗信息");
+    }
 }
+

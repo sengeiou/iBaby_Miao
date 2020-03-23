@@ -12,9 +12,8 @@
             android:id="@+id/comeBack"
             style="@style/img_back"/>
         <TextView
-            android:id="@+id/textview_Yimiao"
+            android:id="@+id/edit_miao_topbar"
             style="@style/top_bar"
-            android:text="疫苗录入"
         />
     </RelativeLayout>
 

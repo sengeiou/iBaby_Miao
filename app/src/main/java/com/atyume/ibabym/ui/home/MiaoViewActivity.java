@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.atyume.greendao.gen.VaccinDao;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
+import com.atyume.ibabym.adapter.RecyclerAdapter;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.Vaccin;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
@@ -53,7 +55,10 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
     TextView mBtnEditor;
     @BindView(R.id.btn_editor_add)
     TextView mBtnAdd;
+
     private MineRadioAdapter mRadioAdapter = null;
+    private RecyclerAdapter recyclerAdapter;
+
     private LinearLayoutManager mLinearLayoutManager;
     private List<MyLiveList> mList = new ArrayList<>();
     private int mEditMode = MYLIVE_MODE_CHECK;
@@ -84,6 +89,23 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         itemDecorationHeader.setDividerDrawable(ContextCompat.getDrawable(this, R.drawable.divider_main_bg_height_1));
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
+        recyclerAdapter = new RecyclerAdapter(this,mList);
+        recyclerAdapter.setOnMyItemClickListener(new RecyclerAdapter.OnMyItemClickListener() {
+            @Override
+            public void myClick(View v, int pos) {
+                Toast.makeText(MiaoViewActivity.this,"onClick---"+pos+"mDatas:"+mList.get(pos).toString(),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MiaoViewActivity.this, MiaoAllInfo.class);
+                intent.putExtra("manageMiaoId",(mList.get(pos)).getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void mLongClick(View v, int pos) {
+                Toast.makeText(MiaoViewActivity.this,"onLongClick---"+pos,Toast.LENGTH_LONG).show();
+
+                /*recyclerAdapter.removeData(pos);*/
+            }
+        });
         //数据
         List<Vaccin> vaccinList = getData();
         for (int i = 0; i < vaccinList.size(); i++) {
