@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.ibabym.R;
+import com.atyume.ibabym.utils.MyExamList;
 import com.atyume.ibabym.utils.MyLiveList;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MineRadioAdapter extends RecyclerView.Adapter<MineRadioAdapter.ViewHolder> {
+public class ExamRadioAdapter extends RecyclerView.Adapter<ExamRadioAdapter.ViewHolder> {
 
     private static final int MYLIVE_MODE_CHECK = 0;
     int mEditMode = MYLIVE_MODE_CHECK;
@@ -27,54 +28,55 @@ public class MineRadioAdapter extends RecyclerView.Adapter<MineRadioAdapter.View
     private int secret = 0;
     private String title = "";
     private Context context;
-    private List<MyLiveList> mMyLiveList;
-    private OnItemClickListener mOnItemClickListener;
-    private OnMyItemClickListener listener;
+    private List<MyExamList> mExamList;
+    private ExamRadioAdapter.OnItemClickListener mOnItemClickListener;
+    private ExamRadioAdapter.OnMyItemClickListener listener;
 
-    public MineRadioAdapter(Context context) {
+    public ExamRadioAdapter(Context context) {
         this.context = context;
     }
 
 
-    public void notifyAdapter(List<MyLiveList> myLiveList, boolean isAdd) {
+    public void notifyAdapter(List<MyExamList> myExamList, boolean isAdd) {
         if (!isAdd) {
-            this.mMyLiveList = myLiveList;
+            this.mExamList = myExamList;
         } else {
-            this.mMyLiveList.addAll(myLiveList);
+            this.mExamList.addAll(myExamList);
         }
         notifyDataSetChanged();
     }
 
-    public List<MyLiveList> getMyLiveList() {
-        if (mMyLiveList == null) {
-            mMyLiveList = new ArrayList<>();
+    public List<MyExamList> getMyExamList() {
+        if (mExamList == null) {
+            mExamList = new ArrayList<>();
         }
-        return mMyLiveList;
+        return mExamList;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_live, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+    public ExamRadioAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_exam, parent, false);
+        ExamRadioAdapter.ViewHolder holder = new ExamRadioAdapter.ViewHolder(view);
         return holder;
     }
 
     @Override
     public int getItemCount() {
-        return mMyLiveList.size();
+        return mExamList.size();
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final MyLiveList myLive = mMyLiveList.get(holder.getAdapterPosition());
-        holder.mTvTitle.setText(myLive.getTitle());
-        holder.mTvSource.setText(myLive.getSource());
+    public void onBindViewHolder(final ExamRadioAdapter.ViewHolder holder, final int position) {
+        final MyExamList myExam = mExamList.get(holder.getAdapterPosition());
+        holder.mTvTitle.setText(myExam.getExamName());
+        holder.mTvHos.setText(myExam.getExamHos());
+        holder.mTvPrice.setText(myExam.getExamPrice().toString());
         if (mEditMode == MYLIVE_MODE_CHECK) {
             holder.mCheckBox.setVisibility(View.GONE);
         } else {
             holder.mCheckBox.setVisibility(View.VISIBLE);
 
-            if (myLive.isSelect()) {
+            if (myExam.isSelect()) {
                 holder.mCheckBox.setImageResource(R.mipmap.ic_checked);
             } else {
                 holder.mCheckBox.setImageResource(R.mipmap.ic_uncheck);
@@ -83,7 +85,7 @@ public class MineRadioAdapter extends RecyclerView.Adapter<MineRadioAdapter.View
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnItemClickListener.onItemClickListener(holder.getAdapterPosition(), mMyLiveList);
+                mOnItemClickListener.onItemClickListener(holder.getAdapterPosition(), mExamList);
             }
         });
         holder.mTvTitle.setOnClickListener(new View.OnClickListener() {
@@ -94,16 +96,16 @@ public class MineRadioAdapter extends RecyclerView.Adapter<MineRadioAdapter.View
         });
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(ExamRadioAdapter.OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
 
     }
     public interface OnItemClickListener {
-        void onItemClickListener(int pos,List<MyLiveList> myLiveList);
+        void onItemClickListener(int pos,List<MyExamList> myExamList);
 
     }
 
-    public void setOnMyItemClickListener(OnMyItemClickListener listener){
+    public void setOnMyItemClickListener(ExamRadioAdapter.OnMyItemClickListener listener){
         this.listener = listener;
 
     }
@@ -118,12 +120,12 @@ public class MineRadioAdapter extends RecyclerView.Adapter<MineRadioAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.radio_img)
-        ImageView mRadioImg;
-        @BindView(R.id.tv_title)
+        @BindView(R.id.m_examName)
         TextView mTvTitle;
-        @BindView(R.id.tv_source)
-        TextView mTvSource;
+        @BindView(R.id.m_examHos)
+        TextView mTvHos;
+        @BindView(R.id.m_examPrice)
+        TextView mTvPrice;
         @BindView(R.id.root_view)
         RelativeLayout mRootView;
         @BindView(R.id.check_box)
@@ -137,3 +139,4 @@ public class MineRadioAdapter extends RecyclerView.Adapter<MineRadioAdapter.View
         }
     }
 }
+

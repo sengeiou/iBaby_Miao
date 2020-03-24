@@ -130,22 +130,21 @@
                     android:text="套餐包含体检项目"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-                <GridLayout
+                <LinearLayout
+                    android:id="@+id/exam_checkboxlist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:columnCount="2"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true">
-                    <CheckBox
+                    android:orientation="vertical">
+                    <!--<CheckBox
                         android:id="@+id/check_box_project"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="项目1"
                         android:paddingRight="@dimen/qmui_content_spacing_horizontal"
                         android:textColor="?attr/qmui_config_color_gray_5"
-                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                </GridLayout>
+                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />-->
+                </LinearLayout>
 
             </GridLayout>
             <!--提交按钮位置-->

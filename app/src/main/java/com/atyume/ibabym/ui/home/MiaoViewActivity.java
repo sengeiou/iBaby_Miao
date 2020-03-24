@@ -34,7 +34,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MiaoViewActivity extends Activity implements View.OnClickListener, MineRadioAdapter.OnItemClickListener {
-    private String[] data = {"九价HPV","四价HPV","二价HPV","三价流感疫苗","四价流感疫苗","狂犬病疫苗","水痘疫苗"};
 
     private static final int MYLIVE_MODE_CHECK = 0;
     private static final int MYLIVE_MODE_EDIT = 1;
@@ -88,6 +87,7 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         itemDecorationHeader.setDividerDrawable(ContextCompat.getDrawable(this, R.drawable.divider_main_bg_height_1));
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
+
         mRadioAdapter.setOnMyItemClickListener((v, pos) -> {
             Toast.makeText(MiaoViewActivity.this,"onClick---"+pos+"mDatas:"+mList.get(pos).toString(),Toast.LENGTH_LONG).show();
             Intent intent = new Intent(MiaoViewActivity.this, MiaoAllInfo.class);

@@ -2,6 +2,7 @@ package com.atyume.ibabym.basics;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 
@@ -15,6 +16,7 @@ public class ExamInfo {        //体检套餐信息
     private Double examPrice;             //套餐价格
     private String examHosName;
 
+    @Keep
     public ExamInfo(String examName, Double examPrice, String examHosName) {
         this.examName = examName;
         this.examPrice = examPrice;
@@ -65,5 +67,15 @@ public class ExamInfo {        //体检套餐信息
 
     public void setExamHosName(String examHosName) {
         this.examHosName = examHosName;
+    }
+
+    @Override
+    public String toString() {
+        return "ExamInfo{" +
+                "id=" + id +
+                ", examName='" + examName + '\'' +
+                ", examPrice=" + examPrice +
+                ", examHosName='" + examHosName + '\'' +
+                '}';
     }
 }

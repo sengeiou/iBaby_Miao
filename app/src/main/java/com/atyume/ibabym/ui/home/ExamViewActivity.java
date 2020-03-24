@@ -1,5 +1,6 @@
 package com.atyume.ibabym.ui.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -15,11 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.greendao.gen.ExamInfoDao;
 import com.atyume.ibabym.R;
+import com.atyume.ibabym.adapter.ExamRadioAdapter;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
 import com.atyume.ibabym.basics.ExamInfo;
+import com.atyume.ibabym.basics.ExamProject;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
 import com.atyume.ibabym.ui.RecyclerViewList.RecyclerViewListStyle;
+import com.atyume.ibabym.utils.MyExamList;
 import com.atyume.ibabym.utils.MyLiveList;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
@@ -29,7 +34,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ExamViewActivity extends RecyclerViewListStyle {
+public class ExamViewActivity extends Activity implements View.OnClickListener, ExamRadioAdapter.OnItemClickListener {
 
     private static final int MYLIVE_MODE_CHECK = 0;
     private static final int MYLIVE_MODE_EDIT = 1;
@@ -51,9 +56,9 @@ public class ExamViewActivity extends RecyclerViewListStyle {
     TextView mBtnEditor;
     @BindView(R.id.btn_editor_add)
     TextView mBtnAdd;
-    private MineRadioAdapter mRadioAdapter = null;
+    private ExamRadioAdapter mRadioAdapter = null;
     private LinearLayoutManager mLinearLayoutManager;
-    private List<MyLiveList> mList = new ArrayList<>();
+    private List<MyExamList> mList = new ArrayList<>();
     private int mEditMode = MYLIVE_MODE_CHECK;
     private boolean isSelectAll = false;
     private boolean editorStatus = false;
@@ -88,23 +93,31 @@ public class ExamViewActivity extends RecyclerViewListStyle {
         }
     }
 
-    @Override
     protected void initData(){
-        mRadioAdapter = new MineRadioAdapter(this);
+        mRadioAdapter = new ExamRadioAdapter(this);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerview.setLayoutManager(mLinearLayoutManager);
         DividerItemDecoration itemDecorationHeader = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
         itemDecorationHeader.setDividerDrawable(ContextCompat.getDrawable(this, R.drawable.divider_main_bg_height_1));
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
+
+        mRadioAdapter.setOnMyItemClickListener((v, pos) -> {
+            Toast.makeText(ExamViewActivity.this,"onClick---"+pos+"mDatas:"+mList.get(pos).toString(),Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(ExamViewActivity.this, EditExam.class);
+            intent.putExtra("manageExamId",(mList.get(pos)).getExamId());
+            startActivity(intent);
+        });
+
         List<ExamInfo> examInfoList = getThis();
         //数据
         for (int i = 0; i < examInfoList.size(); i++) {
-            MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle(examInfoList.get(i).getExamName());
-            myLiveList.setSource(examInfoList.get(i).getExamPrice().toString());
-            myLiveList.setId(examInfoList.get(i).getId());
-            mList.add(myLiveList);
+            MyExamList myExamList = new MyExamList();
+            myExamList.setExamName(examInfoList.get(i).getExamName());
+            myExamList.setExamHos(examInfoList.get(i).getExamHosName());
+            myExamList.setExamPrice(examInfoList.get(i).getExamPrice());
+            myExamList.setExamId(examInfoList.get(i).getId());
+            mList.add(myExamList);
             mRadioAdapter.notifyAdapter(mList, false);
         }
     }
@@ -113,7 +126,6 @@ public class ExamViewActivity extends RecyclerViewListStyle {
         return examInfoList;
     }
 
-    @Override
     protected void initListener(){
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,16 +177,16 @@ public class ExamViewActivity extends RecyclerViewListStyle {
     protected void selectAllMain() {
         if (mRadioAdapter == null) return;
         if (!isSelectAll) {
-            for (int i = 0, j = mRadioAdapter.getMyLiveList().size(); i < j; i++) {
-                mRadioAdapter.getMyLiveList().get(i).setSelect(true);
+            for (int i = 0, j = mRadioAdapter.getMyExamList().size(); i < j; i++) {
+                mRadioAdapter.getMyExamList().get(i).setSelect(true);
             }
-            index = mRadioAdapter.getMyLiveList().size();
+            index = mRadioAdapter.getMyExamList().size();
             mBtnDelete.setEnabled(true);
             mSelectAll.setText("取消全选");
             isSelectAll = true;
         } else {
-            for (int i = 0, j = mRadioAdapter.getMyLiveList().size(); i < j; i++) {
-                mRadioAdapter.getMyLiveList().get(i).setSelect(false);
+            for (int i = 0, j = mRadioAdapter.getMyExamList().size(); i < j; i++) {
+                mRadioAdapter.getMyExamList().get(i).setSelect(false);
             }
             index = 0;
             mBtnDelete.setEnabled(false);
@@ -218,19 +230,19 @@ public class ExamViewActivity extends RecyclerViewListStyle {
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = mRadioAdapter.getMyLiveList().size(), j =0 ; i > j; i--) {
-                    MyLiveList myLive = mRadioAdapter.getMyLiveList().get(i-1);
-                    if (myLive.isSelect()) {
-                        mRadioAdapter.getMyLiveList().remove(myLive);
+                for (int i = mRadioAdapter.getMyExamList().size(), j =0 ; i > j; i--) {
+                    MyExamList myExam = mRadioAdapter.getMyExamList().get(i-1);
+                    if (myExam.isSelect()) {
+                        mRadioAdapter.getMyExamList().remove(myExam);
                         index--;
 
-                        examInfoDao.deleteByKey(myLive.getId());
+                        examInfoDao.deleteByKey(myExam.getExamId());
                     }
                 }
                 index = 0;
                 mTvSelectNum.setText(String.valueOf(0));
                 setBtnBackground(index);
-                if (mRadioAdapter.getMyLiveList().size() == 0){
+                if (mRadioAdapter.getMyExamList().size() == 0){
                     mLlMycollectionBottomDialog.setVisibility(View.GONE);
                 }
                 mRadioAdapter.notifyDataSetChanged();
@@ -262,20 +274,20 @@ public class ExamViewActivity extends RecyclerViewListStyle {
     }
 
     @Override
-    public void onItemClickListener(int pos, List<MyLiveList> myLiveList) {
+    public void onItemClickListener(int pos, List<MyExamList> myExamList) {
         if (editorStatus) {
-            MyLiveList myLive = myLiveList.get(pos);
-            boolean isSelect = myLive.isSelect();
+            MyExamList myExam = myExamList.get(pos);
+            boolean isSelect = myExam.isSelect();
             if (!isSelect) {
                 index++;
-                myLive.setSelect(true);
-                if (index == myLiveList.size()) {
+                myExam.setSelect(true);
+                if (index == myExamList.size()) {
                     isSelectAll = true;
                     mSelectAll.setText("取消全选");
                 }
 
             } else {
-                myLive.setSelect(false);
+                myExam.setSelect(false);
                 index--;
                 isSelectAll = false;
                 mSelectAll.setText("全选");
