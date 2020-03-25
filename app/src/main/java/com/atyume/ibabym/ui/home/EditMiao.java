@@ -65,7 +65,9 @@ public class EditMiao extends AppCompatActivity {
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditMiao.this.finish();
+                Intent intent = new Intent(EditMiao.this, MiaoViewActivity.class);
+                startActivity(intent);//返回页面1
+                finish();
             }
         });
 

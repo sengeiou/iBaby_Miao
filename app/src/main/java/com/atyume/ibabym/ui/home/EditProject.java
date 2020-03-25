@@ -77,6 +77,6 @@ public class EditProject extends AppCompatActivity {
 
     }
     private void initTop(){
-        mTopBar.setText("新增疫苗");
+        mTopBar.setText("新增体检项目");
     }
 }

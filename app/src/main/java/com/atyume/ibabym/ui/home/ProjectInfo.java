@@ -93,6 +93,6 @@ public class ProjectInfo extends AppCompatActivity {
 
     }
     private void initTop(){
-        mTopBar.setText("体检项目信息");
+        mTopBar.setText("修改体检项目信息");
     }
 }

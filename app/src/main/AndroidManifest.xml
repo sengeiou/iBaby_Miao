@@ -23,9 +23,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"></activity>
         <!--<activity android:name=".ui.home.testActivity"></activity>-->
-        <activity android:name=".ui.LoginActivity"></activity>
-        <activity android:name=".ui.home.EditExam"></activity>
-        <activity android:name=".ui.home.testActivity">
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -37,7 +35,7 @@
         <activity android:name=".ui.home.ProjectInfo"></activity>
         <!--体检套餐-->
         <activity android:name=".ui.home.ExamViewActivity"></activity>
-        <!--<activity android:name=".ui.home.EditExam"></activity>-->
+        <activity android:name=".ui.home.EditExam"></activity>
         <!--疫苗-->
         <activity android:name=".ui.home.MiaoManage"></activity>
         <activity android:name=".ui.home.EditMiao"></activity>

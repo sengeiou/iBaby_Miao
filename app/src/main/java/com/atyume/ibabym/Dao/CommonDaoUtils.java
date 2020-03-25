@@ -36,7 +36,7 @@ public class CommonDaoUtils<T>
     public boolean insert(T pEntity)
     {
         boolean flag = entityDao.insert(pEntity) == -1 ? false : true;
-        Log.i(TAG, "insert Meizi :" + flag + "-->" + pEntity.toString());
+        Log.i(TAG, "insert :" + flag + "-->" + pEntity.toString());
         return flag;
     }
 

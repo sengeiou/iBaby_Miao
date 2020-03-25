@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
         adm_editHos.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),HosViewActivity.class);
+                Intent intent = new Intent(getActivity(),EditHos.class);
                 startActivity(intent);
             }
         });

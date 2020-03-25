@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.greendao.gen.HosInfoDao;
 import com.atyume.greendao.gen.VaccinDao;
+import com.atyume.ibabym.MainActivity;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
 import com.atyume.ibabym.basics.HosInfo;
@@ -125,7 +126,8 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HosViewActivity.this.finish();
+                Intent intent = new Intent(HosViewActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

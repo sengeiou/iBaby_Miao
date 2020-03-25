@@ -8,16 +8,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.atyume.greendao.gen.InoculationDao;
+import com.atyume.ibabym.MainActivity;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
+import com.atyume.ibabym.basics.Inoculation;
+import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
 import com.atyume.ibabym.ui.RecyclerViewList.RecyclerViewListStyle;
+import com.atyume.ibabym.ui.dashboard.ViewBabyInfo;
+import com.atyume.ibabym.ui.notifications.UpdateBaby;
 import com.atyume.ibabym.utils.MyLiveList;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
@@ -31,6 +38,9 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
 
     private static final int MYLIVE_MODE_CHECK = 0;
     private static final int MYLIVE_MODE_EDIT = 1;
+
+    @BindView(R.id.comeBack)
+    TextView mComeBack;
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
@@ -53,6 +63,8 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
     private boolean isSelectAll = false;
     private boolean editorStatus = false;
     private int index = 0;
+
+    private InoculationDao inoculationDao = MyApplication.getInstances().getDaoSession().getInoculationDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +93,6 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
         }
     }
 
-
     protected void initData(){
         mRadioAdapter = new MineRadioAdapter(this);
         mLinearLayoutManager = new LinearLayoutManager(this);
@@ -90,17 +101,36 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
         itemDecorationHeader.setDividerDrawable(ContextCompat.getDrawable(this, R.drawable.divider_main_bg_height_1));
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
+        mRadioAdapter.setOnMyItemClickListener((v, pos) -> {
+            Toast.makeText(BabyViewActivity.this,"onClick---"+pos+"mDatas:"+mList.get(pos).toString(),Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(BabyViewActivity.this, ViewBabyInfo.class);
+            intent.putExtra("manageBabyId",(mList.get(pos)).getId());
+            startActivity(intent);
+        });
+        List<Inoculation> inoculationList = getThis();
         //数据
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < inoculationList.size(); i++) {
             MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle("这是第" + i + "个接种档案");
-            myLiveList.setSource("来源" + i);
+            myLiveList.setTitle(inoculationList.get(i).getInoculBaby());
+            myLiveList.setSource(inoculationList.get(i).getBabyHome());
+            myLiveList.setId(inoculationList.get(i).getId());
             mList.add(myLiveList);
             mRadioAdapter.notifyAdapter(mList, false);
         }
     }
 
+    private List<Inoculation> getThis(){
+        List<Inoculation> inoculationList = inoculationDao.loadAll();
+        return inoculationList;
+    }
     protected void initListener(){
+        mComeBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BabyViewActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         mRadioAdapter.setOnItemClickListener(this);
         mBtnDelete.setOnClickListener(this);
         mSelectAll.setOnClickListener(this);
@@ -202,6 +232,8 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
                     if (myLive.isSelect()) {
                         mRadioAdapter.getMyLiveList().remove(myLive);
                         index--;
+
+                        inoculationDao.deleteByKey(myLive.getId());
                     }
                 }
                 index = 0;

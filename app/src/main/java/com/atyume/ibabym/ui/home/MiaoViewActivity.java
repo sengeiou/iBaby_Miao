@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.greendao.gen.VaccinDao;
+import com.atyume.ibabym.MainActivity;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
 import com.atyume.ibabym.adapter.RecyclerAdapter;
@@ -138,7 +139,8 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MiaoViewActivity.this.finish();
+                Intent intent = new Intent(MiaoViewActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

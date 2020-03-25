@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.greendao.gen.ExamProjectDao;
+import com.atyume.ibabym.MainActivity;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
 import com.atyume.ibabym.adapter.RecyclerAdapter;
@@ -127,7 +128,8 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProjectViewActivity.this.finish();
+                Intent intent = new Intent(ProjectViewActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
         mRadioAdapter.setOnItemClickListener(this);

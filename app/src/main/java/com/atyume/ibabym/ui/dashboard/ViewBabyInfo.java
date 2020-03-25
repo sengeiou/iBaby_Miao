@@ -3,14 +3,12 @@ package com.atyume.ibabym.ui.dashboard;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.InoculationDao;
-import com.atyume.ibabym.Dao.DaoUtils;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
@@ -45,10 +43,8 @@ public class ViewBabyInfo extends AppCompatActivity {
         setContentView(R.layout.activity_viewbaby);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
-        Long userId = sharedPreferences.getLong("loginUserId",0L);
-
-        Inoculation inoculation = selectBaby(userId);
+        Inoculation inoculation = getBaby();
+        Long viewBabyId = inoculation.getId();
         initView(inoculation);
 
         mComeBack.setOnClickListener(new View.OnClickListener() {
@@ -62,13 +58,31 @@ public class ViewBabyInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ViewBabyInfo.this, UpdateBaby.class);
+                intent.putExtra("BabyId",viewBabyId);
                 startActivity(intent);
             }
         });
 
     }
-    private Inoculation selectBaby(Long parentId){
+    private Inoculation getBaby(){
+        Intent intentGetId = getIntent();
+        Long babyId = intentGetId.getLongExtra("manageBabyId",0L);
+        if(babyId == 0){
+            SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
+            Long userId = sharedPreferences.getLong("loginUserId",0L);
+
+            Inoculation inoculation = selectBabyByParent(userId);
+            return inoculation;
+        }
+        return selectBabyBySelf(babyId);
+
+    }
+    private Inoculation selectBabyByParent(Long parentId){
         Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(parentId)).unique();
+        return inoculation;
+    }
+    private Inoculation selectBabyBySelf(Long babyId){
+        Inoculation inoculation = babydao.load(babyId);
         return inoculation;
     }
     private void initView(Inoculation inoculation){

@@ -52,11 +52,7 @@ public class UpdateBaby  extends AppCompatActivity {
         setContentView(R.layout.activity_editbaby);
         ButterKnife.bind(this);
 
-
-        SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
-        Long userId = sharedPreferences.getLong("loginUserId",0L);
-
-        Inoculation inoculation = selectBaby(userId);
+        Inoculation inoculation = getBaby();
         initView(inoculation);
 
         mComeBack.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +82,19 @@ public class UpdateBaby  extends AppCompatActivity {
 
         });
     }
+    private Inoculation getBaby(){
+        Intent intentGetId = getIntent();
+        Long babyId = intentGetId.getLongExtra("BabyId",0L);
+        if(babyId == 0){
+            SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
+            Long userId = sharedPreferences.getLong("loginUserId",0L);
+
+            Inoculation inoculation = selectBabyByParent(userId);
+            return inoculation;
+        }
+        return selectBabyBySelf(babyId);
+
+    }
     private void initView(Inoculation inoculation){
         mEditBabyName.setText(inoculation.getInoculBaby());
         mEditHomeAd.setText(inoculation.getBabyHome());
@@ -110,7 +119,11 @@ public class UpdateBaby  extends AppCompatActivity {
         inoculation.setBabyAdress(babyNow);
         babydao.update(inoculation);
     }
-    private Inoculation selectBaby(Long parentId){
+    private Inoculation selectBabyBySelf(Long babyId){
+        Inoculation inoculation = babydao.load(babyId);
+        return inoculation;
+    }
+    private Inoculation selectBabyByParent(Long parentId){
         Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(parentId)).unique();
         return inoculation;
     }
