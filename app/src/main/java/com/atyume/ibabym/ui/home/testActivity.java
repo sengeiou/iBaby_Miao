@@ -100,7 +100,7 @@ public class testActivity extends AppCompatActivity {
             Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
         }
 
-        /*long insert3 = examInfoDao.insert(new ExamInfo(1L,"小儿遗尿检查",98.0,"福建省福州市现代妇产医院"));
+        /*long insert3 = examInfoDao.insert(new ExamInfoActivity(1L,"小儿遗尿检查",98.0,"福建省福州市现代妇产医院"));
         if (insert3 > 0) {
             Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
         }*/

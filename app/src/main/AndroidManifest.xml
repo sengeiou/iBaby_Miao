@@ -36,6 +36,7 @@
         <!--体检套餐-->
         <activity android:name=".ui.home.ExamViewActivity"></activity>
         <activity android:name=".ui.home.EditExam"></activity>
+        <activity android:name=".ui.home.ExamInfoActivity"></activity>
         <!--疫苗-->
         <activity android:name=".ui.home.MiaoManage"></activity>
         <activity android:name=".ui.home.EditMiao"></activity>

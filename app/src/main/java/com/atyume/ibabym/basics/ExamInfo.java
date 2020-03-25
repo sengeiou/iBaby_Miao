@@ -71,7 +71,7 @@ public class ExamInfo {        //体检套餐信息
 
     @Override
     public String toString() {
-        return "ExamInfo{" +
+        return "ExamInfoActivity{" +
                 "id=" + id +
                 ", examName='" + examName + '\'' +
                 ", examPrice=" + examPrice +

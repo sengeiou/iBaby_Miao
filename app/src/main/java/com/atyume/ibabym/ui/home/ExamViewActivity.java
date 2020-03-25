@@ -105,7 +105,7 @@ public class ExamViewActivity extends Activity implements View.OnClickListener, 
 
         mRadioAdapter.setOnMyItemClickListener((v, pos) -> {
             Toast.makeText(ExamViewActivity.this,"onClick---"+pos+"mDatas:"+mList.get(pos).toString(),Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(ExamViewActivity.this, EditExam.class);
+            Intent intent = new Intent(ExamViewActivity.this, ExamInfoActivity.class);
             intent.putExtra("manageExamId",(mList.get(pos)).getExamId());
             startActivity(intent);
         });
