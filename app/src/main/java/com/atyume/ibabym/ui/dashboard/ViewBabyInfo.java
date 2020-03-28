@@ -65,26 +65,17 @@ public class ViewBabyInfo extends AppCompatActivity {
 
     }
     private Inoculation getBaby(){
-        Intent intentGetId = getIntent();
-        Long babyId = intentGetId.getLongExtra("manageBabyId",0L);
-        if(babyId == 0){
-            SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
-            Long userId = sharedPreferences.getLong("loginUserId",0L);
+        SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
+        Long userId = sharedPreferences.getLong("loginUserId",0L);
 
-            Inoculation inoculation = selectBabyByParent(userId);
-            return inoculation;
-        }
-        return selectBabyBySelf(babyId);
-
+        Inoculation inoculation = selectBabyByParent(userId);
+        return inoculation;
     }
     private Inoculation selectBabyByParent(Long parentId){
         Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(parentId)).unique();
         return inoculation;
     }
-    private Inoculation selectBabyBySelf(Long babyId){
-        Inoculation inoculation = babydao.load(babyId);
-        return inoculation;
-    }
+
     private void initView(Inoculation inoculation){
         mShowBabyName.setText(inoculation.getInoculBaby());
         mShowBabyHome.setText(inoculation.getBabyHome());

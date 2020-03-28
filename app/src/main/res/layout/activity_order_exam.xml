@@ -56,11 +56,33 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <TextView
-                    android:id="@+id/edit_examName"
+                    android:id="@+id/show_examName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
                     android:text="儿童6个月体检套餐"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/qmui_divider_bottom_bitmap"
+                    android:textColor="?attr/qmui_config_color_gray_5"
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+                <!--体检医院-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:text="体检医院"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--输入框-->
+                <TextView
+                    android:id="@+id/show_examHos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:hint="体检医院名称"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:textColor="?attr/qmui_config_color_gray_5"
@@ -72,16 +94,16 @@
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
                     android:text="套餐价格"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="8dp"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--输入框-->
                 <TextView
-                    android:id="@+id/edit_examPrice"
+                    android:id="@+id/show_examPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
-                    android:text="658元"
+                    android:text=""
                     android:layout_marginTop="8dp"
                     android:layout_gravity="fill"
                     android:textColor="?attr/qmui_config_color_gray_5"
@@ -92,12 +114,58 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
-                    android:text="套餐包含体检项目"
-                    android:layout_marginTop="15dp"
+                    android:text="套餐内包含体检项目详情"
+                    android:layout_marginTop="8dp"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <TableLayout
+                    android:id="@+id/TableLayout_Project"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0,1"
+                    android:background="#696666"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp">
+
+                    <TableRow
+                        android:background="@drawable/qmui_s_list_item_bg_1">
+                        <TextView
+                            android:id="@+id/TV_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="0.5dp"
+                            android:background="#ffffffff"
+                            android:text="体检项目"
+                            android:gravity="center"/>
+                        <TextView
+                            android:id="@+id/TV_2"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="0.5dp"
+                            android:background="#ffffffff"
+                            android:text="意义"
+                            android:gravity="center"/>
+                    </TableRow>
+                    <!--<TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="0.5dp"
+                            android:background="#ffffff"
+                            android:text="噢噢噢噢噢噢噢噢哦哦"
+                            />
+                        <TextView
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="0.5dp"
+                            android:background="#ffffff"
+                            android:text="wooooooooooooooooooooooooooooooooooooooowowowowowo我噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢哦哦"
+                            />
+                    </TableRow>-->
+
+                </TableLayout>
                 <!--输入框-->
-                <TextView
+                <!--<TextView
                     android:id="@+id/edit_examProject"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -106,7 +174,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_gravity="fill"
                     android:textColor="?attr/qmui_config_color_gray_5"
-                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />-->
 
             </GridLayout>
             <!--提交按钮位置-->

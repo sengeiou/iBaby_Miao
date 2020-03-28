@@ -55,7 +55,7 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--宝宝姓名输入框-->
                 <EditText
-                    android:id="@+id/edittext_babyName"
+                    android:id="@+id/edit_OrderExamBaby"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
@@ -63,7 +63,7 @@
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                <!--接种地区-->
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,9 +74,8 @@
                     android:text="体检医院"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-                <!--接种地区输入框-->
                 <EditText
-                    android:id="@+id/edittext_certiArea"
+                    android:id="@+id/edit_OrderHos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
@@ -84,7 +83,7 @@
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                <!--接种时间-->
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,9 +94,9 @@
                     android:text="预约体检时间"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-                <!--接种地区输入框-->
+
                 <EditText
-                    android:id="@+id/edittext_certiTime"
+                    android:id="@+id/edit_OrderExamTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"

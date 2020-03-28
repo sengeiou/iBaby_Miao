@@ -2,17 +2,22 @@ package com.atyume.ibabym.ui.home;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.InoculationDao;
@@ -23,12 +28,17 @@ import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
 
 import com.atyume.ibabym.ui.notifications.EditUser;
+
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EditBaby extends AppCompatActivity {
+public class EditBaby extends AppCompatActivity{
 
     @BindView(R.id.comeBack)
     TextView mComeBack;
@@ -40,15 +50,18 @@ public class EditBaby extends AppCompatActivity {
     EditText mEditBabyName;
     @BindView(R.id.edit_babyBirth)
     EditText mEditBabyBirth;
-    @BindView(R.id.edit_babySex)
-    RadioGroup mEditBabySex;
+    @BindView(R.id.img_babyBirth)
+    ImageView img_datePicker;
+    @BindView(R.id.edit_babySexMale)
+    RadioButton mMale;
+    @BindView(R.id.edit_babySexFemale)
+    RadioButton mFemale;
     @BindView(R.id.edit_homead)
     EditText mEditHomeAd;
     @BindView(R.id.edit_nowad)
     EditText mEditNowAd;
 
-    String babyName,babyHome,babyNow;
-
+    String babyName,babySex,babyDate,babyHome,babyNow;
     private InoculationDao babydao = MyApplication.getInstances().getDaoSession().getInoculationDao();
 
 
@@ -57,7 +70,6 @@ public class EditBaby extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editbaby);
         ButterKnife.bind(this);
-        /*mdaoUtils = new DaoUtils(this);*/
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
         Long userId = sharedPreferences.getLong("loginUserId",0L);
@@ -68,8 +80,14 @@ public class EditBaby extends AppCompatActivity {
                 EditBaby.this.finish();
             }
         });
+        img_datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+        }
+        });
         mbtnAddBaby.setOnClickListener(new View.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
             public void onClick(View view){
                 getEditText();
@@ -92,11 +110,20 @@ public class EditBaby extends AppCompatActivity {
             }
 
         });
+
     }
+
     private void getEditText(){
         babyName = mEditBabyName.getText().toString();
         babyHome = mEditHomeAd.getText().toString();
         babyNow = mEditNowAd.getText().toString();
+        babyDate = mEditBabyBirth.getText().toString();
+        if(mMale.isChecked()){
+            babySex = "男";
+        }
+        else if(mFemale.isChecked()){
+            babySex = "女";
+        }
     }
     private void insertBaby(String babyName,String babyHome,String babyNow,Long userId){
         babydao.insert(new Inoculation(babyName,babyHome,babyNow,userId));
@@ -104,6 +131,11 @@ public class EditBaby extends AppCompatActivity {
     private Long selectBabyId(String babyName){
         Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.InoculBaby.eq(babyName)).unique();
         return inoculation.getId();
+    }
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+        Log.d("getTime()", "choice date millis: " + date.getTime());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
     }
 
 }

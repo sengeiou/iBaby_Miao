@@ -47,6 +47,7 @@
         <activity android:name=".ui.home.EditBaby"></activity>
         <activity android:name=".ui.dashboard.ViewBabyInfo"></activity>
         <activity android:name=".ui.notifications.UpdateBaby"></activity>
+        <activity android:name=".ui.home.BabyAllInfo"></activity>
         <!--医院信息-->
         <activity android:name=".ui.home.EditHos"></activity>
         <activity android:name=".ui.home.HosViewActivity"></activity>

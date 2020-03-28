@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TableLayout
+        android:id="@+id/TableLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1"
+        android:background="#000000"
+        android:gravity="center"
+        android:layout_margin="20dp">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/TV_1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                android:text="体检项目"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/TV_2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                android:text="意义"
+                android:gravity="center"/>
+        </TableRow>
+    </TableLayout>
+
+
+</LinearLayout>

@@ -10,9 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.atyume.greendao.gen.ExamInfoDao;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.RecyclerAdapter;
+import com.atyume.ibabym.basics.ExamInfo;
+import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
+import com.atyume.ibabym.utils.MyExamList;
 import com.atyume.ibabym.utils.MyLiveList;
 
 import java.util.ArrayList;
@@ -30,6 +34,7 @@ public class RecyclerExamActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerAdapter recyclerAdapter;
 
+    private ExamInfoDao examInfoDao = MyApplication.getInstances().getDaoSession().getExamInfoDao();
     private String[] data = {"儿童6个月体检套餐","儿童一岁体检套餐","儿童一岁半体检套餐","儿童二岁体检套餐","儿童二岁半体检套餐","儿童三岁体检套餐","儿童三岁半体检套餐"};
 
     @Override
@@ -77,12 +82,19 @@ public class RecyclerExamActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        for (int i = 0; i < data.length; i++) {
-            MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle(data[i]);
-            myLiveList.setSource(data[i]);
-            mDatas.add(myLiveList);
+        List<ExamInfo> examInfoList = getThis();
+        //数据
+        for (int i = 0; i < examInfoList.size(); i++) {
+            MyLiveList myExamList = new MyLiveList();
+            myExamList.setTitle(examInfoList.get(i).getExamName());
+            myExamList.setSource(examInfoList.get(i).getExamHosName());
+            myExamList.setId(examInfoList.get(i).getId());
+            mDatas.add(myExamList);
         }
+    }
+    private List<ExamInfo> getThis(){
+        List<ExamInfo> examInfoList = examInfoDao.loadAll();
+        return examInfoList;
     }
 
     private void initView() {
