@@ -53,7 +53,6 @@ public class Inoculation {       //接种档案信息
     public Inoculation() {
     }
 
-
     public Long getId() {
         return id;
     }

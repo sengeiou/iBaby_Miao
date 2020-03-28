@@ -1,7 +1,10 @@
 package com.atyume.ibabym.basics;
 
+import androidx.annotation.NonNull;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 
@@ -10,26 +13,15 @@ public class OrderExamInfo {     //体检订单
     @Id(autoincrement = true)
     private Long id;
     @NotNull
-    private String examHosName;          //体检医院名称
+    private Long examId;          //体检信息
     @NotNull
     private Long inoculId;              //体检宝宝
     @NotNull
+    private String takeTime;           //下单时间
+    @NotNull
+    private String orderTime;             //预约时间
+    @NotNull
     private Integer isSucced;             //体检是否完成，0为未完成
-
-
-    @Generated(hash = 335874105)
-    public OrderExamInfo(Long id, @NotNull String examHosName,
-            @NotNull Long inoculId, @NotNull Integer isSucced) {
-        this.id = id;
-        this.examHosName = examHosName;
-        this.inoculId = inoculId;
-        this.isSucced = isSucced;
-    }
-
-    @Generated(hash = 1818395719)
-    public OrderExamInfo() {
-    }
-
 
     public Long getId() {
         return id;
@@ -39,12 +31,12 @@ public class OrderExamInfo {     //体检订单
         this.id = id;
     }
 
-    public String getExamHosName() {
-        return examHosName;
+    public Long getExamId() {
+        return examId;
     }
 
-    public void setExamHosName(String examHosName) {
-        this.examHosName = examHosName;
+    public void setExamId(Long examId) {
+        this.examId = examId;
     }
 
     public Long getInoculId() {
@@ -53,6 +45,22 @@ public class OrderExamInfo {     //体检订单
 
     public void setInoculId(Long inoculId) {
         this.inoculId = inoculId;
+    }
+
+    public String getTakeTime() {
+        return takeTime;
+    }
+
+    public void setTakeTime(String takeTime) {
+        this.takeTime = takeTime;
+    }
+
+    public String getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
     }
 
     public Integer getIsSucced() {

@@ -10,9 +10,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.atyume.greendao.gen.ExamInfoDao;
+import com.atyume.greendao.gen.OrderExamInfoDao;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.OrderRecyclerAdapter;
+import com.atyume.ibabym.basics.ExamInfo;
+import com.atyume.ibabym.basics.MyApplication;
+import com.atyume.ibabym.basics.OrderExamInfo;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
+import com.atyume.ibabym.ui.dashboard.OrderExam;
 import com.atyume.ibabym.utils.MyOrderList;
 
 import java.util.ArrayList;
@@ -26,6 +32,8 @@ public class OrderExamFragment  extends Fragment {
     private OrderRecyclerAdapter recyclerAdapter;
 
     private String[] data = {"儿童6个月体检套餐","儿童一岁体检套餐","儿童一岁半体检套餐","儿童二岁体检套餐","儿童二岁半体检套餐","儿童三岁体检套餐","儿童三岁半体检套餐"};
+    private OrderExamInfoDao orderExamInfoDao = MyApplication.getInstances().getDaoSession().getOrderExamInfoDao();
+    private ExamInfoDao examInfoDao = MyApplication.getInstances().getDaoSession().getExamInfoDao();
 
     @Override
     @NonNull
@@ -43,28 +51,31 @@ public class OrderExamFragment  extends Fragment {
 
         recyclerAdapter = new OrderRecyclerAdapter(getActivity(),mDatas);
         recyclerView.setAdapter(recyclerAdapter);
-        /*mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity(),LinearLayoutManager.VERTICAL,false));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this.getActivity(),DividerItemDecoration.VERTICAL_LIST));  //设置间隔（可选水平或者垂直）*/
-        /*recyclerAdapter.setOnMyItemClickListener(new OrderRecyclerAdapter.OnMyItemClickListener() {
-            @Override
-            public void myClick(View v, int pos) {
-                System.out.println("onClick---"+pos);
-                Intent intent = new Intent(getActivity(),ViewMiaoDetail.class);
-                startActivity(intent);
-r
-            }
-
-        });*/
         return root;
     }
     private void initData() {
-        for (int i = 0; i < data.length; i++) {
+        List<OrderExamInfo> orderExamInfoList = getOrderList();
+        for (OrderExamInfo orderExamInfo : orderExamInfoList) {
             MyOrderList myOrderList = new MyOrderList();
-            myOrderList.setTitle(data[i]);
+            myOrderList.setTitle("hi");
             myOrderList.setIsfinish("未完成");
             myOrderList.setTake_Ordertime("2020-03-15");
             myOrderList.setOrderTime("2020-03-17");
             mDatas.add(myOrderList);
         }
+    }
+    /*private List<MyOrderList> getData(){
+        List<OrderExamInfo> orderExamInfoList = getOrderList();
+        for (OrderExamInfo orderExamInfo : orderExamInfoList) {
+            MyOrderList myOrderList = new MyOrderList();
+        }
+    }*/
+    private List<OrderExamInfo> getOrderList(){
+        List<OrderExamInfo> orderExamInfoList = orderExamInfoDao.loadAll();
+        return orderExamInfoList;
+    }
+    private String getExamName(Long examId){
+        ExamInfo examInfo = examInfoDao.load(examId);
+        return examInfo.getExamName();
     }
 }

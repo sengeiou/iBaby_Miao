@@ -36,7 +36,6 @@ public class ExamInfo {        //体检套餐信息
     public ExamInfo() {
     }
 
-
     public Long getId() {
         return id;
     }

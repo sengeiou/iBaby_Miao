@@ -13,7 +13,6 @@ public class AdminUser {        //管理员信息
     @NotNull
     private String adminPwd;         /*管理员密码*/
 
-
     @Generated(hash = 844780728)
     public AdminUser(Long id, String adminName, @NotNull String adminPwd) {
         this.id = id;
@@ -24,7 +23,6 @@ public class AdminUser {        //管理员信息
     @Generated(hash = 1838735988)
     public AdminUser() {
     }
-
 
     public Long getId() {
         return id;

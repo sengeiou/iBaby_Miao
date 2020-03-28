@@ -2,6 +2,7 @@ package com.atyume.ibabym.basics;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
 
 import java.util.Date;
@@ -12,9 +13,9 @@ public class OrderVaccin {         //疫苗订单信息
     @Id(autoincrement = true)
     private Long id;
     @NotNull
-    private Date inocluTime;     /*接种时间*/
+    private String inocluTime;     /*接种时间*/
     @NotNull
-    private Date orderVaccinTime;    /*预约时间*/
+    private String orderVaccinTime;    /*预约时间*/
     @NotNull
     private Long inocluId;       /*接种宝宝*/
     @NotNull
@@ -24,11 +25,21 @@ public class OrderVaccin {         //疫苗订单信息
     @NotNull
     private Integer isSucceed;    /*判断是否已接种，未接种为0*/
 
-    @Generated(hash = 1051131363)
-    public OrderVaccin(Long id, @NotNull Date inocluTime,
-            @NotNull Date orderVaccinTime, @NotNull Long inocluId,
-            @NotNull Long vaccinId, @NotNull Long hosId,
-            @NotNull Integer isSucceed) {
+    @Keep
+    public OrderVaccin(String inocluTime, String orderVaccinTime, Long inocluId, Long vaccinId, Long hosId, Integer isSucceed) {
+        this.inocluTime = inocluTime;
+        this.orderVaccinTime = orderVaccinTime;
+        this.inocluId = inocluId;
+        this.vaccinId = vaccinId;
+        this.hosId = hosId;
+        this.isSucceed = isSucceed;
+    }
+
+
+
+    @Generated(hash = 1947773316)
+    public OrderVaccin(Long id, @NotNull String inocluTime, @NotNull String orderVaccinTime, @NotNull Long inocluId,
+            @NotNull Long vaccinId, @NotNull Long hosId, @NotNull Integer isSucceed) {
         this.id = id;
         this.inocluTime = inocluTime;
         this.orderVaccinTime = orderVaccinTime;
@@ -38,9 +49,13 @@ public class OrderVaccin {         //疫苗订单信息
         this.isSucceed = isSucceed;
     }
 
+
+
     @Generated(hash = 1311314865)
     public OrderVaccin() {
     }
+
+
 
     public Long getId() {
         return id;
@@ -50,19 +65,19 @@ public class OrderVaccin {         //疫苗订单信息
         this.id = id;
     }
 
-    public Date getInocluTime() {
+    public String getInocluTime() {
         return inocluTime;
     }
 
-    public void setInocluTime(Date inocluTime) {
+    public void setInocluTime(String inocluTime) {
         this.inocluTime = inocluTime;
     }
 
-    public Date getOrderVaccinTime() {
+    public String getOrderVaccinTime() {
         return orderVaccinTime;
     }
 
-    public void setOrderVaccinTime(Date orderVaccinTime) {
+    public void setOrderVaccinTime(String orderVaccinTime) {
         this.orderVaccinTime = orderVaccinTime;
     }
 
