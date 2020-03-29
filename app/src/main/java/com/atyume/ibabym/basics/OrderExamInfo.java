@@ -23,6 +23,31 @@ public class OrderExamInfo {     //体检订单
     @NotNull
     private Integer isSucced;             //体检是否完成，0为未完成
 
+    @Keep
+    public OrderExamInfo(Long examId, Long inoculId, String takeTime, String orderTime, Integer isSucced) {
+        this.examId = examId;
+        this.inoculId = inoculId;
+        this.takeTime = takeTime;
+        this.orderTime = orderTime;
+        this.isSucced = isSucced;
+    }
+
+    @Generated(hash = 2097369956)@Keep
+    public OrderExamInfo(Long id, @NotNull Long examId, @NotNull Long inoculId,
+            @NotNull String takeTime, @NotNull String orderTime,
+            @NotNull Integer isSucced) {
+        this.id = id;
+        this.examId = examId;
+        this.inoculId = inoculId;
+        this.takeTime = takeTime;
+        this.orderTime = orderTime;
+        this.isSucced = isSucced;
+    }
+
+    @Generated(hash = 1818395719)@Keep
+    public OrderExamInfo() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -69,5 +94,17 @@ public class OrderExamInfo {     //体检订单
 
     public void setIsSucced(Integer isSucced) {
         this.isSucced = isSucced;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderExamInfo{" +
+                "id=" + id +
+                ", examId=" + examId +
+                ", inoculId=" + inoculId +
+                ", takeTime='" + takeTime + '\'' +
+                ", orderTime='" + orderTime + '\'' +
+                ", isSucced=" + isSucced +
+                '}';
     }
 }

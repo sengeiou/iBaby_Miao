@@ -74,6 +74,7 @@ public class ExamViewActivity extends Activity implements View.OnClickListener, 
         ButterKnife.bind(this);
 
         initData();
+        initView();
         initListener();
     }
 
@@ -94,7 +95,7 @@ public class ExamViewActivity extends Activity implements View.OnClickListener, 
         }
     }
 
-    protected void initData(){
+    protected void initData() {
         mRadioAdapter = new ExamRadioAdapter(this);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerview.setLayoutManager(mLinearLayoutManager);
@@ -104,12 +105,16 @@ public class ExamViewActivity extends Activity implements View.OnClickListener, 
         mRecyclerview.setAdapter(mRadioAdapter);
 
         mRadioAdapter.setOnMyItemClickListener((v, pos) -> {
-            Toast.makeText(ExamViewActivity.this,"onClick---"+pos+"mDatas:"+mList.get(pos).toString(),Toast.LENGTH_LONG).show();
+            Toast.makeText(ExamViewActivity.this, "onClick---" + pos + "mDatas:" + mList.get(pos).toString(), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(ExamViewActivity.this, ExamInfoActivity.class);
-            intent.putExtra("manageExamId",(mList.get(pos)).getExamId());
+            intent.putExtra("manageExamId", (mList.get(pos)).getExamId());
             startActivity(intent);
         });
-
+    }
+    private void initView(){
+        if(getThis() == null){
+            return;
+        }
         List<ExamInfo> examInfoList = getThis();
         //数据
         for (int i = 0; i < examInfoList.size(); i++) {
@@ -123,7 +128,8 @@ public class ExamViewActivity extends Activity implements View.OnClickListener, 
         }
     }
     private List<ExamInfo> getThis(){
-        List<ExamInfo> examInfoList = examInfoDao.loadAll();
+        List<ExamInfo> examInfoList = new ArrayList<ExamInfo>();
+        examInfoList = examInfoDao.loadAll();
         return examInfoList;
     }
 

@@ -73,6 +73,7 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
         ButterKnife.bind(this);
 
         initData();
+        initView();
         initListener();
     }
 
@@ -93,7 +94,7 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
         }
     }
 
-    protected void initData(){
+    protected void initData() {
         mRadioAdapter = new MineRadioAdapter(this);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerview.setLayoutManager(mLinearLayoutManager);
@@ -102,11 +103,16 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
         mRadioAdapter.setOnMyItemClickListener((v, pos) -> {
-            Toast.makeText(BabyViewActivity.this,"onClick---"+pos+"mDatas:"+mList.get(pos).toString(),Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(BabyViewActivity.this, ViewBabyInfo.class);
-            intent.putExtra("manageBabyId",(mList.get(pos)).getId());
+            Toast.makeText(BabyViewActivity.this, "onClick---" + pos + "mDatas:" + mList.get(pos).toString(), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(BabyViewActivity.this, BabyAllInfo.class);
+            intent.putExtra("manageBabyId", (mList.get(pos)).getId());
             startActivity(intent);
         });
+    }
+    private void initView(){
+        if(getThis() == null){
+            return;
+        }
         List<Inoculation> inoculationList = getThis();
         //数据
         for (int i = 0; i < inoculationList.size(); i++) {
@@ -120,7 +126,8 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
     }
 
     private List<Inoculation> getThis(){
-        List<Inoculation> inoculationList = inoculationDao.loadAll();
+        List<Inoculation> inoculationList = new ArrayList<Inoculation>();
+        inoculationList = inoculationDao.loadAll();
         return inoculationList;
     }
     protected void initListener(){

@@ -35,8 +35,7 @@ public class OrderVaccin {         //疫苗订单信息
         this.isSucceed = isSucceed;
     }
 
-
-
+    @Keep
     @Generated(hash = 1947773316)
     public OrderVaccin(Long id, @NotNull String inocluTime, @NotNull String orderVaccinTime, @NotNull Long inocluId,
             @NotNull Long vaccinId, @NotNull Long hosId, @NotNull Integer isSucceed) {
@@ -111,5 +110,18 @@ public class OrderVaccin {         //疫苗订单信息
 
     public void setIsSucceed(Integer isSucceed) {
         this.isSucceed = isSucceed;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderVaccin{" +
+                "id=" + id +
+                ", inocluTime='" + inocluTime + '\'' +
+                ", orderVaccinTime='" + orderVaccinTime + '\'' +
+                ", inocluId=" + inocluId +
+                ", vaccinId=" + vaccinId +
+                ", hosId=" + hosId +
+                ", isSucceed=" + isSucceed +
+                '}';
     }
 }

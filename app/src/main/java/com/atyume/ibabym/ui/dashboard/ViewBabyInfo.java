@@ -78,7 +78,9 @@ public class ViewBabyInfo extends AppCompatActivity {
 
     private void initView(Inoculation inoculation){
         mShowBabyName.setText(inoculation.getInoculBaby());
-        mShowBabyHome.setText(inoculation.getBabyHome());
-        mShowBabyNow.setText(inoculation.getBabyAdress());
+        mShowBabyHome.setText(inoculation.getBabyAdress());
+        mShowBabyNow.setText(inoculation.getBabyHome());
+        mShowBabyBirth.setText(inoculation.getBabyData());
+        mShowBabySex.setText(inoculation.getBabySex());
     }
 }

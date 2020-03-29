@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,14 +37,18 @@ public class UpdateBaby  extends AppCompatActivity {
     EditText mEditBabyName;
     @BindView(R.id.edit_babyBirth)
     EditText mEditBabyBirth;
-    @BindView(R.id.edit_babySex)
-    RadioGroup mEditBabySex;
+    @BindView(R.id.img_babyBirth)
+    ImageView mImgBirth;
+    @BindView(R.id.edit_babySexMale)
+    RadioButton mMale;
+    @BindView(R.id.edit_babySexFemale)
+    RadioButton mFemale;
     @BindView(R.id.edit_homead)
     EditText mEditHomeAd;
     @BindView(R.id.edit_nowad)
     EditText mEditNowAd;
 
-    String babyName,babyHome,babyNow;
+    String babyName,babyDate,babySex,babyAdress,babyHome;
 
     private InoculationDao babydao = MyApplication.getInstances().getDaoSession().getInoculationDao();
 
@@ -71,7 +77,7 @@ public class UpdateBaby  extends AppCompatActivity {
                     return;
                 }
                 else{
-                    updateBaby(inoculation,babyName,babyHome,babyNow);
+                    updateBaby(inoculation.getId(),babyName,babyDate,babySex,babyAdress,babyHome);
 
                     Intent intent = new Intent(UpdateBaby.this, MainActivity.class);
                     Toast.makeText(UpdateBaby.this,"修改了"+babyName+"宝宝",Toast.LENGTH_LONG).show();
@@ -97,26 +103,46 @@ public class UpdateBaby  extends AppCompatActivity {
     }
     private void initView(Inoculation inoculation){
         mEditBabyName.setText(inoculation.getInoculBaby());
-        mEditHomeAd.setText(inoculation.getBabyHome());
-        mEditNowAd.setText(inoculation.getBabyAdress());
+        mEditBabyBirth.setText(inoculation.getBabyData());
+        mEditHomeAd.setText(inoculation.getBabyAdress());
+        mEditNowAd.setText(inoculation.getBabyHome());
+        if((inoculation.getBabySex()).equals("男")){
+            mMale.setChecked(true);
+            mFemale.setChecked(false);
+        }
+        if((inoculation.getBabySex()).equals("女")){
+            mMale.setChecked(false);
+            mFemale.setChecked(true);
+        }
     }
     private void getEditText(){
         babyName = mEditBabyName.getText().toString();
-        babyHome = mEditHomeAd.getText().toString();
-        babyNow = mEditNowAd.getText().toString();
+        babyAdress = mEditHomeAd.getText().toString();
+        babyHome = mEditNowAd.getText().toString();
+        babyDate = mEditBabyBirth.getText().toString();
+        if(mMale.isChecked()){
+            babySex = "男";
+        }
+        else if(mFemale.isChecked()){
+            babySex = "女";
+        }
     }
-    private void updateBaby(Inoculation inoculation,String babyName,String babyHome,String babyNow){
+    private void updateBaby(Inoculation inoculation,String babyName,String babyDate,String babySex,String babyAdress,String babyHome){
         inoculation.setInoculBaby(babyName);
-        inoculation.setBabyHome(babyHome);
-        inoculation.setBabyAdress(babyNow);
+        inoculation.setBabyData(babyDate);
+        inoculation.setBabySex(babySex);
+        inoculation.setBabyHome(babyAdress);
+        inoculation.setBabyAdress(babyHome);
         babydao.update(inoculation);
     }
 
-    private void updateBaby(Long babyId,String babyName,String babyHome,String babyNow){
+    private void updateBaby(Long babyId,String babyName,String babyDate,String babySex,String babyAdress,String babyHome){
         Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.Id.eq(babyId)).unique();
         inoculation.setInoculBaby(babyName);
-        inoculation.setBabyHome(babyHome);
-        inoculation.setBabyAdress(babyNow);
+        inoculation.setBabyData(babyDate);
+        inoculation.setBabySex(babySex);
+        inoculation.setBabyHome(babyAdress);
+        inoculation.setBabyAdress(babyHome);
         babydao.update(inoculation);
     }
     private Inoculation selectBabyBySelf(Long babyId){

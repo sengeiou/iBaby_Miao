@@ -12,7 +12,7 @@ public class Vaccin {
     private Long id;
     @NotNull
     private String vaccinName;           //疫苗名称
-    private String vaccinEffect;          //疫苗作用
+    private String vaccinEffect;          //疫苗作用(预防疾病)
     private String vaccinAttention;        //接种注意事项
     private String vaccinDisadv;           //接种不良反应
     @NotNull
@@ -41,7 +41,7 @@ public class Vaccin {
         this.vaccinAmount = vaccinAmount;
     }
 
-    @Generated(hash = 864148609)
+    @Generated(hash = 864148609)@Keep
     public Vaccin(Long id, @NotNull String vaccinName, String vaccinEffect, String vaccinAttention, String vaccinDisadv, @NotNull String vaccinAge, @NotNull String vaccinProcess, @NotNull Double vaccinPrice,
             String produceCompany, @NotNull String vaccinNo, @NotNull Long vaccinAmount) {
         this.id = id;
@@ -57,7 +57,7 @@ public class Vaccin {
         this.vaccinAmount = vaccinAmount;
     }
 
-    @Generated(hash = 1438921313)
+    @Generated(hash = 1438921313)@Keep
     public Vaccin() {
     }
 

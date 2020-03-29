@@ -27,7 +27,7 @@ public class HosInfo {           //卫生院信息
         this.vaccinAmount = vaccinAmount;
     }
 
-    @Generated(hash = 1782750859)
+    @Generated(hash = 1782750859)@Keep
     public HosInfo(Long id, @NotNull String hosName, @NotNull String hosAdress,
             @NotNull Long vaccinId, @NotNull Long vaccinAmount) {
         this.id = id;
@@ -37,7 +37,7 @@ public class HosInfo {           //卫生院信息
         this.vaccinAmount = vaccinAmount;
     }
 
-    @Generated(hash = 1450780860)
+    @Generated(hash = 1450780860)@Keep
     public HosInfo() {
     }
 

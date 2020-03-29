@@ -15,7 +15,7 @@ public class Inoculation {       //接种档案信息
     private Long id;
     @NotNull
     private String inoculBaby;      /*宝宝名字*/
-    private Date babyData;     /*出生日期*/
+    private String babyData;     /*出生日期*/
     private String babySex;       /*宝宝性别*/
     private String babyAdress;    /*户口地址*/
     private String babyHome;         /*常住地址*/
@@ -23,23 +23,17 @@ public class Inoculation {       //接种档案信息
     private Long parentId;          /*宝宝父母*/
 
     @Keep
-    public Inoculation(Long id,String inoculBaby, String babySex, String babyAdress, String babyHome, Long parentId) {
-        this.id = id;
+    public Inoculation(String inoculBaby, String babyData, String babySex, String babyAdress, String babyHome, Long parentId) {
         this.inoculBaby = inoculBaby;
+        this.babyData = babyData;
         this.babySex = babySex;
         this.babyAdress = babyAdress;
         this.babyHome = babyHome;
         this.parentId = parentId;
     }
-    @Keep
-    public Inoculation(String inoculBaby, String babyAdress, String babyHome, Long parentId) {
-        this.inoculBaby = inoculBaby;
-        this.babyAdress = babyAdress;
-        this.babyHome = babyHome;
-        this.parentId = parentId;
-    }
-    @Generated(hash = 771586055)
-    public Inoculation(Long id, @NotNull String inoculBaby, Date babyData, String babySex, String babyAdress,
+
+    @Generated(hash = 771586055)@Keep
+    public Inoculation(Long id, @NotNull String inoculBaby, String babyData, String babySex, String babyAdress,
             String babyHome, @NotNull Long parentId) {
         this.id = id;
         this.inoculBaby = inoculBaby;
@@ -49,7 +43,7 @@ public class Inoculation {       //接种档案信息
         this.babyHome = babyHome;
         this.parentId = parentId;
     }
-    @Generated(hash = 1426994754)
+    @Generated(hash = 1426994754)@Keep
     public Inoculation() {
     }
 
@@ -69,11 +63,11 @@ public class Inoculation {       //接种档案信息
         this.inoculBaby = inoculBaby;
     }
 
-    public Date getBabyData() {
+    public String getBabyData() {
         return babyData;
     }
 
-    public void setBabyData(Date babyData) {
+    public void setBabyData(String babyData) {
         this.babyData = babyData;
     }
 

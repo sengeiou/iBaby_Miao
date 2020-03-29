@@ -33,9 +33,9 @@ public class BabyAllInfo extends AppCompatActivity {
     EditText mShowBabyName;
     @BindView(R.id.show_babyBirth)
     EditText mShowBabyBirth;
-    @BindView(R.id.edit_babySexMale)
+    @BindView(R.id.update_babySexMale)
     RadioButton mMale;
-    @BindView(R.id.edit_babySexFemale)
+    @BindView(R.id.update_babySexFemale)
     RadioButton mFemale;
     @BindView(R.id.show_babyHomead)
     EditText mShowBabyHome;
@@ -100,7 +100,7 @@ public class BabyAllInfo extends AppCompatActivity {
     }
     private void initView(Inoculation inoculation, ParentInfo parentInfo){
         mShowBabyName.setText(inoculation.getInoculBaby());
-        mShowBabyBirth.setText(inoculation.getBabyData().toString());
+        mShowBabyBirth.setText(inoculation.getBabyData());
         mShowBabyHome.setText(inoculation.getBabyHome());
         mShowBabyNow.setText(inoculation.getBabyAdress());
         mShowParentName.setText(parentInfo.getParentName());
@@ -133,7 +133,7 @@ public class BabyAllInfo extends AppCompatActivity {
     }
     private void updateBaby(Inoculation inoculation){
         inoculation.setInoculBaby(babyName);
-        inoculation.setBabyData(Date.valueOf(babyBirth));
+        inoculation.setBabyData(babyBirth);
         inoculation.setBabySex(babySex);
         inoculation.setBabyHome(babyHomead);
         inoculation.setBabyAdress(babyNowad);

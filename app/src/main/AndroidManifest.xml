@@ -51,6 +51,7 @@
         <!--医院信息-->
         <activity android:name=".ui.home.EditHos"></activity>
         <activity android:name=".ui.home.HosViewActivity"></activity>
+        <activity android:name=".ui.home.HosInfoActivity"></activity>
         <!--登陆注册-->
         <!--<activity android:name=".ui.LoginActivity"></activity>-->
         <activity android:name=".ui.RegisterActivity"></activity>

@@ -1,6 +1,7 @@
 package com.atyume.ibabym.ui.order;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.atyume.greendao.gen.InoculationDao;
+import com.atyume.greendao.gen.OrderVaccinDao;
+import com.atyume.greendao.gen.VaccinDao;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.OrderRecyclerAdapter;
 import com.atyume.ibabym.adapter.RecyclerAdapter;
+import com.atyume.ibabym.basics.Inoculation;
+import com.atyume.ibabym.basics.MyApplication;
+import com.atyume.ibabym.basics.OrderVaccin;
+import com.atyume.ibabym.basics.Vaccin;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
 import com.atyume.ibabym.ui.dashboard.ViewMiaoDetail;
 import com.atyume.ibabym.utils.MyOrderList;
@@ -25,13 +33,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class OrderMiaoFragment extends Fragment {
     private List<MyOrderList> mDatas = new ArrayList<>();
     @BindView(R.id.order_miao_recycler_view)
     RecyclerView mRecyclerView;
     private OrderRecyclerAdapter recyclerAdapter;
 
-    private String[] data = {"九价HPV","四价HPV","二价HPV","三价流感疫苗","四价流感疫苗","狂犬病疫苗","水痘疫苗"};
+//    private String[] data = {"九价HPV","四价HPV","二价HPV","三价流感疫苗","四价流感疫苗","狂犬病疫苗","水痘疫苗"};
+    private OrderVaccinDao orderVaccinDao = MyApplication.getInstances().getDaoSession().getOrderVaccinDao();
+    private InoculationDao inoculationDao = MyApplication.getInstances().getDaoSession().getInoculationDao();
+    private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
 
     @Override
     @NonNull
@@ -59,13 +72,40 @@ public class OrderMiaoFragment extends Fragment {
         return root;
     }
     private void initData() {
-        for (int i = 0; i < data.length; i++) {
+        if(getOrderList() == null){
+            return;
+        }
+        List<OrderVaccin> orderVaccinList = getOrderList();
+        for (OrderVaccin orderVaccin : orderVaccinList) {
             MyOrderList myOrderList = new MyOrderList();
-            myOrderList.setTitle(data[i]);
-            myOrderList.setIsfinish("未完成");
-            myOrderList.setTake_Ordertime("2020-03-15");
-            myOrderList.setOrderTime("2020-03-17");
+            myOrderList.setTitle(getVaccin(orderVaccin.getVaccinId()));
+            myOrderList.setIsfinish(getIsFinish(orderVaccin.getIsSucceed()));
+            myOrderList.setTake_Ordertime(orderVaccin.getOrderVaccinTime());
+            myOrderList.setOrderTime(orderVaccin.getInocluTime());
             mDatas.add(myOrderList);
         }
+    }
+    private List<OrderVaccin> getOrderList(){
+        List<OrderVaccin> orderVaccinList = new ArrayList<OrderVaccin>();
+        orderVaccinList = orderVaccinDao.queryBuilder().where(OrderVaccinDao.Properties.InocluId.eq(selectBabyByParent().getId())).list();
+        return orderVaccinList;
+    }
+
+    private Inoculation selectBabyByParent(){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
+        Long userId = sharedPreferences.getLong("loginUserId",0L);
+        Inoculation inoculation = new Inoculation();
+        inoculation = inoculationDao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(userId)).unique();
+        return inoculation;
+    }
+    private String getVaccin(Long vaccinId){
+        Vaccin vaccin = vaccinDao.load(vaccinId);
+        return vaccin.getVaccinName();
+    }
+    private String getIsFinish(Integer isFinish){
+        if(isFinish==0){
+            return "未完成";
+        }
+        return "已完成";
     }
 }

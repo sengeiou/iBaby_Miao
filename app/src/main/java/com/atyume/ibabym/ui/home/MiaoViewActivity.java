@@ -75,8 +75,8 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         ButterKnife.bind(this);
 
         initData();
+        initView();
         initListener();
-
 
     }
 
@@ -95,6 +95,11 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
             intent.putExtra("manageMiaoId",(mList.get(pos)).getId());
             startActivity(intent);
         });
+    }
+    private void initView(){
+        if(getData() == null){
+            return;
+        }
         //数据
         List<Vaccin> vaccinList = getData();
         for (int i = 0; i < vaccinList.size(); i++) {
@@ -108,7 +113,8 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
     }
 
     private List<Vaccin> getData(){
-        List<Vaccin> vList = vaccinDao.loadAll();
+        List<Vaccin> vList = new ArrayList<Vaccin>();
+        vList = vaccinDao.loadAll();
         return vList;
     }
 

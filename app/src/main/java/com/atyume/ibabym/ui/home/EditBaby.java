@@ -57,11 +57,11 @@ public class EditBaby extends AppCompatActivity{
     @BindView(R.id.edit_babySexFemale)
     RadioButton mFemale;
     @BindView(R.id.edit_homead)
-    EditText mEditHomeAd;
+    EditText mEditAdress;
     @BindView(R.id.edit_nowad)
     EditText mEditNowAd;
 
-    String babyName,babySex,babyDate,babyHome,babyNow;
+    String babyName,babySex,babyDate,babyAdreess,babyHome;
     private InoculationDao babydao = MyApplication.getInstances().getDaoSession().getInoculationDao();
 
 
@@ -96,7 +96,7 @@ public class EditBaby extends AppCompatActivity{
                     return;
                 }
                 else{
-                    insertBaby(babyName,babyHome,babyNow,userId);
+                    insertBaby(babyName,babyDate,babySex,babyAdreess,babyHome,userId);
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putLong("babyId",selectBabyId(babyName));
@@ -115,8 +115,8 @@ public class EditBaby extends AppCompatActivity{
 
     private void getEditText(){
         babyName = mEditBabyName.getText().toString();
-        babyHome = mEditHomeAd.getText().toString();
-        babyNow = mEditNowAd.getText().toString();
+        babyAdreess = mEditAdress.getText().toString();
+        babyHome = mEditNowAd.getText().toString();
         babyDate = mEditBabyBirth.getText().toString();
         if(mMale.isChecked()){
             babySex = "男";
@@ -125,8 +125,8 @@ public class EditBaby extends AppCompatActivity{
             babySex = "女";
         }
     }
-    private void insertBaby(String babyName,String babyHome,String babyNow,Long userId){
-        babydao.insert(new Inoculation(babyName,babyHome,babyNow,userId));
+    private void insertBaby(String babyName,String babyDate,String babySex,String babyAdreess,String babyHome,Long userId){
+        babydao.insert(new Inoculation(babyName,babyDate,babySex,babyAdreess,babyHome,userId));
     }
     private Long selectBabyId(String babyName){
         Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.InoculBaby.eq(babyName)).unique();

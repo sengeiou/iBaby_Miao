@@ -24,7 +24,7 @@ public class ParentInfo {
         this.parentPwd = parentPwd;
     }
 
-    @Generated(hash = 781774772)
+    @Generated(hash = 781774772)@Keep
     public ParentInfo(Long id, @NotNull String parentTell, String parentName,
             String parentWorkAdress, String parentNick, @NotNull String parentPwd) {
         this.id = id;
@@ -35,6 +35,7 @@ public class ParentInfo {
         this.parentPwd = parentPwd;
     }
 
+    @Keep
     @Generated(hash = 462531552)
     public ParentInfo() {
     }

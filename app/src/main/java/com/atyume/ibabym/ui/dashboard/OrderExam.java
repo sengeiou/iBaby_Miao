@@ -22,6 +22,9 @@ import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.OrderExamInfo;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -59,7 +62,7 @@ public class OrderExam extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getEditText();
-                insertOrderExam(orderHos,babyName);
+                insertOrderExam(babyName,orderTime);
                 Toast.makeText(OrderExam.this, "预约成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(OrderExam.this, MainActivity.class);
                 startActivity(intent);
@@ -94,9 +97,14 @@ public class OrderExam extends AppCompatActivity {
         Inoculation inoculation = inoculationDao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(userId)).unique();
         return inoculation;
     }
-    private void insertOrderExam(String hosName,String babyName){
+    private String getDate(){        //现在系统时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date(System.currentTimeMillis());
+        return simpleDateFormat.format(date);
+    }
+    private void insertOrderExam(String babyName,String orderTime){
         Inoculation inoculation = inoculationDao.queryBuilder().where(InoculationDao.Properties.InoculBaby.eq(babyName)).unique();
-        OrderExamInfo orderExamInfo = new OrderExamInfo(hosName,inoculation.getId(),0);
+        OrderExamInfo orderExamInfo = new OrderExamInfo(getExamId(),inoculation.getId(),getDate(),orderTime,0);
         orderExamInfoDao.insert(orderExamInfo);
     }
 

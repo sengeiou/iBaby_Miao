@@ -109,7 +109,7 @@
                         android:layout_gravity="fill"
                         >
                         <RadioButton
-                            android:id="@+id/edit_babySexFemale"
+                            android:id="@+id/update_babySexMale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
@@ -117,7 +117,7 @@
                             android:checked="true"
                             android:text="男"/>
                         <RadioButton
-                            android:id="@+id/edit_babySexFemale"
+                            android:id="@+id/update_babySexFemale"
                             android:layout_gravity="center_horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

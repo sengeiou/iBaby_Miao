@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -73,6 +74,7 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
         ButterKnife.bind(this);
 
         initData();
+        initView();
         initListener();
     }
 
@@ -84,6 +86,18 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
         itemDecorationHeader.setDividerDrawable(ContextCompat.getDrawable(this, R.drawable.divider_main_bg_height_1));
         mRecyclerview.addItemDecoration(itemDecorationHeader);
         mRecyclerview.setAdapter(mRadioAdapter);
+
+        mRadioAdapter.setOnMyItemClickListener((v, pos) -> {
+            Toast.makeText(HosViewActivity.this, "onClick---" + pos + "mDatas:" + mList.get(pos).toString(), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(HosViewActivity.this, HosInfoActivity.class);
+            intent.putExtra("manageHosId", (mList.get(pos)).getId());
+            startActivity(intent);
+        });
+    }
+    private void initView(){
+        if(getData() == null){
+            return;
+        }
         //数据
         List<HosInfo> hosInfoList = getData();
         for (int i = 0; i < hosInfoList.size(); i++) {
@@ -97,7 +111,8 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
         }
     }
     private List<HosInfo> getData(){
-        List<HosInfo> hosInfoList = hosInfoDao.loadAll();
+        List<HosInfo> hosInfoList = new ArrayList<HosInfo>();
+        hosInfoList = hosInfoDao.loadAll();
         return hosInfoList;
     }
     private String getVaccinName(Long MiaoId){

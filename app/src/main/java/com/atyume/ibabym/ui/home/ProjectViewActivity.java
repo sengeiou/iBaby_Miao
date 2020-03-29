@@ -73,6 +73,7 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
         ButterKnife.bind(this);
 
         initData();
+        initView();
         initListener();
     }
 
@@ -90,7 +91,11 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
             intent.putExtra("manageProjectId",(mList.get(pos)).getId());
             startActivity(intent);
         });
-
+    }
+    private void initView(){
+        if(getData() == null){
+            return;
+        }
         List<ExamProject> examProjectList = getData();
         //数据
         for (int i = 0; i < examProjectList.size(); i++) {
@@ -104,7 +109,8 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
     }
 
     private List<ExamProject> getData(){
-        List<ExamProject> vList = examProjectDao.loadAll();
+        List<ExamProject> vList = new ArrayList<ExamProject>();
+        vList = examProjectDao.loadAll();
         return vList;
     }
     /**

@@ -2,6 +2,7 @@ package com.atyume.ibabym.basics;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 
@@ -13,13 +14,14 @@ public class AdminUser {        //管理员信息
     @NotNull
     private String adminPwd;         /*管理员密码*/
 
-    @Generated(hash = 844780728)
+    @Generated(hash = 844780728) @Keep
     public AdminUser(Long id, String adminName, @NotNull String adminPwd) {
         this.id = id;
         this.adminName = adminName;
         this.adminPwd = adminPwd;
     }
 
+    @Keep
     @Generated(hash = 1838735988)
     public AdminUser() {
     }

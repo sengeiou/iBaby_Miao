@@ -76,7 +76,7 @@
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--接种地区输入框-->
-                <EditText
+                <!--<Spinner
                     android:id="@+id/edit_OrderCertiArea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,7 +84,29 @@
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:textColor="?attr/qmui_config_color_gray_5"
-                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />-->
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:columnCount="2"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    >
+                    <Spinner
+                        android:id="@+id/edit_OrderCertiArea"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/qmui_divider_bottom_bitmap"
+                        android:layout_gravity="fill"
+                        android:textColor="?attr/qmui_config_color_gray_5"
+                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+                    <ImageView
+                        android:id="@+id/img_areaSpiner"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@mipmap/arrow_down"/>
+                </GridLayout>
+
                 <!--接种时间-->
                 <TextView
                     android:layout_width="wrap_content"

@@ -24,7 +24,7 @@ public class ExamProject {           //体检单项信息
         this.projectPrice = projectPrice;
     }
 
-    @Generated(hash = 509764768)
+    @Generated(hash = 509764768)@Keep
     public ExamProject(Long id, @NotNull String projectName, @NotNull String projectDetail,
             @NotNull Double projectPrice) {
         this.id = id;
@@ -33,7 +33,7 @@ public class ExamProject {           //体检单项信息
         this.projectPrice = projectPrice;
     }
 
-    @Generated(hash = 1757972209)
+    @Generated(hash = 1757972209)@Keep
     public ExamProject() {
     }
 

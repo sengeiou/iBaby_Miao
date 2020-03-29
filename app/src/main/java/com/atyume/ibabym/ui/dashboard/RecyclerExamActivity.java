@@ -82,6 +82,9 @@ public class RecyclerExamActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        if(getThis() == null){
+            return;
+        }
         List<ExamInfo> examInfoList = getThis();
         //数据
         for (int i = 0; i < examInfoList.size(); i++) {
@@ -93,7 +96,8 @@ public class RecyclerExamActivity extends AppCompatActivity {
         }
     }
     private List<ExamInfo> getThis(){
-        List<ExamInfo> examInfoList = examInfoDao.loadAll();
+        List<ExamInfo> examInfoList = new ArrayList<ExamInfo>();
+        examInfoList = examInfoDao.loadAll();
         return examInfoList;
     }
 

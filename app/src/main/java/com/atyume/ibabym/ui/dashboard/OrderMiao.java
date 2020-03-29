@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,8 @@ public class OrderMiao extends AppCompatActivity{
     EditText mOrderBabyName;
     @BindView(R.id.edit_OrderCertiArea)
     EditText mOrderCertiArea;
+    @BindView(R.id.img_areaSpiner)
+    ImageView mAreaSpiner;
     @BindView(R.id.edit_OrderCertiTime)
     EditText mOrderCertiTime;
     @BindView(R.id.button_sure_order_miao)
@@ -104,12 +107,13 @@ public class OrderMiao extends AppCompatActivity{
         return hosInfo.getId();
     }
     private String getDate(){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         return simpleDateFormat.format(date);
     }
     private void insertMiaoOrder(String certiTime, String babyName, String certiArea){
-        OrderVaccin orderVaccin = new OrderVaccin(certiTime,getDate(),selectBabyByParent().getId(),getMiaoId(),getHos(certiArea),0);
+        Inoculation inoculation = inoculationDao.queryBuilder().where(InoculationDao.Properties.InoculBaby.eq(babyName)).unique();
+        OrderVaccin orderVaccin = new OrderVaccin(certiTime,getDate(),inoculation.getId(),getMiaoId(),getHos(certiArea),0);
         orderVaccinDao.insert(orderVaccin);
     }
 

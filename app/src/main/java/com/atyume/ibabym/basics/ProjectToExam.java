@@ -2,6 +2,7 @@ package com.atyume.ibabym.basics;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 
@@ -19,14 +20,14 @@ public class ProjectToExam {            //套餐-单项关系表
         this.projectId = projectId;
     }
 
-    @Generated(hash = 2056752857)
+    @Generated(hash = 2056752857)@Keep
     public ProjectToExam(Long id, @NotNull Long examId, @NotNull Long projectId) {
         this.id = id;
         this.examId = examId;
         this.projectId = projectId;
     }
 
-    @Generated(hash = 430865244)
+    @Generated(hash = 430865244)@Keep
     public ProjectToExam() {
     }
 

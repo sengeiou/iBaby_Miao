@@ -78,10 +78,14 @@ public class RecyclerMiaoActivity extends AppCompatActivity {
 
     }
     private List<Vaccin> getData(){
-        List<Vaccin> vList = vaccinDao.loadAll();
+        List<Vaccin> vList = new ArrayList<Vaccin>();
+        vList = vaccinDao.loadAll();
         return vList;
     }
     private void initData() {
+        if(getData() == null){
+            return;
+        }
         List<Vaccin> vaccinList = getData();
         for (int i = 0; i < vaccinList.size(); i++) {
             MyLiveList myLiveList = new MyLiveList();

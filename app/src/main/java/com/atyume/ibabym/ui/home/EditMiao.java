@@ -28,7 +28,7 @@ public class EditMiao extends AppCompatActivity {
 
     @BindView(R.id.edit_miaoName)
     EditText mEditMiaoName;
-    @BindView(R.id.edit_miaoDetial)
+    @BindView(R.id.edit_miaoDetial)    //预防疾病
     EditText mEditMiaoDetail;
     @BindView(R.id.edit_miaoNo)
     EditText mEditMiaoNo;
@@ -116,7 +116,7 @@ public class EditMiao extends AppCompatActivity {
         MiaoEffect = mEditMiaoEffect.getText().toString();
     }
     private void insertData() {
-        Vaccin vaccin = new Vaccin(MiaoName,MiaoEffect,MiaoAttention,MiaoDetail,MiaoProperAge,MiaoCertiProcess,MiaoPrice,MiaoFactory,MiaoNo,MiaoAmount);
+        Vaccin vaccin = new Vaccin(MiaoName,MiaoDetail,MiaoAttention,MiaoEffect,MiaoProperAge,MiaoCertiProcess,MiaoPrice,MiaoFactory,MiaoNo,MiaoAmount);
         long insert = vaccinDao.insert(vaccin);
         if (insert > 0) {
             Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();

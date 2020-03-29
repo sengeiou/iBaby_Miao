@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.atyume.greendao.gen.ExamInfoDao;
 import com.atyume.greendao.gen.HosInfoDao;
 import com.atyume.greendao.gen.InoculationDao;
+import com.atyume.greendao.gen.OrderExamInfoDao;
+import com.atyume.greendao.gen.OrderVaccinDao;
 import com.atyume.greendao.gen.ParentInfoDao;
 import com.atyume.greendao.gen.VaccinDao;
 import com.atyume.ibabym.R;
@@ -18,6 +20,8 @@ import com.atyume.ibabym.basics.ExamInfo;
 import com.atyume.ibabym.basics.HosInfo;
 import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
+import com.atyume.ibabym.basics.OrderExamInfo;
+import com.atyume.ibabym.basics.OrderVaccin;
 import com.atyume.ibabym.basics.ParentInfo;
 import com.atyume.ibabym.basics.Vaccin;
 
@@ -46,6 +50,8 @@ public class testActivity extends AppCompatActivity {
     private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
     private HosInfoDao hosInfoDao = MyApplication.getInstances().getDaoSession().getHosInfoDao();
     private ExamInfoDao examInfoDao = MyApplication.getInstances().getDaoSession().getExamInfoDao();
+    private OrderExamInfoDao orderExamInfoDao = MyApplication.getInstances().getDaoSession().getOrderExamInfoDao();
+    private OrderVaccinDao orderVaccinDao = MyApplication.getInstances().getDaoSession().getOrderVaccinDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -78,11 +84,14 @@ public class testActivity extends AppCompatActivity {
         List<Vaccin> vaccinList = vaccinDao.loadAll();
         List<HosInfo> hosInfoList = hosInfoDao.loadAll();
         List<ExamInfo> examInfoList = examInfoDao.loadAll();
+        List<OrderExamInfo> orderExamInfoList = orderExamInfoDao.loadAll();
+        List<OrderVaccin> orderVaccinList = orderVaccinDao.loadAll();
         /*for(ParentInfo parentInfo:parentInfos){]
             all=all.concat(parentInfo.toString());
         }*/
-       /* mtextShow.setText(parentInfos.toString()+"baby:"+inoculations.toString());*/
-        mtextShow.setText(parentInfos.toString()+"vaccin:"+vaccinList.toString()+"hos:"+hosInfoList.toString()+"exam:"+examInfoList.toString());
+//        mtextShow.setText(parentInfos.toString()+"baby:"+inoculations.toString());
+//        mtextShow.setText(parentInfos.toString()+"vaccin:"+vaccinList.toString()+"hos:"+hosInfoList.toString()+"exam:"+examInfoList.toString());
+        mtextShow.setText(orderExamInfoList.toString()+"----------"+orderVaccinList.toString());
 
     }
 
@@ -108,12 +117,14 @@ public class testActivity extends AppCompatActivity {
 
     private void deleteData(){
         /*parentDao.deleteByKey(2L);*/
-        Long id1 = Long.valueOf(1004);
+        Long id1 = Long.valueOf(1);
         Long id2 = Long.valueOf(1005);
         Long id3 = Long.valueOf(2);
-        /*babydao.deleteByKey(id1);
-        babydao.deleteByKey(id2);*/
-        hosInfoDao.deleteByKey(id3);
+//        babydao.deleteByKey(id1);
+        //babydao.deleteByKey(id2);
+        //hosInfoDao.deleteByKey(id3);
+        orderExamInfoDao.deleteByKey(id1);
+        orderVaccinDao.deleteByKey(id1);
 
     }
 

@@ -23,6 +23,7 @@ public class ExamInfo {        //体检套餐信息
         this.examHosName = examHosName;
     }
 
+    @Keep
     @Generated(hash = 1127825698)
     public ExamInfo(Long id, @NotNull String examName, @NotNull Double examPrice,
             String examHosName) {
@@ -32,7 +33,7 @@ public class ExamInfo {        //体检套餐信息
         this.examHosName = examHosName;
     }
 
-    @Generated(hash = 467552702)
+    @Generated(hash = 467552702)@Keep
     public ExamInfo() {
     }
 

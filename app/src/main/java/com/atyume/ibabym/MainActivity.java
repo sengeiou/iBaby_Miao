@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TabContainerView tabContainerView = (TabContainerView) findViewById(R.id.tab_container);
         MainViewAdapter mainViewAdapter=new MainViewAdapter(getSupportFragmentManager(),
-                new Fragment[] {new HomeFragment(), new DashboardFragment(),new NotificationsFragment()});
+                new Fragment[] {new DashboardFragment(), new OrderFragment(), new NotificationsFragment()});
         mainViewAdapter.setHasMsgIndex(3);
         tabContainerView.setAdapter(mainViewAdapter);
         tabContainerView.setOnTabSelectedListener(new OnTabSelectedListener() {
@@ -34,18 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-    private void initTopBar() {
-        /*mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        mTopBar = (QMUITopBar) findViewById(R.id.main_topbar);
-
-        mTopBar.setTitle("自助");
-         */
     }
 
 }
