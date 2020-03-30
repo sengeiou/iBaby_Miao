@@ -119,12 +119,12 @@ public class testActivity extends AppCompatActivity {
         /*parentDao.deleteByKey(2L);*/
         Long id1 = Long.valueOf(1);
         Long id2 = Long.valueOf(1005);
-        Long id3 = Long.valueOf(2);
+        Long id3 = Long.valueOf(3);
 //        babydao.deleteByKey(id1);
         //babydao.deleteByKey(id2);
         //hosInfoDao.deleteByKey(id3);
-        orderExamInfoDao.deleteByKey(id1);
-        orderVaccinDao.deleteByKey(id1);
+//        orderExamInfoDao.deleteByKey(id1);
+        orderVaccinDao.deleteByKey(id3);
 
     }
 

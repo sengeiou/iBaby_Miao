@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        style="@style/relative_bar"
+        >
+        <TextView
+            android:id="@+id/comeBack"
+            style="@style/img_back"/>
+        <TextView
+            android:id="@+id/textview_Yimiao"
+            style="@style/top_bar"
+            android:text="预约详情"
+            />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--边框分割细线-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/qmui_s_list_item_bg_1" />
+            <!--输入框-->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/qmui_config_color_white"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:padding="15dp"
+                android:columnCount="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+            <!--疫苗名称-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:background="@drawable/qmui_s_list_item_bg_1"
+                android:gravity="center_vertical"
+                android:text="疫苗名称"
+                android:textColor="?attr/qmui_config_color_gray_1"
+                android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+            <!--输入框-->
+            <TextView
+                android:id="@+id/show_detail_miao_name"
+                style="@style/textShow"
+                android:text="卡介苗"
+                 />
+
+            <!--疫苗简介-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/qmui_s_list_item_bg_1"
+                android:gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                android:text="预防疾病"
+                android:textColor="?attr/qmui_config_color_gray_1"
+                android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+            <!--输入框-->
+            <TextView
+                android:id="@+id/show_detail_miao_Effect"
+                style="@style/textShow" />
+            <!--适合年龄-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/qmui_s_list_item_bg_1"
+                android:gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                android:text="适合接种时间"
+                android:textColor="?attr/qmui_config_color_gray_1"
+                android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+            <!--输入框-->
+            <TextView
+                android:id="@+id/show_detail_miao_Age"
+                style="@style/textShow" />
+            <!--接种程序-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/qmui_s_list_item_bg_1"
+                android:gravity="center_vertical"
+                android:text="接种程序"
+                android:layout_marginTop="15dp"
+                android:textColor="?attr/qmui_config_color_gray_1"
+                android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+            <!--输入框-->
+            <TextView
+                android:id="@+id/show_detail_miao_Process"
+                style="@style/textShow" />
+            <!--疫苗价格-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/qmui_s_list_item_bg_1"
+                android:gravity="center_vertical"
+                android:text="疫苗价格"
+                android:layout_marginTop="15dp"
+                android:textColor="?attr/qmui_config_color_gray_1"
+                android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+            <!--输入框-->
+            <TextView
+                android:id="@+id/show_detail_miao_Price"
+                style="@style/textShow" />
+            <!--注意事项-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/qmui_s_list_item_bg_1"
+                android:gravity="center_vertical"
+                android:text="注意事项"
+                android:layout_marginTop="15dp"
+                android:textColor="?attr/qmui_config_color_gray_1"
+                android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+            <!--输入框-->
+            <TextView
+                android:id="@+id/show_detail_miao_Attention"
+                style="@style/textShow"/>
+            <!--不良反应-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/qmui_s_list_item_bg_1"
+                android:gravity="center_vertical"
+                android:text="不良反应"
+                android:layout_marginTop="15dp"
+                android:textColor="?attr/qmui_config_color_gray_1"
+                android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+            <!--输入框-->
+            <TextView
+                android:id="@+id/show_detail_miao_Disadv"
+                style="@style/textShow" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:text="接种宝宝姓名"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--宝宝姓名输入框-->
+                <TextView
+                    android:id="@+id/show_OrderBabyName"
+                    style="@style/textShow" />
+                <!--接种地区-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:text="接种单位"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--接种地区输入框-->
+                <TextView
+                    android:id="@+id/show_OrderCertiArea"
+                    style="@style/textShow" />
+
+                <!--接种时间-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
+                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:text="预约接种时间"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--接种地区输入框-->
+                <TextView
+                    android:id="@+id/show_OrderCertiTime"
+                    style="@style/textShow" />
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

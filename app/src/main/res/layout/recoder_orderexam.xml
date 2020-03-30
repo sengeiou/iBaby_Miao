@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        style="@style/relative_bar"
+        >
+        <TextView
+            android:id="@+id/comeBack"
+            style="@style/img_back"/>
+        <TextView
+            android:id="@+id/textview_Exam"
+            style="@style/top_bar"
+            android:text="预约详情"
+            />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--边框分割细线-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/qmui_s_list_item_bg_1" />
+            <!--输入框-->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/qmui_config_color_white"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:padding="15dp"
+                android:columnCount="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+                <!--套餐名称-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:text="体检套餐名称"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--输入框-->
+                <TextView
+                    android:id="@+id/show_examName"
+                    style="@style/textShow" />
+                <!--体检医院-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:text="体检医院"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--输入框-->
+                <TextView
+                    android:id="@+id/show_examHos"
+                    style="@style/textShow" />
+                <!--疫苗价格-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:text="套餐价格"
+                    android:layout_marginTop="8dp"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--输入框-->
+                <TextView
+                    android:id="@+id/show_examPrice"
+                    style="@style/textShow" />
+                <!--包含-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:text="套餐内包含体检项目详情"
+                    android:layout_marginTop="8dp"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+
+                <TextView
+                    android:id="@+id/show_examProject"
+                    style="@style/textShow" />
+
+                <!--宝宝姓名-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:text="预约宝宝姓名"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--宝宝姓名输入框-->
+                <TextView
+                    android:id="@+id/show_OrderExamBaby"
+                    style="@style/textShow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:text="预约体检时间"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+
+                <TextView
+                    android:id="@+id/show_OrderExamTime"
+                    style="@style/textShow" />
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

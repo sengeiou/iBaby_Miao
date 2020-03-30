@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,12 +18,16 @@ import com.atyume.greendao.gen.InoculationDao;
 import com.atyume.greendao.gen.OrderExamInfoDao;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.OrderRecyclerAdapter;
+import com.atyume.ibabym.adapter.RecyclerAdapter;
 import com.atyume.ibabym.basics.ExamInfo;
 import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.OrderExamInfo;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
 import com.atyume.ibabym.ui.dashboard.OrderExam;
+import com.atyume.ibabym.ui.dashboard.RecyclerExamActivity;
+import com.atyume.ibabym.ui.dashboard.ShowOrderExamInfo;
+import com.atyume.ibabym.ui.dashboard.ViewExamDetail;
 import com.atyume.ibabym.utils.MyOrderList;
 
 import java.util.ArrayList;
@@ -58,6 +63,15 @@ public class OrderExamFragment  extends Fragment {
 
         recyclerAdapter = new OrderRecyclerAdapter(getActivity(),mDatas);
         recyclerView.setAdapter(recyclerAdapter);
+        recyclerAdapter.setOnMyItemClickListener(new OrderRecyclerAdapter.OnMyItemClickListener() {
+            @Override
+            public void myClick(View v, int pos) {
+                Toast.makeText(getActivity(),"onClick--"+mDatas.get(pos).getTitle(),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), ShowOrderExamInfo.class);
+                intent.putExtra("clickOrderExamId",(mDatas.get(pos)).getId());
+                startActivity(intent);
+            }
+        });
         return root;
     }
     private void initData() {
@@ -71,6 +85,7 @@ public class OrderExamFragment  extends Fragment {
             myOrderList.setIsfinish(getIsFinish(orderExamInfo.getIsSucced()));
             myOrderList.setTake_Ordertime(orderExamInfo.getTakeTime());
             myOrderList.setOrderTime(orderExamInfo.getOrderTime());
+            myOrderList.setId(orderExamInfo.getId());
             mDatas.add(myOrderList);
         }
     }

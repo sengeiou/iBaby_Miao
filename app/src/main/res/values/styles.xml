@@ -74,4 +74,13 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="textShow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_gravity">fill</item>
+        <item name="android:textColor">?attr/qmui_config_color_gray_5</item>
+        <item name="android:textSize">?attr/qmui_common_list_item_title_h_text_size</item>
+    </style>
+
 </resources>

@@ -24,6 +24,7 @@ import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.OrderVaccin;
 import com.atyume.ibabym.basics.Vaccin;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
+import com.atyume.ibabym.ui.dashboard.ShowOrderMiaoInfo;
 import com.atyume.ibabym.ui.dashboard.ViewMiaoDetail;
 import com.atyume.ibabym.utils.MyOrderList;
 
@@ -55,20 +56,23 @@ public class OrderMiaoFragment extends Fragment {
         ButterKnife.bind(this,root);
 
         initData();
+        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.order_miao_recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
         recyclerAdapter = new OrderRecyclerAdapter(getActivity(),mDatas);
         mRecyclerView.setAdapter(recyclerAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity(),LinearLayoutManager.VERTICAL,false));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST));  //设置间隔（可选水平或者垂直）
-        /*recyclerAdapter.setOnMyItemClickListener(new OrderRecyclerAdapter.OnMyItemClickListener() {
+        recyclerAdapter.setOnMyItemClickListener(new OrderRecyclerAdapter.OnMyItemClickListener() {
             @Override
             public void myClick(View v, int pos) {
                 System.out.println("onClick---"+pos);
-                Intent intent = new Intent(getActivity(),ViewMiaoDetail.class);
+                Intent intent = new Intent(getActivity(), ShowOrderMiaoInfo.class);
+                intent.putExtra("clickOrderMiaoId",(mDatas.get(pos)).getId());
                 startActivity(intent);
-
             }
 
-        });*/
+        });
         return root;
     }
     private void initData() {
@@ -82,6 +86,7 @@ public class OrderMiaoFragment extends Fragment {
             myOrderList.setIsfinish(getIsFinish(orderVaccin.getIsSucceed()));
             myOrderList.setTake_Ordertime(orderVaccin.getOrderVaccinTime());
             myOrderList.setOrderTime(orderVaccin.getInocluTime());
+            myOrderList.setId(orderVaccin.getId());
             mDatas.add(myOrderList);
         }
     }

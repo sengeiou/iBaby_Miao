@@ -98,7 +98,7 @@ public class OrderExamInfo {     //体检订单
 
     @Override
     public String toString() {
-        return "OrderExamInfo{" +
+        return "ShowOrderExamInfo{" +
                 "id=" + id +
                 ", examId=" + examId +
                 ", inoculId=" + inoculId +
