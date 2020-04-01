@@ -49,7 +49,7 @@ public class UpdateBaby  extends AppCompatActivity {
     EditText mEditNowAd;
 
     String babyName,babyDate,babySex,babyAdress,babyHome;
-
+    Long babyId = 0L;
     private InoculationDao babydao = MyApplication.getInstances().getDaoSession().getInoculationDao();
 
     @Override
@@ -59,7 +59,10 @@ public class UpdateBaby  extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Inoculation inoculation = getBaby();
-        initView(inoculation);
+        if(inoculation!=null){
+            initView(inoculation);
+            babyId = inoculation.getId();
+        }
 
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +80,7 @@ public class UpdateBaby  extends AppCompatActivity {
                     return;
                 }
                 else{
-                    updateBaby(inoculation.getId(),babyName,babyDate,babySex,babyAdress,babyHome);
+                    updateBaby(babyId,babyName,babyDate,babySex,babyAdress,babyHome);
 
                     Intent intent = new Intent(UpdateBaby.this, MainActivity.class);
                     Toast.makeText(UpdateBaby.this,"修改了"+babyName+"宝宝",Toast.LENGTH_LONG).show();
@@ -95,7 +98,8 @@ public class UpdateBaby  extends AppCompatActivity {
             SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
             Long userId = sharedPreferences.getLong("loginUserId",0L);
 
-            Inoculation inoculation = selectBabyByParent(userId);
+            Inoculation inoculation = new Inoculation();
+            inoculation = selectBabyByParent(userId);
             return inoculation;
         }
         return selectBabyBySelf(babyId);
@@ -146,11 +150,13 @@ public class UpdateBaby  extends AppCompatActivity {
         babydao.update(inoculation);
     }
     private Inoculation selectBabyBySelf(Long babyId){
-        Inoculation inoculation = babydao.load(babyId);
+        Inoculation inoculation = new Inoculation();
+        inoculation = babydao.load(babyId);
         return inoculation;
     }
     private Inoculation selectBabyByParent(Long parentId){
-        Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(parentId)).unique();
+        Inoculation inoculation = new Inoculation();
+        inoculation = babydao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(parentId)).unique();
         return inoculation;
     }
 }

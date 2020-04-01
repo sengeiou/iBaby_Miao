@@ -50,6 +50,7 @@ public class NotificationsFragment extends Fragment {
     @BindView(R.id.show_UserName)
     TextView mshowUserName;
 
+    private String userName="";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -58,10 +59,7 @@ public class NotificationsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         ButterKnife.bind(this,root);
         initTopBar();
-
-        sharedPreferences = getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
-        Long userId = sharedPreferences.getLong("loginUserId",0L);
-        initUser(getUserNick(userId));
+        initUser();
 
         mbtUserInfo.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -100,21 +98,22 @@ public class NotificationsFragment extends Fragment {
             }
         });
 
-        /*notificationsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                mshowUserName.setText(s);
-            }
-        });*/
         return root;
     }
     private void initTopBar(){
         mbtnMineTopBar.setTitle("我的");
     }
-    private void initUser(String userName){
+    private void initUser(){
+        userName = getUserNick();
         mshowUserName.setText(userName);
     }
-    private String getUserNick(Long userId){
+    private Long getUserId(){
+        sharedPreferences = getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
+        Long userId = sharedPreferences.getLong("loginUserId",0L);
+        return userId;
+    }
+    private String getUserNick(){
+        Long userId = getUserId();
         ParentInfo parentInfo = parentDao.queryBuilder().where(ParentInfoDao.Properties.Id.eq(userId)).unique();
         if (parentInfo.getParentNick()==null || parentInfo.getParentNick().equals("")){
             return parentInfo.getParentTell();

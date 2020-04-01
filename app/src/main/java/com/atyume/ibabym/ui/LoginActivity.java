@@ -3,6 +3,7 @@ package com.atyume.ibabym.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -56,7 +57,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         userTell = mEdtLoginTell.getText().toString();
         userPwd = mEdtLoginPwd.getText().toString();
         switch (view.getId()) {
-            // 跳转到注册界面
             case R.id.btn_login:
                 login(userTell,userPwd);
                 break;
@@ -70,31 +70,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+    private void myToast(final String s) {
+        new Thread() {
+            public void run() {
+                Looper.prepare();
+                Toast.makeText(LoginActivity.this, "" + s, Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+        }.start();
+    }
     protected void login(String userTell, String userPwd){
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(userTell)){
-                    Toast.makeText(LoginActivity.this, "账号不能为空", Toast.LENGTH_SHORT).show();
+                if(!judgePhone()){
                     return;
                 }
                 if(TextUtils.isEmpty(userPwd)){
-                    Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                    myToast("请输入密码");
                     return;
                 }
                 if(!judgeHaveUser(userTell)){
-                    Toast.makeText(LoginActivity.this, "该账号还没注册", Toast.LENGTH_SHORT).show();
+                    myToast("该账号还没注册");
                     return;
                 }
                 if(!judgeTellPwd(userTell,userPwd)){
-                    Toast.makeText(LoginActivity.this, "密码输入错误", Toast.LENGTH_SHORT).show();
+                    myToast("密码输入错误");
                     return;
                 }
                 else{
                     Long userId = getUserId(userTell);
                     //保存登陆状态到SharedPreferences中
                     saveLoginStatus(true,userId);
-                    Toast.makeText(LoginActivity.this, userId+"成功", Toast.LENGTH_SHORT).show();
+                    myToast(userId+"成功");
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
@@ -105,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mBtnGoRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "点击了注册", Toast.LENGTH_SHORT).show();
+                myToast("点击了注册");
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivityForResult(intent, 1);
             }
@@ -115,11 +123,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mBtnLoginError.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "点击了忘记密码", Toast.LENGTH_SHORT).show();
+                myToast("点击了忘记密码");
                 Intent intent = new Intent(LoginActivity.this, ResetPwd.class);
                 startActivity(intent);
             }
         });
+    }
+
+    private boolean judgePhone()
+    {
+        if(TextUtils.isEmpty(mEdtLoginTell.getText().toString().trim()))
+        {
+            myToast("请输入您的电话号码");
+            mEdtLoginTell.requestFocus();
+            return false;
+        }
+        else if(mEdtLoginTell.getText().toString().trim().length()!=11)
+        {
+            myToast("您的电话号码位数不正确");
+            mEdtLoginTell.requestFocus();
+            return false;
+        }
+        else
+        {
+            userTell=mEdtLoginTell.getText().toString().trim();
+            String num="[1][358]\\d{9}";
+            if(userTell.matches(num))
+                return true;
+            else
+            {
+                myToast("请输入正确的手机号码");
+                return false;
+            }
+        }
     }
     protected boolean judgeHaveUser(String userTell){
         /*if(parentDao.load())*/

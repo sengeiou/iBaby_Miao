@@ -39,7 +39,7 @@ import butterknife.ButterKnife;
 import static android.content.Context.MODE_PRIVATE;
 
 public class OrderExamFragment  extends Fragment {
-    private List<MyOrderList> mDatas = new ArrayList<>();
+    private List<MyOrderList> mDatas = new ArrayList<MyOrderList>();
     private OrderRecyclerAdapter recyclerAdapter;
 
     /*private String[] data = {"儿童6个月体检套餐","儿童一岁体检套餐","儿童一岁半体检套餐","儿童二岁体检套餐","儿童二岁半体检套餐","儿童三岁体检套餐","儿童三岁半体检套餐"};*/
@@ -56,12 +56,13 @@ public class OrderExamFragment  extends Fragment {
         ButterKnife.bind(this,root);
 
         initData();
+
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.order_miao_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerAdapter = new OrderRecyclerAdapter(getActivity(),mDatas);
+        recyclerAdapter = new OrderRecyclerAdapter(getActivity(), mDatas);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerAdapter.setOnMyItemClickListener(new OrderRecyclerAdapter.OnMyItemClickListener() {
             @Override
@@ -71,28 +72,33 @@ public class OrderExamFragment  extends Fragment {
                 intent.putExtra("clickOrderExamId",(mDatas.get(pos)).getId());
                 startActivity(intent);
             }
+
         });
         return root;
     }
     private void initData() {
-        if(getOrderList() == null){
-            return;
-        }
-        List<OrderExamInfo> orderExamInfoList = getOrderList();
-        for (OrderExamInfo orderExamInfo : orderExamInfoList) {
-            MyOrderList myOrderList = new MyOrderList();
-            myOrderList.setTitle(getExamName(orderExamInfo.getExamId()));
-            myOrderList.setIsfinish(getIsFinish(orderExamInfo.getIsSucced()));
-            myOrderList.setTake_Ordertime(orderExamInfo.getTakeTime());
-            myOrderList.setOrderTime(orderExamInfo.getOrderTime());
-            myOrderList.setId(orderExamInfo.getId());
-            mDatas.add(myOrderList);
+        List<OrderExamInfo> orderExamInfoList = new ArrayList<OrderExamInfo>();
+        orderExamInfoList = getOrderList();
+        if(orderExamInfoList != null || !orderExamInfoList.isEmpty()){
+            for (int i =0;i<orderExamInfoList.size();i++) {
+                MyOrderList myOrderList = new MyOrderList();
+                myOrderList.setTitle(getExamName(orderExamInfoList.get(i).getExamId()));
+                myOrderList.setIsfinish(getIsFinish(orderExamInfoList.get(i).getIsSucced()));
+                myOrderList.setTake_Ordertime(orderExamInfoList.get(i).getTakeTime());
+                myOrderList.setOrderTime(orderExamInfoList.get(i).getOrderTime());
+                myOrderList.setId(orderExamInfoList.get(i).getId());
+                mDatas.add(myOrderList);
+            }
         }
     }
 
     private List<OrderExamInfo> getOrderList(){
         List<OrderExamInfo> orderExamInfoList = new ArrayList<OrderExamInfo>();
-        orderExamInfoList = orderExamInfoDao.queryBuilder().where(OrderExamInfoDao.Properties.InoculId.eq(selectBabyByParent().getId())).list();
+        Inoculation inoculation = new Inoculation();
+        inoculation = selectBabyByParent();
+        if(inoculation!=null){
+            orderExamInfoList = orderExamInfoDao.queryBuilder().where(OrderExamInfoDao.Properties.InoculId.eq(inoculation.getId())).list();
+        }
         return orderExamInfoList;
     }
 

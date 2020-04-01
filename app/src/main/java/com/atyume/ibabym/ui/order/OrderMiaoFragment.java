@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
 import static android.content.Context.MODE_PRIVATE;
 
 public class OrderMiaoFragment extends Fragment {
-    private List<MyOrderList> mDatas = new ArrayList<>();
+    private List<MyOrderList> mDatas = new ArrayList<MyOrderList>();
     @BindView(R.id.order_miao_recycler_view)
     RecyclerView mRecyclerView;
     private OrderRecyclerAdapter recyclerAdapter;
@@ -76,23 +76,27 @@ public class OrderMiaoFragment extends Fragment {
         return root;
     }
     private void initData() {
-        if(getOrderList() == null){
-            return;
-        }
-        List<OrderVaccin> orderVaccinList = getOrderList();
-        for (OrderVaccin orderVaccin : orderVaccinList) {
-            MyOrderList myOrderList = new MyOrderList();
-            myOrderList.setTitle(getVaccin(orderVaccin.getVaccinId()));
-            myOrderList.setIsfinish(getIsFinish(orderVaccin.getIsSucceed()));
-            myOrderList.setTake_Ordertime(orderVaccin.getOrderVaccinTime());
-            myOrderList.setOrderTime(orderVaccin.getInocluTime());
-            myOrderList.setId(orderVaccin.getId());
-            mDatas.add(myOrderList);
+        List<OrderVaccin> orderVaccinList = new ArrayList<OrderVaccin>();
+        orderVaccinList = getOrderList();
+        if(orderVaccinList != null || !orderVaccinList.isEmpty()){
+            for (int i=0;i<orderVaccinList.size();i++) {
+                MyOrderList myOrderList = new MyOrderList();
+                myOrderList.setTitle(getVaccin(orderVaccinList.get(i).getVaccinId()));
+                myOrderList.setIsfinish(getIsFinish(orderVaccinList.get(i).getIsSucceed()));
+                myOrderList.setTake_Ordertime(orderVaccinList.get(i).getOrderVaccinTime());
+                myOrderList.setOrderTime(orderVaccinList.get(i).getInocluTime());
+                myOrderList.setId(orderVaccinList.get(i).getId());
+                mDatas.add(myOrderList);
+            }
         }
     }
     private List<OrderVaccin> getOrderList(){
         List<OrderVaccin> orderVaccinList = new ArrayList<OrderVaccin>();
-        orderVaccinList = orderVaccinDao.queryBuilder().where(OrderVaccinDao.Properties.InocluId.eq(selectBabyByParent().getId())).list();
+        Inoculation inoculation = new Inoculation();
+        inoculation = selectBabyByParent();
+        if(inoculation != null){
+            orderVaccinList = orderVaccinDao.queryBuilder().where(OrderVaccinDao.Properties.InocluId.eq(selectBabyByParent().getId())).list();
+        }
         return orderVaccinList;
     }
 

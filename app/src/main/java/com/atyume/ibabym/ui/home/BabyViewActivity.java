@@ -110,19 +110,20 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
         });
     }
     private void initView(){
-        if(getThis() == null){
-            return;
+        List<Inoculation> inoculationList = new ArrayList<Inoculation>();
+        inoculationList = getThis();
+        if(inoculationList!=null){
+            //数据
+            for (int i = 0; i < inoculationList.size(); i++) {
+                MyLiveList myLiveList = new MyLiveList();
+                myLiveList.setTitle(inoculationList.get(i).getInoculBaby());
+                myLiveList.setSource(inoculationList.get(i).getBabyHome());
+                myLiveList.setId(inoculationList.get(i).getId());
+                mList.add(myLiveList);
+                mRadioAdapter.notifyAdapter(mList, false);
+            }
         }
-        List<Inoculation> inoculationList = getThis();
-        //数据
-        for (int i = 0; i < inoculationList.size(); i++) {
-            MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle(inoculationList.get(i).getInoculBaby());
-            myLiveList.setSource(inoculationList.get(i).getBabyHome());
-            myLiveList.setId(inoculationList.get(i).getId());
-            mList.add(myLiveList);
-            mRadioAdapter.notifyAdapter(mList, false);
-        }
+
     }
 
     private List<Inoculation> getThis(){

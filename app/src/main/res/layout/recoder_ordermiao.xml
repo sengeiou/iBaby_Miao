@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/qmui_s_list_item_bg_1"
                     android:gravity="center_vertical"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:layout_marginTop="15dp"
                     android:text="接种宝宝姓名"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
@@ -161,8 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill_horizontal"
                     android:gravity="center_vertical"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:layout_marginTop="15dp"
                     android:text="接种单位"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
@@ -177,8 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill_horizontal"
                     android:gravity="center_vertical"
-                    android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:paddingRight="@dimen/qmui_content_spacing_horizontal"
+                    android:layout_marginTop="15dp"
                     android:text="预约接种时间"
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />

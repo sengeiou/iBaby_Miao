@@ -3,7 +3,10 @@ package com.atyume.ibabym.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +20,16 @@ import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.ParentInfo;
 import com.atyume.ibabym.utils.MD5Utils;
+import com.atyume.ibabym.utils.TimeCountUtil;
+import com.mob.MobSDK;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
 
 public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.btn_register)
@@ -32,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.edt_verifycode)
     EditText mEdtVerify;
     @BindView(R.id.button_getverifycode)
-    QMUIRoundButton mbtnGetVerify;
+    Button mbtnGetVerify;
     @BindView(R.id.edt_setpassword)
     EditText mEdtSetPwd;
     @BindView(R.id.edt_confirm_password)
@@ -43,6 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
     String userTell,userPwd,userRePwd;
     String verifyCode;
 
+    private TimeCountUtil mTimeCountUtil;
+    private boolean flag = true;
     private ParentInfoDao parentDao = MyApplication.getInstances().getDaoSession().getParentInfoDao();
 
     @Override
@@ -51,32 +60,37 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
 
+        mTimeCountUtil = new TimeCountUtil(mbtnGetVerify, 60000, 1000);
+
+        MobSDK.init(this);
+
+        mbtnGetVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                send_code(v);
+            }
+        });
+
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getEditText();
-                if(TextUtils.isEmpty(userTell)){
-                    Toast.makeText(RegisterActivity.this, "请输入手机号", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                check_code(view);
+
                 if(TextUtils.isEmpty(userPwd)||TextUtils.isEmpty(userRePwd)){
-                    Toast.makeText(RegisterActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+                    myToast("密码不能为空");
                     return;
                 }
-                if(TextUtils.isEmpty(verifyCode)){
-                    Toast.makeText(RegisterActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
                 if(!userPwd.equals(userRePwd)){
-                    Toast.makeText(RegisterActivity.this, "两次输入密码不一致", Toast.LENGTH_SHORT).show();
+                    myToast("两次输入密码不一致");
                     return;
                 }
-                if(judgeHaveUser(userTell)){
-                    Toast.makeText(RegisterActivity.this, "该账号已存在", Toast.LENGTH_SHORT).show();
+                if(!flag){
                     return;
                 }
                 else{
-                    Toast.makeText(RegisterActivity.this, "点击了注册", Toast.LENGTH_SHORT).show();
+                    myToast("点击了注册");
                     insertUser(userTell,userPwd);
                     /*Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);//返回页面1
@@ -105,12 +119,133 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+    private void myToast(final String s) {
+        new Thread() {
+            public void run() {
+                Looper.prepare();
+                Toast.makeText(RegisterActivity.this, "" + s, Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+        }.start();
+    }
+
     private void getEditText(){
         userTell = mEdtTell.getText().toString();
         userPwd = mEdtSetPwd.getText().toString();
         userRePwd = mEdtConfirmPwd.getText().toString();
         verifyCode = mEdtVerify.getText().toString();
     }
+
+    /**
+     * 发送验证码
+     */
+    public void send_code(View view){
+        if(!judPhone()){
+            return;
+        }
+        if(judgeHaveUser(userTell)){
+            myToast("该账号已注册");
+            return;
+        }
+        String phone = mEdtTell.getText().toString();
+        sendCode("86",phone);
+    }
+
+    /**
+     * 验证验证码
+     */
+    public void check_code(View view) {
+        String phone = mEdtTell.getText().toString();
+        if(TextUtils.isEmpty(verifyCode)){
+            myToast("验证码不能为空");
+            return;
+        }
+        String verify = mEdtVerify.getText().toString();
+        submitCode("86", phone, verify);
+    }
+
+
+    // 请求验证码，其中country表示国家代码，如“86”；phone表示手机号码，如“13800138000”
+    public void sendCode(String country, String phone) {
+        // 注册一个事件回调，用于处理发送验证码操作的结果
+        SMSSDK.registerEventHandler(new EventHandler() {
+            public void afterEvent(int event, int result, Object data) {
+                if (result == SMSSDK.RESULT_COMPLETE) {
+                    // TODO 处理成功得到验证码的结果
+                    // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
+                    Log.i("yzyz","send ok");
+                    myToast("验证码已发送");
+                } else{
+                    // TODO 处理错误的结果
+                    Log.i("yzyz","send error");
+                    myToast("验证码发送失败，请稍后再试");
+                }
+                //用完回调要注销掉，否则可能会出现内存泄露
+                SMSSDK.unregisterAllEventHandler();
+            }
+        });
+        // 触发操作
+        SMSSDK.getVerificationCode(country, phone);
+    }
+
+    // 提交验证码，其中的code表示验证码，如“1357”
+    public void submitCode(String country, String phone, String code) {
+        // 注册一个事件回调，用于处理提交验证码操作的结果
+        SMSSDK.registerEventHandler(new EventHandler() {
+            public void afterEvent(int event, int result, Object data) {
+                if (result == SMSSDK.RESULT_COMPLETE) {
+                    // TODO 处理验证成功的结果
+                    Log.i("yzyz","yes");
+                    flag = true;
+                    myToast("验证码验证成功");
+                } else{
+                    // TODO 处理错误的结果
+                    Log.i("yzyz","no");
+                    flag = false;
+                    myToast("验证码验证失败");
+                }
+                //用完回调要注销掉，否则可能会出现内存泄露
+                SMSSDK.unregisterAllEventHandler();
+            }
+        });
+        // 触发操作
+        SMSSDK.submitVerificationCode(country, phone, code);
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        //用完回调要注销掉，否则可能会出现内存泄露
+        SMSSDK.unregisterAllEventHandler();
+    }
+
+    private boolean judPhone()
+    {
+        if(TextUtils.isEmpty(mEdtTell.getText().toString().trim()))
+        {
+            myToast("请输入您的电话号码");
+            mEdtTell.requestFocus();
+            return false;
+        }
+        else if(mEdtTell.getText().toString().trim().length()!=11)
+        {
+            myToast("您的电话号码位数不正确");
+            mEdtTell.requestFocus();
+            return false;
+        }
+        else
+        {
+            userTell=mEdtTell.getText().toString().trim();
+            String num="[1][358]\\d{9}";
+            if(userTell.matches(num))
+                return true;
+            else
+            {
+                myToast("请输入正确的手机号码");
+                return false;
+            }
+        }
+    }
+
     protected boolean judgeHaveUser(String userTell){
         /*if(parentDao.load())*/
         List<ParentInfo> parentList = parentDao.queryBuilder().where(ParentInfoDao.Properties.ParentTell.eq(userTell)).list();
@@ -119,6 +254,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         return true;                      //注册过
     }
+
     private void insertUser(String userTell,String userPwd){
         //密码加密
         String md5Pwd = MD5Utils.md5(userPwd);

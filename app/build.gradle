@@ -4,8 +4,10 @@ apply plugin: 'org.greenrobot.greendao'
 
 
 MobSDK {
-    appKey "替换为mob官方申请的appkey"
-    appSecret "替换为mob官方申请的appkey对应的appSecret"
+    appKey "2e9ae17e05518"
+    appSecret "69adbbc39d791ffd7760c80f5684f227"
+    SMSSDK {}
+    SecVerify {}
     ShareSDK {
         loopShare true
         devInfo {
@@ -26,7 +28,6 @@ MobSDK {
                 appId "100371282"
                 appKey "aed9b0303e3ed1e27bae87c33761161d"
             }
-            ShortMessage {}
             WechatMoments {
                 appId "wx4868b35061f87885"
                 appSecret "64020361b8ec4c99936c0e3999a9f249"
@@ -35,10 +36,14 @@ MobSDK {
                 appId "wx4868b35061f87885"
                 appSecret "64020361b8ec4c99936c0e3999a9f249"
             }
+            QZone {
+                appId "100371282"
+                appKey "aed9b0303e3ed1e27bae87c33761161d"
+            }
         }
     }
-    SecVerify {}
 }
+
 
 android {
     compileSdkVersion 29

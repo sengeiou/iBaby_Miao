@@ -88,7 +88,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:text="2018.03.05"
+
                     android:layout_gravity="fill"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
@@ -109,7 +109,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:paddingTop="@dimen/qmui_content_spacing_horizontal"
-                    android:hint="女"
+
                     android:layout_gravity="fill"
                     android:textColor="?attr/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />

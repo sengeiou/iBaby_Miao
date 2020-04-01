@@ -112,20 +112,21 @@ public class ExamViewActivity extends Activity implements View.OnClickListener, 
         });
     }
     private void initView(){
-        if(getThis() == null){
-            return;
+        List<ExamInfo> examInfoList = new ArrayList<ExamInfo>();
+        examInfoList = getThis();
+        if(examInfoList!=null){
+            //数据
+            for (int i = 0; i < examInfoList.size(); i++) {
+                MyExamList myExamList = new MyExamList();
+                myExamList.setExamName(examInfoList.get(i).getExamName());
+                myExamList.setExamHos(examInfoList.get(i).getExamHosName());
+                myExamList.setExamPrice(examInfoList.get(i).getExamPrice());
+                myExamList.setExamId(examInfoList.get(i).getId());
+                mList.add(myExamList);
+                mRadioAdapter.notifyAdapter(mList, false);
+            }
         }
-        List<ExamInfo> examInfoList = getThis();
-        //数据
-        for (int i = 0; i < examInfoList.size(); i++) {
-            MyExamList myExamList = new MyExamList();
-            myExamList.setExamName(examInfoList.get(i).getExamName());
-            myExamList.setExamHos(examInfoList.get(i).getExamHosName());
-            myExamList.setExamPrice(examInfoList.get(i).getExamPrice());
-            myExamList.setExamId(examInfoList.get(i).getId());
-            mList.add(myExamList);
-            mRadioAdapter.notifyAdapter(mList, false);
-        }
+
     }
     private List<ExamInfo> getThis(){
         List<ExamInfo> examInfoList = new ArrayList<ExamInfo>();
@@ -139,6 +140,7 @@ public class ExamViewActivity extends Activity implements View.OnClickListener, 
             public void onClick(View v) {
                 Intent intent = new Intent(ExamViewActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         mRadioAdapter.setOnItemClickListener(this);

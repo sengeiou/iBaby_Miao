@@ -67,6 +67,7 @@ public class ViewExamDetail extends AppCompatActivity {
                 Intent intent = new Intent(ViewExamDetail.this, OrderExam.class);
                 intent.putExtra("orderExamId",getExamId());
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -120,7 +121,8 @@ public class ViewExamDetail extends AppCompatActivity {
 
     private ExamInfo getThis(){
         Long examId = getExamId();
-        ExamInfo examInfo = examInfoDao.load(examId);
+        ExamInfo examInfo = new ExamInfo();
+        examInfo = examInfoDao.load(examId);
         return examInfo;
     }
     private Long getExamId(){

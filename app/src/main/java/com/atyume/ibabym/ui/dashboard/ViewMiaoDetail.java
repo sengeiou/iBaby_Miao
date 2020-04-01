@@ -63,6 +63,7 @@ public class ViewMiaoDetail extends AppCompatActivity {
                 Intent intent = new Intent(ViewMiaoDetail.this, OrderMiao.class);
                 intent.putExtra("MiaoId",vaccin.getId());
                 startActivity(intent);
+                finish();
             }
         });
     }

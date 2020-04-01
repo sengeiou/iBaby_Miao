@@ -80,6 +80,7 @@ public class BabyAllInfo extends AppCompatActivity {
                 Intent intent = new Intent(BabyAllInfo.this, BabyViewActivity.class);
                 Toast.makeText(BabyAllInfo.this,"修改了"+babyName+"宝宝",Toast.LENGTH_LONG).show();
                 startActivity(intent);
+                finish();
             }
         });
     }

@@ -89,9 +89,9 @@ public class testActivity extends AppCompatActivity {
         /*for(ParentInfo parentInfo:parentInfos){]
             all=all.concat(parentInfo.toString());
         }*/
-//        mtextShow.setText(parentInfos.toString()+"baby:"+inoculations.toString());
+        mtextShow.setText(parentInfos.toString()+"baby:"+inoculations.toString());
 //        mtextShow.setText(parentInfos.toString()+"vaccin:"+vaccinList.toString()+"hos:"+hosInfoList.toString()+"exam:"+examInfoList.toString());
-        mtextShow.setText(orderExamInfoList.toString()+"----------"+orderVaccinList.toString());
+//        mtextShow.setText(orderExamInfoList.toString()+"----------"+orderVaccinList.toString());
 
     }
 
@@ -118,13 +118,14 @@ public class testActivity extends AppCompatActivity {
     private void deleteData(){
         /*parentDao.deleteByKey(2L);*/
         Long id1 = Long.valueOf(1);
-        Long id2 = Long.valueOf(1005);
+        Long id2 = Long.valueOf(2);
         Long id3 = Long.valueOf(3);
 //        babydao.deleteByKey(id1);
         //babydao.deleteByKey(id2);
         //hosInfoDao.deleteByKey(id3);
 //        orderExamInfoDao.deleteByKey(id1);
-        orderVaccinDao.deleteByKey(id3);
+//        orderVaccinDao.deleteByKey(id3);
+        parentDao.deleteByKey(id3);
 
     }
 

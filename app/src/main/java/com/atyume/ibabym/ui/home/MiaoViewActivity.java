@@ -97,19 +97,20 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         });
     }
     private void initView(){
-        if(getData() == null){
-            return;
-        }
         //数据
-        List<Vaccin> vaccinList = getData();
-        for (int i = 0; i < vaccinList.size(); i++) {
-            MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle(vaccinList.get(i).getVaccinName());
-            myLiveList.setSource("适用：" + vaccinList.get(i).getVaccinAge());
-            myLiveList.setId(vaccinList.get(i).getId());
-            mList.add(myLiveList);
-            mRadioAdapter.notifyAdapter(mList, false);
+        List<Vaccin> vaccinList = new ArrayList<Vaccin>();
+        vaccinList = getData();
+        if(vaccinList!=null){
+            for (int i = 0; i < vaccinList.size(); i++) {
+                MyLiveList myLiveList = new MyLiveList();
+                myLiveList.setTitle(vaccinList.get(i).getVaccinName());
+                myLiveList.setSource("适用：" + vaccinList.get(i).getVaccinAge());
+                myLiveList.setId(vaccinList.get(i).getId());
+                mList.add(myLiveList);
+                mRadioAdapter.notifyAdapter(mList, false);
+            }
         }
+
     }
 
     private List<Vaccin> getData(){

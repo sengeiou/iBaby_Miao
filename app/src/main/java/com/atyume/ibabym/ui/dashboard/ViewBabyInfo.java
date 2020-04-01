@@ -12,6 +12,7 @@ import com.atyume.greendao.gen.InoculationDao;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
+import com.atyume.ibabym.ui.home.EditBaby;
 import com.atyume.ibabym.ui.notifications.UpdateBaby;
 
 import butterknife.BindView;
@@ -43,9 +44,7 @@ public class ViewBabyInfo extends AppCompatActivity {
         setContentView(R.layout.activity_viewbaby);
         ButterKnife.bind(this);
 
-        Inoculation inoculation = getBaby();
-        Long viewBabyId = inoculation.getId();
-        initView(inoculation);
+        initView();
 
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,9 +56,19 @@ public class ViewBabyInfo extends AppCompatActivity {
         mEditMyBaby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ViewBabyInfo.this, UpdateBaby.class);
-                intent.putExtra("BabyId",viewBabyId);
-                startActivity(intent);
+                Inoculation inoculation = new Inoculation();
+                if(getBaby()!=null) {
+                    inoculation = getBaby();
+                    Intent intent = new Intent(ViewBabyInfo.this, UpdateBaby.class);
+                    intent.putExtra("BabyId",inoculation.getId());
+                    startActivity(intent);
+                    finish();
+                }
+                else{
+                    Intent intent = new Intent(ViewBabyInfo.this, EditBaby.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
@@ -68,19 +77,25 @@ public class ViewBabyInfo extends AppCompatActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
         Long userId = sharedPreferences.getLong("loginUserId",0L);
 
-        Inoculation inoculation = selectBabyByParent(userId);
+        Inoculation inoculation = new Inoculation();
+        inoculation = selectBabyByParent(userId);
         return inoculation;
     }
     private Inoculation selectBabyByParent(Long parentId){
-        Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(parentId)).unique();
+        Inoculation inoculation = new Inoculation();
+        inoculation = babydao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(parentId)).unique();
         return inoculation;
     }
 
-    private void initView(Inoculation inoculation){
-        mShowBabyName.setText(inoculation.getInoculBaby());
-        mShowBabyHome.setText(inoculation.getBabyAdress());
-        mShowBabyNow.setText(inoculation.getBabyHome());
-        mShowBabyBirth.setText(inoculation.getBabyData());
-        mShowBabySex.setText(inoculation.getBabySex());
+    private void initView(){
+        Inoculation inoculation = new Inoculation();
+        if(getBaby()!=null){
+            inoculation = getBaby();
+            mShowBabyName.setText(inoculation.getInoculBaby());
+            mShowBabyHome.setText(inoculation.getBabyAdress());
+            mShowBabyNow.setText(inoculation.getBabyHome());
+            mShowBabyBirth.setText(inoculation.getBabyData());
+            mShowBabySex.setText(inoculation.getBabySex());
+        }
     }
 }

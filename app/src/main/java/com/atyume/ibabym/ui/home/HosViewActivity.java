@@ -95,20 +95,21 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
         });
     }
     private void initView(){
-        if(getData() == null){
-            return;
-        }
         //数据
-        List<HosInfo> hosInfoList = getData();
-        for (int i = 0; i < hosInfoList.size(); i++) {
-            MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle(hosInfoList.get(i).getHosName());
-            String MiaoName = getVaccinName(hosInfoList.get(i).getVaccinId());
-            myLiveList.setSource(MiaoName+"剩余数量:"+hosInfoList.get(i).getVaccinAmount());
-            myLiveList.setId(hosInfoList.get(i).getId());
-            mList.add(myLiveList);
-            mRadioAdapter.notifyAdapter(mList, false);
+        List<HosInfo> hosInfoList = new ArrayList<HosInfo>();
+        hosInfoList = getData();
+        if(hosInfoList!=null){
+            for (int i = 0; i < hosInfoList.size(); i++) {
+                MyLiveList myLiveList = new MyLiveList();
+                myLiveList.setTitle(hosInfoList.get(i).getHosName());
+                String MiaoName = getVaccinName(hosInfoList.get(i).getVaccinId());
+                myLiveList.setSource(MiaoName+"剩余数量:"+hosInfoList.get(i).getVaccinAmount());
+                myLiveList.setId(hosInfoList.get(i).getId());
+                mList.add(myLiveList);
+                mRadioAdapter.notifyAdapter(mList, false);
+            }
         }
+
     }
     private List<HosInfo> getData(){
         List<HosInfo> hosInfoList = new ArrayList<HosInfo>();

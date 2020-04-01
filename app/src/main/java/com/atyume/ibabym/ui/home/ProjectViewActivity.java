@@ -93,19 +93,20 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
         });
     }
     private void initView(){
-        if(getData() == null){
-            return;
+        List<ExamProject> examProjectList = new ArrayList<ExamProject>();
+        examProjectList = getData();
+        if(examProjectList!=null){
+            //数据
+            for (int i = 0; i < examProjectList.size(); i++) {
+                MyLiveList myLiveList = new MyLiveList();
+                myLiveList.setTitle(examProjectList.get(i).getProjectName());
+                myLiveList.setSource(examProjectList.get(i).getProjectPrice().toString());
+                myLiveList.setId(examProjectList.get(i).getId());
+                mList.add(myLiveList);
+                mRadioAdapter.notifyAdapter(mList, false);
+            }
         }
-        List<ExamProject> examProjectList = getData();
-        //数据
-        for (int i = 0; i < examProjectList.size(); i++) {
-            MyLiveList myLiveList = new MyLiveList();
-            myLiveList.setTitle(examProjectList.get(i).getProjectName());
-            myLiveList.setSource(examProjectList.get(i).getProjectPrice().toString());
-            myLiveList.setId(examProjectList.get(i).getId());
-            mList.add(myLiveList);
-            mRadioAdapter.notifyAdapter(mList, false);
-        }
+
     }
 
     private List<ExamProject> getData(){
