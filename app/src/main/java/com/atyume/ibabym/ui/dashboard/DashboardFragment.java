@@ -50,6 +50,10 @@ public class DashboardFragment extends Fragment implements OnBannerListener {
     Button mbtnOrderMiao;
     @BindView(R.id.order_exam)
     Button mbtnOrderExam;
+    @BindView(R.id.already_miao)
+    Button mbtnAlreadyMiao;
+    @BindView(R.id.already_exam)
+    Button mbtnAlreadyExam;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -100,11 +104,27 @@ public class DashboardFragment extends Fragment implements OnBannerListener {
                 startActivity(intent);
             }
         });
+        /*已种疫苗*/
+        mbtnAlreadyMiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MiaoRecorderList.class);
+                startActivity(intent);
+            }
+        });
+        /*体检记录*/
+        mbtnAlreadyExam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ExamRecorderList.class);
+                startActivity(intent);
+            }
+        });
 
         return root;
     }
     private void initTopBar(){
-        mbtnReadTopbar.setTitle("学习课堂");
+        mbtnReadTopbar.setTitle("首页");
     }
 
     public void initView() {

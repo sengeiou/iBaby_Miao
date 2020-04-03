@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         TabContainerView tabContainerView = (TabContainerView) findViewById(R.id.tab_container);
         MainViewAdapter mainViewAdapter=new MainViewAdapter(getSupportFragmentManager(),
                 new Fragment[] {new DashboardFragment(), new OrderFragment(), new NotificationsFragment()});
-        mainViewAdapter.setHasMsgIndex(3);
+//        mainViewAdapter.setHasMsgIndex(3);
         tabContainerView.setAdapter(mainViewAdapter);
         tabContainerView.setOnTabSelectedListener(new OnTabSelectedListener() {
             @Override

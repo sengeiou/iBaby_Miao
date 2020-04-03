@@ -15,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.atyume.greendao.gen.ExamInfoDao;
 import com.atyume.greendao.gen.ExamProjectDao;
 import com.atyume.greendao.gen.ProjectToExamDao;
+import com.atyume.ibabym.Model.ExamInfoModel;
+import com.atyume.ibabym.Model.ExamProjectModel;
+import com.atyume.ibabym.Model.ProjectToExamModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.ExamInfo;
 import com.atyume.ibabym.basics.ExamProject;
@@ -45,9 +48,10 @@ public class EditExam extends AppCompatActivity {
     String ExamName, ExamHos;
     Double ExamPrice;
 
-    private ExamInfoDao examInfoDao = MyApplication.getInstances().getDaoSession().getExamInfoDao();
-    private ExamProjectDao examProjectDao = MyApplication.getInstances().getDaoSession().getExamProjectDao();
-    private ProjectToExamDao projectToExamDao = MyApplication.getInstances().getDaoSession().getProjectToExamDao();
+    ExamInfoModel examInfoModel = new ExamInfoModel();
+    ExamProjectModel examProjectModel= new ExamProjectModel();
+    ProjectToExamModel projectToExamModel = new ProjectToExamModel();
+
     private List<CheckBox> checkBoxList=new ArrayList<CheckBox>();
     private List<String> ProjectNameList = new ArrayList<String>();
     private LinearLayout ll_checkBoxList;
@@ -60,7 +64,7 @@ public class EditExam extends AppCompatActivity {
 
 //        String[] checkboxText = new String[] { "项目1", "项目2",
 //                "项目3", "项目4" };
-        List<ExamProject> examProjectList = getProjectList();
+        List<ExamProject> examProjectList = examProjectModel.getProjectList();
 
         ll_checkBoxList=(LinearLayout) findViewById(R.id.exam_checkboxlist);
         for(int i=0; i<examProjectList.size();i++){
@@ -96,9 +100,9 @@ public class EditExam extends AppCompatActivity {
                     return;
                 }
 
-                insertData(ExamName, ExamPrice, ExamHos);
+                examInfoModel.insertExamInfo(ExamName, ExamPrice, ExamHos);
 
-                insertExamProject(ExamName, ProjectNameList);
+                insertExamProject(ExamName, ExamHos, ProjectNameList);
                 Intent intent = new Intent(EditExam.this, ExamViewActivity.class);
                 startActivity(intent);
                 finish();
@@ -106,34 +110,18 @@ public class EditExam extends AppCompatActivity {
         });
 
     }
-    private void insertData(String ExamName, Double ExamPrice, String ExamHos){
-        long insert = examInfoDao.insert(new ExamInfo(ExamName,ExamPrice,ExamHos));
-        if (insert > 0) {
-            Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
-        }
-    }
-    private void insertExamProject(String ExamName, List<String> ProjectNameList){
-        ExamInfo examInfo = examInfoDao.queryBuilder().where(ExamInfoDao.Properties.ExamName.eq(ExamName),ExamInfoDao.Properties.ExamHosName.eq(ExamHos)).unique();
-        Long examInfoId = examInfo.getId();
-        for(int i=0; i<ProjectNameList.size();i++){
-            ExamProject project = examProjectDao.queryBuilder().where(ExamProjectDao.Properties.ProjectName.eq(ProjectNameList.get(i))).unique();
-            long insert = projectToExamDao.insert(new ProjectToExam(examInfoId, project.getId()));
-            if(insert > 0){
-                Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
-            }
-        }
 
+    private void insertExamProject(String ExamName, String ExamHos, List<String> ProjectNameList){
+        Long examInfoId = examInfoModel.getExamInfoId(ExamName,ExamHos);
+        projectToExamModel.insertExamProject(examInfoId,ProjectNameList);
     }
+
     private void getEditText(){
         ExamName = mEditExamName.getText().toString();
         ExamHos = mEditExamHos.getText().toString();
         ExamPrice = Double.parseDouble(mEditExamPrice.getText().toString());
     }
 
-    private List<ExamProject> getProjectList(){
-        List<ExamProject> examProjectList = examProjectDao.loadAll();
-        return examProjectList;
-    }
     private void initTop(){
         mTopBar.setText("新增体检套餐");
     }

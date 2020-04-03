@@ -3,6 +3,7 @@ package com.atyume.ibabym.ui.dashboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.greendao.gen.ExamInfoDao;
+import com.atyume.ibabym.Model.ExamInfoModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.RecyclerAdapter;
 import com.atyume.ibabym.basics.ExamInfo;
@@ -29,13 +31,17 @@ public class RecyclerExamActivity extends AppCompatActivity {
 
     @BindView(R.id.comeBack)
     TextView mComeBack;
+    @BindView(R.id.tv_select_text)
+    EditText mEditSelect;
+    @BindView(R.id.tv_sure)
+    TextView mSureSelect;
 
     private List<MyLiveList> mDatas = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private RecyclerAdapter recyclerAdapter;
 
-    private ExamInfoDao examInfoDao = MyApplication.getInstances().getDaoSession().getExamInfoDao();
-    private String[] data = {"儿童6个月体检套餐","儿童一岁体检套餐","儿童一岁半体检套餐","儿童二岁体检套餐","儿童二岁半体检套餐","儿童三岁体检套餐","儿童三岁半体检套餐"};
+    ExamInfoModel examInfoModel = new ExamInfoModel();
+    String selectText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,16 @@ public class RecyclerExamActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RecyclerExamActivity.this.finish();
+            }
+        });
+
+        mSureSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectText = mEditSelect.getText().toString();
+                Intent intent = new Intent(RecyclerExamActivity.this, SelectExamShowList.class);
+                intent.putExtra("selectText",selectText);
+                startActivity(intent);
             }
         });
 
@@ -82,23 +98,19 @@ public class RecyclerExamActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        if(getThis() == null){
-            return;
-        }
-        List<ExamInfo> examInfoList = getThis();
-        //数据
-        for (int i = 0; i < examInfoList.size(); i++) {
-            MyLiveList myExamList = new MyLiveList();
-            myExamList.setTitle(examInfoList.get(i).getExamName());
-            myExamList.setSource(examInfoList.get(i).getExamHosName());
-            myExamList.setId(examInfoList.get(i).getId());
-            mDatas.add(myExamList);
-        }
-    }
-    private List<ExamInfo> getThis(){
         List<ExamInfo> examInfoList = new ArrayList<ExamInfo>();
-        examInfoList = examInfoDao.loadAll();
-        return examInfoList;
+        examInfoList = examInfoModel.getExamList();
+        //数据
+        if(examInfoList!=null || !examInfoList.isEmpty()){
+            for (int i = 0; i < examInfoList.size(); i++) {
+                MyLiveList myExamList = new MyLiveList();
+                myExamList.setTitle(examInfoList.get(i).getExamName());
+                myExamList.setSource(examInfoList.get(i).getExamHosName());
+                myExamList.setId(examInfoList.get(i).getId());
+                mDatas.add(myExamList);
+            }
+        }
+
     }
 
     private void initView() {

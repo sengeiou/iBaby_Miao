@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.ParentInfoDao;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.ParentModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.ParentInfo;
@@ -52,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private TimeCountUtil mTimeCountUtil;
     private boolean flag = true;
-    private ParentInfoDao parentDao = MyApplication.getInstances().getDaoSession().getParentInfoDao();
+    ParentModel parentModel = new ParentModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else{
                     myToast("点击了注册");
-                    insertUser(userTell,userPwd);
+                    parentModel.insertUser(userTell,userPwd);
                     /*Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);//返回页面1
                     finish();*/
@@ -143,7 +144,7 @@ public class RegisterActivity extends AppCompatActivity {
         if(!judPhone()){
             return;
         }
-        if(judgeHaveUser(userTell)){
+        if(parentModel.judgeHaveUser(userTell)){
             myToast("该账号已注册");
             return;
         }
@@ -246,20 +247,6 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    protected boolean judgeHaveUser(String userTell){
-        /*if(parentDao.load())*/
-        List<ParentInfo> parentList = parentDao.queryBuilder().where(ParentInfoDao.Properties.ParentTell.eq(userTell)).list();
-        if(parentList.size()==0){
-            return false;                 //没有注册过
-        }
-        return true;                      //注册过
-    }
-
-    private void insertUser(String userTell,String userPwd){
-        //密码加密
-        String md5Pwd = MD5Utils.md5(userPwd);
-        parentDao.insert(new ParentInfo(userTell,md5Pwd));
-    }
 
     /**
      * 保存账号和密码到SharedPreferences中SharedPreferences

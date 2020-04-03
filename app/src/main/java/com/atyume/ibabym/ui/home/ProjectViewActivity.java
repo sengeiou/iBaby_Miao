@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.greendao.gen.ExamProjectDao;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.ExamProjectModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
 import com.atyume.ibabym.adapter.RecyclerAdapter;
@@ -63,7 +64,7 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
     private int index = 0;
     private RecyclerAdapter recyclerAdapter;
 
-    private ExamProjectDao examProjectDao = MyApplication.getInstances().getDaoSession().getExamProjectDao();
+    ExamProjectModel examProjectModel = new ExamProjectModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +95,7 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
     }
     private void initView(){
         List<ExamProject> examProjectList = new ArrayList<ExamProject>();
-        examProjectList = getData();
+        examProjectList = examProjectModel.getProjectList();
         if(examProjectList!=null){
             //数据
             for (int i = 0; i < examProjectList.size(); i++) {
@@ -109,11 +110,6 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
 
     }
 
-    private List<ExamProject> getData(){
-        List<ExamProject> vList = new ArrayList<ExamProject>();
-        vList = examProjectDao.loadAll();
-        return vList;
-    }
     /**
      * 根据选择的数量是否为0来判断按钮的是否可点击.
      *
@@ -241,7 +237,7 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
                         mRadioAdapter.getMyLiveList().remove(myLive);
                         index--;
 
-                        examProjectDao.deleteByKey(myLive.getId());
+                        examProjectModel.deleteProjectById(myLive.getId());
 
                     }
                 }

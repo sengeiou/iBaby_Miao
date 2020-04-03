@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.InoculationDao;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.InoculationModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
@@ -50,7 +51,7 @@ public class UpdateBaby  extends AppCompatActivity {
 
     String babyName,babyDate,babySex,babyAdress,babyHome;
     Long babyId = 0L;
-    private InoculationDao babydao = MyApplication.getInstances().getDaoSession().getInoculationDao();
+    InoculationModel inoculationModel = new InoculationModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class UpdateBaby  extends AppCompatActivity {
                     return;
                 }
                 else{
-                    updateBaby(babyId,babyName,babyDate,babySex,babyAdress,babyHome);
+                    inoculationModel.updateBabyById(babyId,babyName,babyDate,babySex,babyAdress,babyHome);
 
                     Intent intent = new Intent(UpdateBaby.this, MainActivity.class);
                     Toast.makeText(UpdateBaby.this,"修改了"+babyName+"宝宝",Toast.LENGTH_LONG).show();
@@ -99,10 +100,10 @@ public class UpdateBaby  extends AppCompatActivity {
             Long userId = sharedPreferences.getLong("loginUserId",0L);
 
             Inoculation inoculation = new Inoculation();
-            inoculation = selectBabyByParent(userId);
+            inoculation = inoculationModel.selectBabyByParent(userId);
             return inoculation;
         }
-        return selectBabyBySelf(babyId);
+        return inoculationModel.selectBabyByBabyId(babyId);
 
     }
     private void initView(Inoculation inoculation){
@@ -130,34 +131,6 @@ public class UpdateBaby  extends AppCompatActivity {
         else if(mFemale.isChecked()){
             babySex = "女";
         }
-    }
-    private void updateBaby(Inoculation inoculation,String babyName,String babyDate,String babySex,String babyAdress,String babyHome){
-        inoculation.setInoculBaby(babyName);
-        inoculation.setBabyData(babyDate);
-        inoculation.setBabySex(babySex);
-        inoculation.setBabyHome(babyAdress);
-        inoculation.setBabyAdress(babyHome);
-        babydao.update(inoculation);
-    }
-
-    private void updateBaby(Long babyId,String babyName,String babyDate,String babySex,String babyAdress,String babyHome){
-        Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.Id.eq(babyId)).unique();
-        inoculation.setInoculBaby(babyName);
-        inoculation.setBabyData(babyDate);
-        inoculation.setBabySex(babySex);
-        inoculation.setBabyHome(babyAdress);
-        inoculation.setBabyAdress(babyHome);
-        babydao.update(inoculation);
-    }
-    private Inoculation selectBabyBySelf(Long babyId){
-        Inoculation inoculation = new Inoculation();
-        inoculation = babydao.load(babyId);
-        return inoculation;
-    }
-    private Inoculation selectBabyByParent(Long parentId){
-        Inoculation inoculation = new Inoculation();
-        inoculation = babydao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(parentId)).unique();
-        return inoculation;
     }
 }
 

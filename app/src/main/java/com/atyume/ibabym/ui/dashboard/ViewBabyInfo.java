@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.InoculationDao;
+import com.atyume.ibabym.Model.InoculationModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
@@ -35,8 +36,7 @@ public class ViewBabyInfo extends AppCompatActivity {
     @BindView(R.id.show_nowad)
     TextView mShowBabyNow;
 
-    private InoculationDao babydao = MyApplication.getInstances().getDaoSession().getInoculationDao();
-
+    InoculationModel inoculationModel = new InoculationModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,14 +78,10 @@ public class ViewBabyInfo extends AppCompatActivity {
         Long userId = sharedPreferences.getLong("loginUserId",0L);
 
         Inoculation inoculation = new Inoculation();
-        inoculation = selectBabyByParent(userId);
+        inoculation = inoculationModel.selectBabyByParent(userId);
         return inoculation;
     }
-    private Inoculation selectBabyByParent(Long parentId){
-        Inoculation inoculation = new Inoculation();
-        inoculation = babydao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(parentId)).unique();
-        return inoculation;
-    }
+
 
     private void initView(){
         Inoculation inoculation = new Inoculation();

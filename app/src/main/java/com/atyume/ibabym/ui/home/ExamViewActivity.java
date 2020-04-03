@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.greendao.gen.ExamInfoDao;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.ExamInfoModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.ExamRadioAdapter;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
@@ -65,7 +66,7 @@ public class ExamViewActivity extends Activity implements View.OnClickListener, 
     private boolean editorStatus = false;
     private int index = 0;
 
-    private ExamInfoDao examInfoDao = MyApplication.getInstances().getDaoSession().getExamInfoDao();
+    ExamInfoModel examInfoModel = new ExamInfoModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +114,7 @@ public class ExamViewActivity extends Activity implements View.OnClickListener, 
     }
     private void initView(){
         List<ExamInfo> examInfoList = new ArrayList<ExamInfo>();
-        examInfoList = getThis();
+        examInfoList = examInfoModel.getExamList();
         if(examInfoList!=null){
             //数据
             for (int i = 0; i < examInfoList.size(); i++) {
@@ -128,11 +129,7 @@ public class ExamViewActivity extends Activity implements View.OnClickListener, 
         }
 
     }
-    private List<ExamInfo> getThis(){
-        List<ExamInfo> examInfoList = new ArrayList<ExamInfo>();
-        examInfoList = examInfoDao.loadAll();
-        return examInfoList;
-    }
+
 
     protected void initListener(){
         mComeBack.setOnClickListener(new View.OnClickListener() {
@@ -246,7 +243,7 @@ public class ExamViewActivity extends Activity implements View.OnClickListener, 
                         mRadioAdapter.getMyExamList().remove(myExam);
                         index--;
 
-                        examInfoDao.deleteByKey(myExam.getExamId());
+                        examInfoModel.deleteExamInfoById(myExam.getExamId());
                     }
                 }
                 index = 0;

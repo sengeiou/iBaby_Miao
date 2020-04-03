@@ -48,11 +48,14 @@
         <activity android:name=".ui.home.ExamViewActivity"></activity>
         <activity android:name=".ui.home.EditExam"></activity>
         <activity android:name=".ui.home.ExamInfoActivity"></activity>
+        <activity android:name=".ui.dashboard.SelectExamShowList"></activity>
+        <activity android:name=".ui.dashboard.ExamRecorderList"></activity>
         <!--疫苗-->
-        <activity android:name=".ui.home.MiaoManage"></activity>
         <activity android:name=".ui.home.EditMiao"></activity>
         <activity android:name=".ui.home.MiaoViewActivity"></activity>
         <activity android:name=".ui.home.MiaoAllInfo"></activity>
+        <activity android:name=".ui.dashboard.SelectMiaoShowList"></activity>
+        <activity android:name=".ui.dashboard.MiaoRecorderList"></activity>
         <!--宝宝信息-->
         <activity android:name=".ui.home.BabyViewActivity"></activity>
         <activity android:name=".ui.home.EditBaby"></activity>

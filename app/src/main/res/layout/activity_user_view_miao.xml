@@ -27,11 +27,12 @@
         android:paddingRight="10dp">
 
         <EditText
+            android:id="@+id/tv_select_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:layout_toLeftOf="@+id/tv_cancel"
+            android:layout_toLeftOf="@+id/tv_sure"
             android:background="@drawable/sp_search_box_bg"
             android:drawableLeft="@mipmap/icon_small_search"
             android:drawablePadding="10dip"
@@ -39,16 +40,15 @@
             android:hint="请输入关键字"
             android:textCursorDrawable="@drawable/color_cursor_black"
             android:textSize="12sp" />
-
         <TextView
-            android:id="@+id/tv_cancel"
+            android:id="@+id/tv_sure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
             android:gravity="center"
-            android:text="取消"
+            android:text="搜索"
             android:textColor="#3682cc" />
     </RelativeLayout>
     <FrameLayout

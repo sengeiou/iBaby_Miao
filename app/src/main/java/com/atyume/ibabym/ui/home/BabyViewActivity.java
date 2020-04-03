@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.greendao.gen.InoculationDao;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.InoculationModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
 import com.atyume.ibabym.basics.Inoculation;
@@ -64,7 +65,7 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
     private boolean editorStatus = false;
     private int index = 0;
 
-    private InoculationDao inoculationDao = MyApplication.getInstances().getDaoSession().getInoculationDao();
+    InoculationModel inoculationModel = new InoculationModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
     }
     private void initView(){
         List<Inoculation> inoculationList = new ArrayList<Inoculation>();
-        inoculationList = getThis();
+        inoculationList = inoculationModel.getInoculationList();
         if(inoculationList!=null){
             //数据
             for (int i = 0; i < inoculationList.size(); i++) {
@@ -126,11 +127,6 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
 
     }
 
-    private List<Inoculation> getThis(){
-        List<Inoculation> inoculationList = new ArrayList<Inoculation>();
-        inoculationList = inoculationDao.loadAll();
-        return inoculationList;
-    }
     protected void initListener(){
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,7 +237,7 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
                         mRadioAdapter.getMyLiveList().remove(myLive);
                         index--;
 
-                        inoculationDao.deleteByKey(myLive.getId());
+                        inoculationModel.deleteBabyById(myLive.getId());
                     }
                 }
                 index = 0;

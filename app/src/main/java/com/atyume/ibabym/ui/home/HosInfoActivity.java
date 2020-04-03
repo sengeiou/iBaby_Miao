@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.HosInfoDao;
 import com.atyume.greendao.gen.VaccinDao;
+import com.atyume.ibabym.Model.HosInfoModel;
+import com.atyume.ibabym.Model.VaccinModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.HosInfo;
 import com.atyume.ibabym.basics.MyApplication;
@@ -41,8 +43,8 @@ public class HosInfoActivity extends AppCompatActivity {
     String hosName,hosAdress;
     Long hosMiaoId,hosMiaoAmount;
 
-    private HosInfoDao hosInfoDao = MyApplication.getInstances().getDaoSession().getHosInfoDao();
-    private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
+    HosInfoModel hosInfoModel = new HosInfoModel();
+    VaccinModel vaccinModel = new VaccinModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +72,12 @@ public class HosInfoActivity extends AppCompatActivity {
                     Toast.makeText(HosInfoActivity.this, "请输入医院地址", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!judgeMiaoExist(hosMiaoId)){
+                if(!vaccinModel.judgeMiaoExist(hosMiaoId)){
                     Toast.makeText(HosInfoActivity.this, "输入的疫苗编号不存在", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!judgeIsExist(hosName,hosAdress,hosMiaoId)){
-                    updateData(hosName,hosAdress,hosMiaoId,hosMiaoAmount);
+                if(!hosInfoModel.judgeHosIsExist(hosName,hosAdress,hosMiaoId)){
+                    hosInfoModel.updateHosById(getHosId(),hosName,hosAdress,hosMiaoId,hosMiaoAmount);
                     Intent intent = new Intent(HosInfoActivity.this, HosViewActivity.class);
                     startActivity(intent);
                     finish();
@@ -85,7 +87,7 @@ public class HosInfoActivity extends AppCompatActivity {
     }
     private void setEditText(){
         HosInfo hosInfo = new HosInfo();
-        hosInfo = getThis();
+        hosInfo = getHos();
         mEditHosName.setText(hosInfo.getHosName());
         mEditHosAdress.setText(hosInfo.getHosAdress());
         mEditMiaoAmountHos.setText(hosInfo.getVaccinAmount().toString());
@@ -99,36 +101,15 @@ public class HosInfoActivity extends AppCompatActivity {
         hosMiaoAmount = Long.parseLong((mEditMiaoAmountHos.getText().toString()));
     }
 
-    private HosInfo getThis(){
+    private Long getHosId(){
         Intent intent = getIntent();
-        Long HosId = intent.getLongExtra("manageHosId",0L);
+        Long hosId = intent.getLongExtra("manageHosId",0L);
+        return hosId;
+    }
+
+    public HosInfo getHos(){
         HosInfo hosInfo = new HosInfo();
-        hosInfo = hosInfoDao.load(HosId);
+        hosInfo = hosInfoModel.getHosInfo(getHosId());
         return hosInfo;
     }
-
-    private void updateData(String hosName,String hosAdress,Long hosMiaoId,Long hosMiaoAmount){
-        HosInfo hosInfo = hosInfoDao.load(getThis().getId());
-        hosInfo.setHosName(hosName);
-        hosInfo.setHosAdress(hosAdress);
-        hosInfo.setVaccinId(hosMiaoId);
-        hosInfo.setVaccinAmount(hosMiaoAmount);
-        hosInfoDao.update(hosInfo);
-    }
-    private boolean judgeIsExist(String hosName,String hosAdress,Long hosMiaoId){
-        List<HosInfo> hosInfoList = hosInfoDao.queryBuilder().where(HosInfoDao.Properties.HosName.eq(hosName),
-                HosInfoDao.Properties.HosAdress.eq(hosAdress),HosInfoDao.Properties.VaccinId.eq(hosMiaoId)).list();
-        if (hosInfoList==null || hosInfoList.size()==0){
-            return false;    //不存在
-        }
-        return true;
-    }
-    private boolean judgeMiaoExist(Long MiaoId){
-        List<Vaccin> vaccinList = vaccinDao.queryBuilder().where(VaccinDao.Properties.Id.eq(MiaoId)).list();
-        if(vaccinList==null || vaccinList.size()==0){
-            return false;
-        }
-        return true;
-    }
-
 }

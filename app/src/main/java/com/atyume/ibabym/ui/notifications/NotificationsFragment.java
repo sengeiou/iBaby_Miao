@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.atyume.greendao.gen.ParentInfoDao;
+import com.atyume.ibabym.Model.ParentModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.ParentInfo;
@@ -33,7 +34,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class NotificationsFragment extends Fragment {
 
     private SharedPreferences sharedPreferences;
-    private ParentInfoDao parentDao = MyApplication.getInstances().getDaoSession().getParentInfoDao();
+    ParentModel parentModel = new ParentModel();
     /*private NotificationsViewModel notificationsViewModel;*/
 
     @BindView(R.id.mine_topbar)
@@ -104,7 +105,7 @@ public class NotificationsFragment extends Fragment {
         mbtnMineTopBar.setTitle("我的");
     }
     private void initUser(){
-        userName = getUserNick();
+        userName = parentModel.getUserNick(getUserId());
         mshowUserName.setText(userName);
     }
     private Long getUserId(){
@@ -112,12 +113,5 @@ public class NotificationsFragment extends Fragment {
         Long userId = sharedPreferences.getLong("loginUserId",0L);
         return userId;
     }
-    private String getUserNick(){
-        Long userId = getUserId();
-        ParentInfo parentInfo = parentDao.queryBuilder().where(ParentInfoDao.Properties.Id.eq(userId)).unique();
-        if (parentInfo.getParentNick()==null || parentInfo.getParentNick().equals("")){
-            return parentInfo.getParentTell();
-        }
-        return parentInfo.getParentNick();
-    }
+
 }

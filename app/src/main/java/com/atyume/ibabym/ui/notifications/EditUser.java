@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.ParentInfoDao;
+import com.atyume.ibabym.Model.ParentModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.ParentInfo;
@@ -37,7 +38,7 @@ public class EditUser extends AppCompatActivity {
 
     String userNick,userName,userWork;
 
-    private ParentInfoDao parentDao = MyApplication.getInstances().getDaoSession().getParentInfoDao();
+    ParentModel parentModel = new ParentModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,8 @@ public class EditUser extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("loginInfo", MODE_PRIVATE);
         Long userId = sharedPreferences.getLong("loginUserId",0L);
+
+        initView(userId);
 
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +62,7 @@ public class EditUser extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getEditText();
-                modifyUser(userId,userNick,userName,userWork);
+                parentModel.modifyUser(userId,userNick,userName,userWork);
                 Toast.makeText(EditUser.this, "修改成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(EditUser.this, ViewUser.class);
                 startActivity(intent);
@@ -68,19 +71,17 @@ public class EditUser extends AppCompatActivity {
         });
     }
 
-    private void modifyUser(Long userId,String userNick,  String userName, String userWork){
-        ParentInfo parentInfo = parentDao.queryBuilder().where(ParentInfoDao.Properties.Id.eq(userId)).unique();
-        if(TextUtils.isEmpty(userNick)){
-            userNick = parentInfo.getParentTell();
-        }
-        parentInfo.setParentName(userName);
-        parentInfo.setParentNick(userNick);
-        parentInfo.setParentWorkAdress(userWork);
-        parentDao.update(parentInfo);
-    }
     private void getEditText(){
         userName = mEditUserName.getText().toString();
         userNick = mEditUserNick.getText().toString();
         userWork = mEditUserWork.getText().toString();
+    }
+
+    private void initView(Long userId){
+        ParentInfo parentInfo = new ParentInfo();
+        parentInfo = parentModel.selectById(userId);
+        mEditUserNick.setText(parentInfo.getParentNick());
+        mEditUserName.setText(parentInfo.getParentName());
+        mEditUserWork.setText(parentInfo.getParentWorkAdress());
     }
 }

@@ -12,6 +12,10 @@ import com.atyume.greendao.gen.ExamProjectDao;
 import com.atyume.greendao.gen.InoculationDao;
 import com.atyume.greendao.gen.OrderExamInfoDao;
 import com.atyume.greendao.gen.ProjectToExamDao;
+import com.atyume.ibabym.Model.ExamInfoModel;
+import com.atyume.ibabym.Model.InoculationModel;
+import com.atyume.ibabym.Model.OrderExamModel;
+import com.atyume.ibabym.Model.ProjectToExamModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.ExamInfo;
 import com.atyume.ibabym.basics.ExamProject;
@@ -19,6 +23,8 @@ import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.OrderExamInfo;
 import com.atyume.ibabym.basics.ProjectToExam;
+import com.qmuiteam.qmui.layout.QMUIRelativeLayout;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +48,19 @@ public class ShowOrderExamInfo extends AppCompatActivity {
     TextView mShowOrderExamBaby;
     @BindView(R.id.show_OrderExamTime)
     TextView mShowOrderExamTime;
+    @BindView(R.id.count_wait)
+    TextView mShowCountWait;
+    @BindView(R.id.sure_Succeed)
+    QMUIRoundButton mSureSucceed;
+    @BindView(R.id.sure_Cancel)
+    QMUIRoundButton mSureCancel;
+    @BindView(R.id.relative_show_other)
+    QMUIRelativeLayout mRelative;
 
-    private ExamInfoDao examInfoDao = MyApplication.getInstances().getDaoSession().getExamInfoDao();
-    private ProjectToExamDao projectToExamDao = MyApplication.getInstances().getDaoSession().getProjectToExamDao();
-    private ExamProjectDao examProjectDao = MyApplication.getInstances().getDaoSession().getExamProjectDao();
-    private OrderExamInfoDao orderExamInfoDao = MyApplication.getInstances().getDaoSession().getOrderExamInfoDao();
-    private InoculationDao inoculationDao = MyApplication.getInstances().getDaoSession().getInoculationDao();
+    ExamInfoModel examInfoModel = new ExamInfoModel();
+    ProjectToExamModel projectToExamModel = new ProjectToExamModel();
+    OrderExamModel orderExamModel = new OrderExamModel();
+    InoculationModel inoculationModel = new InoculationModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,54 +75,93 @@ public class ShowOrderExamInfo extends AppCompatActivity {
             }
         });
 
+        mSureSucceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderExamModel.updateSucceed(getOrderExamInfo());
+                mSureSucceed.setVisibility(View.INVISIBLE);
+                mSureCancel.setVisibility(View.INVISIBLE);
+                mRelative.setVisibility(View.INVISIBLE);
+            }
+        });
+        mSureCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderExamModel.updateCancel(getOrderExamInfo());
+                mSureSucceed.setVisibility(View.INVISIBLE);
+                mSureCancel.setVisibility(View.INVISIBLE);
+                mRelative.setVisibility(View.INVISIBLE);
+            }
+        });
+
     }
     private void setEditText(){
         OrderExamInfo orderExamInfo = new OrderExamInfo();
-        orderExamInfo = getThis();
+        orderExamInfo = getOrderExamInfo();
+
         ExamInfo examInfo = new ExamInfo();
         examInfo = getExam();
+
         mShowExamName.setText(examInfo.getExamName());
         mShowExamHos.setText(examInfo.getExamHosName());
         mShowExamPrice.setText(examInfo.getExamPrice().toString());
+
         List<String> examProjectList = new ArrayList<String>();
-        examProjectList = getProjects();
+        examProjectList = projectToExamModel.getProjectNameLists(orderExamInfo.getExamId());
+
         mShowExamProject.setText(examProjectList.toString());
         mShowOrderExamBaby.setText(getBabyName());
         mShowOrderExamTime.setText(orderExamInfo.getOrderTime());
-    }
 
-
-    private List<String> getProjects(){
-        List<ProjectToExam> projectToExamList = projectToExamDao.queryBuilder().where(ProjectToExamDao.Properties.ExamId.eq(getExam().getId())).list();
-        List<String> examProjectList = new ArrayList<String>();
-        for(ProjectToExam projectToExam : projectToExamList){
-            ExamProject examProject = examProjectDao.load(projectToExam.getProjectId());
-            examProjectList.add(examProject.getProjectName());
+        //        显示排队人数
+        int waitCount = getCountWait(orderExamInfo.getOrderTime())-1;
+        if(waitCount < 0){
+            mRelative.setVisibility(View.INVISIBLE);
         }
-        return examProjectList;
+        else{
+            String wait = String.valueOf(waitCount);
+            mShowCountWait.setText(wait);
+        }
+//         按钮的显示
+        if(orderExamInfo.getIsSucced()==1){
+            mSureSucceed.setText("已完成");
+            mSureSucceed.setVisibility(View.INVISIBLE);
+            mSureCancel.setVisibility(View.INVISIBLE);
+            mRelative.setVisibility(View.INVISIBLE);
+        }
+        else if(orderExamInfo.getIsSucced()==2){
+            mSureSucceed.setVisibility(View.INVISIBLE);
+            mSureCancel.setVisibility(View.INVISIBLE);
+            mRelative.setVisibility(View.INVISIBLE);
+        }
     }
+
 
     private String getBabyName(){
-        Inoculation inoculation = new Inoculation();
-        inoculation = inoculationDao.load(getThis().getInoculId());
-        return inoculation.getInoculBaby();
+        Long babyId = getOrderExamInfo().getInoculId();
+        return inoculationModel.getBabyNameByBaby(babyId);
     }
+
     private ExamInfo getExam(){
         ExamInfo examInfo = new ExamInfo();
-        examInfo = examInfoDao.load(getThis().getExamId());
+        Long examId = getOrderExamInfo().getExamId();
+        examInfo = examInfoModel.getExamInfo(examId);
         return examInfo;
     }
 
-    private OrderExamInfo getThis(){
-        Long orderExamId = getOrderExamId();
+    private OrderExamInfo getOrderExamInfo(){
         OrderExamInfo orderExamInfo = new OrderExamInfo();
-        orderExamInfo = orderExamInfoDao.load(orderExamId);
+        orderExamInfo = orderExamModel.getOrderExamInfo(getOrderExamId());
         return orderExamInfo;
     }
+
     private Long getOrderExamId(){
         Intent intentGetId = getIntent();
         Long orderExamId = intentGetId.getLongExtra("clickOrderExamId",0L);
         return orderExamId;
     }
 
+    private int getCountWait(String orderTime){
+        return orderExamModel.getOrderCountByDate(orderTime);
+    }
 }

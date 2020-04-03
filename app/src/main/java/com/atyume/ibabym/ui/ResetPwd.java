@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.ParentInfoDao;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.ParentModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.ParentInfo;
@@ -50,7 +51,7 @@ public class ResetPwd extends AppCompatActivity {
     String userTell,userNewPwd,userReNewPwd;
     String verifyCode;
 
-    private ParentInfoDao parentDao = MyApplication.getInstances().getDaoSession().getParentInfoDao();
+    ParentModel parentModel = new ParentModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class ResetPwd extends AppCompatActivity {
                     myToast("两次输入密码不一致");
                     return;
                 }
-                if(!judgeHaveUser(userTell)){
+                if(!parentModel.judgeHaveUser(userTell)){
                     myToast("该账号尚未注册");
                     return;
                 }
@@ -95,7 +96,7 @@ public class ResetPwd extends AppCompatActivity {
                     return;
                 }
                 else{
-                    ParentInfo parentInfo = judgeUpdatePwd(userTell,userNewPwd);
+                    ParentInfo parentInfo = parentModel.judgeUpdatePwd(userTell,userNewPwd);
                     Toast.makeText(ResetPwd.this, parentInfo.getId()+"Tell:"+parentInfo.getParentTell()+"Pwd:"+parentInfo.getParentPwd(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ResetPwd.this, MainActivity.class);
                     startActivity(intent);//返回页面1
@@ -128,7 +129,7 @@ public class ResetPwd extends AppCompatActivity {
         if(!judPhone()){
             return;
         }
-        if(!judgeHaveUser(userTell)){
+        if(!parentModel.judgeHaveUser(userTell)){
             myToast("该账号尚未注册");
             return;
         }
@@ -231,20 +232,4 @@ public class ResetPwd extends AppCompatActivity {
         }
     }
 
-    protected boolean judgeHaveUser(String userTell){
-        List<ParentInfo> parentList = parentDao.queryBuilder().where(ParentInfoDao.Properties.ParentTell.eq(userTell)).list();
-        if(parentList.size()==0){
-            return false;                 //没有注册过
-        }
-        return true;                      //注册过
-    }
-    protected ParentInfo judgeUpdatePwd(String userTell, String userNewPwd){
-        ParentInfo parentInfo = parentDao.queryBuilder().where(ParentInfoDao.Properties.ParentTell.eq(userTell)).unique();
-
-        String md5Pwd = MD5Utils.md5(userNewPwd);
-        parentInfo.setParentPwd(md5Pwd);
-
-        parentDao.update(parentInfo);
-        return parentInfo;
-    }
 }

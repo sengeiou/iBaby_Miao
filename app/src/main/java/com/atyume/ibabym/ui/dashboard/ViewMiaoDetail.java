@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.VaccinDao;
+import com.atyume.ibabym.Model.VaccinModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.Vaccin;
@@ -39,7 +40,7 @@ public class ViewMiaoDetail extends AppCompatActivity {
     @BindView(R.id.button_take_order_miao)
     QMUIRoundButton mbtnOrderMiao;
 
-    private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
+    VaccinModel vaccinModel = new VaccinModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +68,12 @@ public class ViewMiaoDetail extends AppCompatActivity {
             }
         });
     }
-    /*private void initData(){
-        Vaccin vaccin = getThis();
-        setMiaoText(vaccin);
-    }*/
 
     private Vaccin getThis(){
         Intent intentGetId = getIntent();
         Long miaoId = intentGetId.getLongExtra("clickMiaoId",0L);
-        Vaccin vaccin = vaccinDao.queryBuilder().where(VaccinDao.Properties.Id.eq(miaoId)).unique();
+        Vaccin vaccin = new Vaccin();
+        vaccin = vaccinModel.getVaccin(miaoId);
         return vaccin;
     }
     private void setMiaoText(Vaccin vaccin){

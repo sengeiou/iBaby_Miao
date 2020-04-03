@@ -14,6 +14,9 @@ import com.atyume.greendao.gen.ExamInfoDao;
 import com.atyume.greendao.gen.InoculationDao;
 import com.atyume.greendao.gen.OrderExamInfoDao;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.ExamInfoModel;
+import com.atyume.ibabym.Model.InoculationModel;
+import com.atyume.ibabym.Model.OrderExamModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.ExamInfo;
 import com.atyume.ibabym.basics.ExamProject;
@@ -42,9 +45,10 @@ public class OrderExam extends AppCompatActivity {
     QMUIRoundButton mbtnOrderExam;
 
     private String babyName,orderHos,orderTime;
-    private ExamInfoDao examInfoDao = MyApplication.getInstances().getDaoSession().getExamInfoDao();
-    private InoculationDao inoculationDao = MyApplication.getInstances().getDaoSession().getInoculationDao();
-    private OrderExamInfoDao orderExamInfoDao = MyApplication.getInstances().getDaoSession().getOrderExamInfoDao();
+
+    ExamInfoModel examInfoModel = new ExamInfoModel();
+    InoculationModel inoculationModel = new InoculationModel();
+    OrderExamModel orderExamModel = new OrderExamModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,7 @@ public class OrderExam extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getEditText();
-                insertOrderExam(babyName,orderTime);
+                makeOrderExam(babyName,orderTime);
                 Toast.makeText(OrderExam.this, "预约成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(OrderExam.this, MainActivity.class);
                 startActivity(intent);
@@ -75,37 +79,33 @@ public class OrderExam extends AppCompatActivity {
         orderTime = mEditOrderTime.getText().toString();
     }
     private void setEditText(){
-        ExamInfo examInfo = getThis();
+        ExamInfo examInfo = new ExamInfo();
+        examInfo = examInfoModel.getExamInfo(getExamId());
         mEditOrderExamBaby.setText(getBaby());
         mEditOrderHos.setText(examInfo.getExamHosName());
     }
-    private ExamInfo getThis(){
-        ExamInfo examInfo = examInfoDao.load(getExamId());
-        return examInfo;
-    }
+
     private Long getExamId(){
         Intent intentGetId = getIntent();
         Long examId = intentGetId.getLongExtra("orderExamId",0L);
         return examId;
     }
     private String getBaby(){
-        return selectBabyByParent().getInoculBaby();
+        return inoculationModel.getBabyName(getParentId());
     }
-    private Inoculation selectBabyByParent(){
+    private Long getParentId(){
         SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
         Long userId = sharedPreferences.getLong("loginUserId",0L);
-        Inoculation inoculation = inoculationDao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(userId)).unique();
-        return inoculation;
+        return userId;
     }
     private String getDate(){        //现在系统时间
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         return simpleDateFormat.format(date);
     }
-    private void insertOrderExam(String babyName,String orderTime){
-        Inoculation inoculation = inoculationDao.queryBuilder().where(InoculationDao.Properties.InoculBaby.eq(babyName)).unique();
-        OrderExamInfo orderExamInfo = new OrderExamInfo(getExamId(),inoculation.getId(),getDate(),orderTime,0);
-        orderExamInfoDao.insert(orderExamInfo);
+    private void makeOrderExam(String babyName,String orderTime){
+        Long babyId = inoculationModel.getBabyIdByName(babyName);
+        orderExamModel.insertOrderExam(getExamId(),babyId,getDate(),orderTime,0);
     }
 
 }

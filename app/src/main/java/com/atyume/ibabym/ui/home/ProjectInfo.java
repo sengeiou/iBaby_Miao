@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.ExamProjectDao;
+import com.atyume.ibabym.Model.ExamProjectModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.ExamProject;
 import com.atyume.ibabym.basics.MyApplication;
@@ -34,7 +35,8 @@ public class ProjectInfo extends AppCompatActivity {
     QMUIRoundButton mbtnAddProject;
     String ProjectName,ProjectDetail;
     Double ProjectPrice;
-    private ExamProjectDao examProjectDao = MyApplication.getInstances().getDaoSession().getExamProjectDao();
+    ExamProjectModel examProjectModel = new ExamProjectModel();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,18 +67,21 @@ public class ProjectInfo extends AppCompatActivity {
         });
     }
 
-    private  ExamProject getThis(){
+    private  ExamProject getProject(){
         Intent intentGetId = getIntent();
         Long ProjectId = intentGetId.getLongExtra("manageProjectId",0L);
-        ExamProject examProject = examProjectDao.load(ProjectId);
+        ExamProject examProject = new ExamProject();
+        examProject = examProjectModel.getExamProject(ProjectId);
         return examProject;
     }
+
     private void setEditText(){
-        ExamProject examProject = getThis();
+        ExamProject examProject = getProject();
         mEditProjectName.setText(examProject.getProjectName());
         mEditProjectDetail.setText(examProject.getProjectDetail());
         mEditProjectPrice.setText(examProject.getProjectPrice().toString());
     }
+
     private void getEditText(){
         ProjectName = mEditProjectName.getText().toString();
         ProjectDetail = mEditProjectDetail.getText().toString();
@@ -84,14 +89,11 @@ public class ProjectInfo extends AppCompatActivity {
     }
 
     private void updateProject(String projectName,String projectDetail,Double projectPrice){
-        ExamProject examProject = getThis();
-        examProject.setProjectName(projectName);
-        examProject.setProjectDetail(projectDetail);
-        examProject.setProjectPrice(projectPrice);
-        examProjectDao.update(examProject);
+        ExamProject examProject = getProject();
+        examProjectModel.updateProject(examProject,projectName,projectDetail,projectPrice);
         Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
-
     }
+
     private void initTop(){
         mTopBar.setText("修改体检项目信息");
     }

@@ -15,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.atyume.greendao.gen.ExamInfoDao;
 import com.atyume.greendao.gen.ExamProjectDao;
 import com.atyume.greendao.gen.ProjectToExamDao;
+import com.atyume.ibabym.Model.ExamInfoModel;
+import com.atyume.ibabym.Model.ExamProjectModel;
+import com.atyume.ibabym.Model.ProjectToExamModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.ExamInfo;
 import com.atyume.ibabym.basics.ExamProject;
@@ -45,9 +48,10 @@ public class ExamInfoActivity extends AppCompatActivity {
     String ExamName, ExamHos;
     Double ExamPrice;
 
-    private ExamInfoDao examInfoDao = MyApplication.getInstances().getDaoSession().getExamInfoDao();
-    private ExamProjectDao examProjectDao = MyApplication.getInstances().getDaoSession().getExamProjectDao();
-    private ProjectToExamDao projectToExamDao = MyApplication.getInstances().getDaoSession().getProjectToExamDao();
+    ExamInfoModel examInfoModel = new ExamInfoModel();
+    ExamProjectModel examProjectModel = new ExamProjectModel();
+    ProjectToExamModel projectToExamModel = new ProjectToExamModel();
+
     private List<CheckBox> checkBoxList=new ArrayList<CheckBox>();
     private List<String> ProjectNameList = new ArrayList<String>();
     private LinearLayout ll_checkBoxList;
@@ -60,7 +64,8 @@ public class ExamInfoActivity extends AppCompatActivity {
 
 //        String[] checkboxText = new String[] { "项目1", "项目2",
 //                "项目3", "项目4" };
-        List<ExamProject> examProjectList = getProjectList();
+        List<ExamProject> examProjectList = new ArrayList<ExamProject>();
+        examProjectList = examProjectModel.getProjectList();
 
         ll_checkBoxList=(LinearLayout) findViewById(R.id.exam_checkboxlist);
         for(int i=0; i<examProjectList.size();i++){
@@ -108,43 +113,41 @@ public class ExamInfoActivity extends AppCompatActivity {
 
     }
     private void updateData(String ExamName, Double ExamPrice, String ExamHos){
-        ExamInfo examInfo = getThis();
-        examInfo.setExamName(ExamName);
-        examInfo.setExamPrice(ExamPrice);
-        examInfo.setExamHosName(ExamHos);
-        examInfoDao.update(examInfo);
+
+        ExamInfo examInfo = new ExamInfo();
+        examInfo = getThis();
+        examInfoModel.updateExamInfo(examInfo,ExamName,ExamPrice,ExamHos);
         Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
     }
+
     private void updateExamProject(List<String> ProjectNameList){
         ExamInfo examInfo = getThis();
         Long examInfoId = examInfo.getId();
         //删除旧的套餐-单项
         deleteOldSelectId(examInfoId);
         //添加新的套餐-单项
-        for(int i=0; i<ProjectNameList.size();i++){
-            //找到对应单项名称的体检项目
-            ExamProject project = examProjectDao.queryBuilder().where(ExamProjectDao.Properties.ProjectName.eq(ProjectNameList.get(i))).unique();
-            //重新添加套餐-单项
-            long insert = projectToExamDao.insert(new ProjectToExam(examInfoId, project.getId()));
-            if(insert > 0){
-                Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
-            }
-        }
+        projectToExamModel.insertExamProject(examInfoId,ProjectNameList);
 
     }
     private ExamInfo getThis(){
         Intent intentGetId = getIntent();
         Long examId = intentGetId.getLongExtra("manageExamId",0L);
-        ExamInfo examInfo = examInfoDao.load(examId);
+        ExamInfo examInfo = new ExamInfo();
+        examInfo = examInfoModel.getExamInfo(examId);
         return examInfo;
     }
+
     private void setEditText(){
         ExamInfo examInfo = new ExamInfo();
         examInfo = getThis();
+
         mEditExamName.setText(examInfo.getExamName());
         mEditExamHos.setText(examInfo.getExamHosName());
         mEditExamPrice.setText(examInfo.getExamPrice().toString());
-        List<String> projectNameList = getSelectList(examInfo.getId());
+
+        List<String> projectNameList = new ArrayList<String>();
+        projectNameList = projectToExamModel.getSelectProjectNameList(examInfo.getId());
+
         for(CheckBox checkBox:checkBoxList){
             for(int i=0;i<projectNameList.size();i++){
                 if((checkBox.getText().toString()).equals(projectNameList.get(i))){
@@ -162,33 +165,11 @@ public class ExamInfoActivity extends AppCompatActivity {
     }
 
     private void deleteOldSelectId(Long examId){
-        List<String> projectNameList = getSelectList(examId);
-        List<Long> oldprojectIdList = new ArrayList<Long>();
-        for(int i=0;i<projectNameList.size();i++){
-            //找到对应套餐的体检单项
-            ExamProject examProject = examProjectDao.queryBuilder().where(ExamProjectDao.Properties.ProjectName.eq(projectNameList.get(i))).unique();
-            //找到套餐-单项对应项
-            ProjectToExam projectToExam = projectToExamDao.queryBuilder().where(ProjectToExamDao.Properties.ExamId.eq(examId),ProjectToExamDao.Properties.ProjectId.eq(examProject.getId())).unique();
-            //删除
-            projectToExamDao.delete(projectToExam);
-        }
-    }
-    private List<String> getSelectList(Long ExamId){
-        List<ProjectToExam> projectToExamList = projectToExamDao.queryBuilder().where(ProjectToExamDao.Properties.ExamId.eq(ExamId)).list();
         List<String> projectNameList = new ArrayList<String>();
-        for (ProjectToExam projectToExam : projectToExamList){
-            projectNameList.add(getProjectName(projectToExam.getProjectId()));
-        }
-        return projectNameList;
+        projectNameList = projectToExamModel.getSelectProjectNameList(examId);
+        projectToExamModel.deleteOldSelectProjectById(examId,projectNameList);
     }
 
-    private String getProjectName(Long projectId){
-        return examProjectDao.load(projectId).getProjectName();
-    }
-    private List<ExamProject> getProjectList(){
-        List<ExamProject> examProjectList = examProjectDao.loadAll();
-        return examProjectList;
-    }
     private void initTop(){
         mTopBar.setText("体检套餐信息");
     }

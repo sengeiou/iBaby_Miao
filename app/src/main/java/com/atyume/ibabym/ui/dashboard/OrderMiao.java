@@ -5,24 +5,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.ArrayRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.atyume.greendao.gen.HosInfoDao;
-import com.atyume.greendao.gen.InoculationDao;
-import com.atyume.greendao.gen.OrderVaccinDao;
-import com.atyume.greendao.gen.VaccinDao;
+import com.atyume.ibabym.Model.HosInfoModel;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.InoculationModel;
+import com.atyume.ibabym.Model.OrderVaccinModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.HosInfo;
-import com.atyume.ibabym.basics.Inoculation;
-import com.atyume.ibabym.basics.MyApplication;
-import com.atyume.ibabym.basics.OrderVaccin;
-import com.atyume.ibabym.basics.Vaccin;
 import com.atyume.ibabym.utils.MyOrderHosList;
 import com.atyume.ibabym.utils.XCDropDownListView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
@@ -49,10 +42,10 @@ public class OrderMiao extends AppCompatActivity{
 
     String babyName,certiTime;
     Long certiArea;
-    private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
-    private InoculationDao inoculationDao = MyApplication.getInstances().getDaoSession().getInoculationDao();
-    private OrderVaccinDao orderVaccinDao = MyApplication.getInstances().getDaoSession().getOrderVaccinDao();
-    private HosInfoDao hosInfoDao = MyApplication.getInstances().getDaoSession().getHosInfoDao();
+
+    InoculationModel inoculationModel = new InoculationModel();
+    OrderVaccinModel orderVaccinModel = new OrderVaccinModel();
+    HosInfoModel hosInfoModel = new HosInfoModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +60,20 @@ public class OrderMiao extends AppCompatActivity{
                 OrderMiao.this.finish();
             }
         });
+
         mbtnSureOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getEditText();
-                insertMiaoOrder(certiTime,babyName,certiArea);
-                Toast.makeText(OrderMiao.this, "预约成功"+" hos "+certiArea, Toast.LENGTH_SHORT).show();
+                makeMiaoOrder(certiTime,babyName,certiArea);
+
                 Intent intent = new Intent(OrderMiao.this, MainActivity.class);
                 startActivity(intent);
             }
         });
 
     }
+
     private void getEditText(){
         babyName = mOrderBabyName.getText().toString();
         certiArea = mOrderCertiArea.getHosId();
@@ -90,48 +85,56 @@ public class OrderMiao extends AppCompatActivity{
         myOrderHosLists = getHos(getMiaoId());
         mOrderCertiArea.setItemsData(myOrderHosLists);
     }
-    private Vaccin getThis(){
-        Vaccin vaccin = vaccinDao.load(getMiaoId());
-        return vaccin;
-    }
+
     private Long getMiaoId(){
         Intent intentGetId = getIntent();
         Long miaoId = intentGetId.getLongExtra("MiaoId",0L);
         return miaoId;
     }
     private String getBaby(){
-        Inoculation inoculation = selectBabyByParent();
-        return inoculation.getInoculBaby();
+        return inoculationModel.getBabyName(getUserId());
     }
-    private Inoculation selectBabyByParent(){
+    private Long getUserId(){
         SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
         Long userId = sharedPreferences.getLong("loginUserId",0L);
-        Inoculation inoculation = inoculationDao.queryBuilder().where(InoculationDao.Properties.ParentId.eq(userId)).unique();
-        return inoculation;
+        return userId;
     }
-    private Long getHos(String certiArea){
-        HosInfo hosInfo = hosInfoDao.queryBuilder().where(HosInfoDao.Properties.HosName.eq(certiArea)).unique();
-        return hosInfo.getId();
-    }
+
     private String getDate(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         return simpleDateFormat.format(date);
     }
-    private void insertMiaoOrder(String certiTime, String babyName, Long certiArea){
-        Inoculation inoculation = inoculationDao.queryBuilder().where(InoculationDao.Properties.InoculBaby.eq(babyName)).unique();
-        OrderVaccin orderVaccin = new OrderVaccin(certiTime,getDate(),inoculation.getId(),getMiaoId(),certiArea,0);
-        orderVaccinDao.insert(orderVaccin);
+
+
+    private void makeMiaoOrder(String certiTime, String babyName, Long hosId){
+        Long babyId = inoculationModel.getBabyIdByName(babyName);
+        //在疫苗预约表中新增
+        orderVaccinModel.insertOrderVaccin(certiTime,getDate(),babyId,getMiaoId(),hosId,0);
+//        判断疫苗数量>0
+        if(hosInfoModel.judgeVaccinAmount(hosId)){
+            //在门诊信息表中疫苗数量减去1
+            hosInfoModel.deleteVaccinAmount(hosId);
+            Toast.makeText(OrderMiao.this, "预约成功"+" hos "+certiArea, Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(OrderMiao.this, "预约失败"+" hos "+certiArea+"库存不足", Toast.LENGTH_SHORT).show();
+        }
+
     }
+
     private List<MyOrderHosList> getHos(Long vaccinId){
         List<HosInfo> hosInfoList = new ArrayList<HosInfo>();
+        hosInfoList = hosInfoModel.getHosInfoList(vaccinId);
+
         List<MyOrderHosList> myOrderHosLists = new ArrayList<MyOrderHosList>();
-        hosInfoList = hosInfoDao.queryBuilder().where(HosInfoDao.Properties.VaccinId.eq(vaccinId)).list();
-        for(HosInfo hosInfo : hosInfoList){
-            MyOrderHosList myOrderHos = new MyOrderHosList();
-            myOrderHos.setHosId(hosInfo.getId());
-            myOrderHos.setHosName(hosInfo.getHosName());
-            myOrderHosLists.add(myOrderHos);
+        if(hosInfoList!=null || !hosInfoList.isEmpty()){
+            for(HosInfo hosInfo : hosInfoList){
+                MyOrderHosList myOrderHos = new MyOrderHosList();
+                myOrderHos.setHosId(hosInfo.getId());
+                myOrderHos.setHosName(hosInfo.getHosName());
+                myOrderHosLists.add(myOrderHos);
+            }
         }
         return myOrderHosLists;
     }

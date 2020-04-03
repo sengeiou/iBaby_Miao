@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.atyume.greendao.gen.AdminUserDao;
 import com.atyume.greendao.gen.ExamInfoDao;
 import com.atyume.greendao.gen.HosInfoDao;
 import com.atyume.greendao.gen.InoculationDao;
@@ -15,7 +16,9 @@ import com.atyume.greendao.gen.OrderExamInfoDao;
 import com.atyume.greendao.gen.OrderVaccinDao;
 import com.atyume.greendao.gen.ParentInfoDao;
 import com.atyume.greendao.gen.VaccinDao;
+import com.atyume.ibabym.Model.OrderExamModel;
 import com.atyume.ibabym.R;
+import com.atyume.ibabym.basics.AdminUser;
 import com.atyume.ibabym.basics.ExamInfo;
 import com.atyume.ibabym.basics.HosInfo;
 import com.atyume.ibabym.basics.Inoculation;
@@ -45,6 +48,7 @@ public class testActivity extends AppCompatActivity {
 
     String all;
 
+    private AdminUserDao adminUserDao = MyApplication.getInstances().getDaoSession().getAdminUserDao();
     private ParentInfoDao parentDao = MyApplication.getInstances().getDaoSession().getParentInfoDao();
     private InoculationDao babydao = MyApplication.getInstances().getDaoSession().getInoculationDao();
     private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
@@ -52,6 +56,7 @@ public class testActivity extends AppCompatActivity {
     private ExamInfoDao examInfoDao = MyApplication.getInstances().getDaoSession().getExamInfoDao();
     private OrderExamInfoDao orderExamInfoDao = MyApplication.getInstances().getDaoSession().getOrderExamInfoDao();
     private OrderVaccinDao orderVaccinDao = MyApplication.getInstances().getDaoSession().getOrderVaccinDao();
+    OrderExamModel orderExamModel = new OrderExamModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -89,14 +94,14 @@ public class testActivity extends AppCompatActivity {
         /*for(ParentInfo parentInfo:parentInfos){]
             all=all.concat(parentInfo.toString());
         }*/
-        mtextShow.setText(parentInfos.toString()+"baby:"+inoculations.toString());
+//        mtextShow.setText(parentInfos.toString()+"baby:"+inoculations.toString());
 //        mtextShow.setText(parentInfos.toString()+"vaccin:"+vaccinList.toString()+"hos:"+hosInfoList.toString()+"exam:"+examInfoList.toString());
-//        mtextShow.setText(orderExamInfoList.toString()+"----------"+orderVaccinList.toString());
+        mtextShow.setText(orderExamInfoList.toString()+"----------"+orderVaccinList.toString()+"--------waitting people:"+orderExamModel.getOrderCountByDate("2020-03-31"));
 
     }
 
     private void insertData() {
-        ParentInfo parentInfo = new ParentInfo(1L,"15159045183","福建省厦门市",null,null,"123456");
+        /*ParentInfo parentInfo = new ParentInfo(1L,"15159045183","福建省厦门市",null,null,"123456");
         long insert1 = parentDao.insert(parentInfo);
         if (insert1 > 0) {
             Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
@@ -107,12 +112,17 @@ public class testActivity extends AppCompatActivity {
         long insert2 = vaccinDao.insert(vaccin);
         if (insert2 > 0) {
             Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
         /*long insert3 = examInfoDao.insert(new ExamInfoActivity(1L,"小儿遗尿检查",98.0,"福建省福州市现代妇产医院"));
         if (insert3 > 0) {
             Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
         }*/
+        AdminUser adminUser = new AdminUser("13959013685","123456");
+        long insert1 = adminUserDao.insert(adminUser);
+        if (insert1 > 0) {
+            Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void deleteData(){
@@ -130,9 +140,11 @@ public class testActivity extends AppCompatActivity {
     }
 
     private void updateData(){
-        Inoculation inoculation1 = babydao.queryBuilder().where(InoculationDao.Properties.Id.eq(Long.valueOf(1002))).unique();
-        inoculation1.setParentId(3L);
-        babydao.update(inoculation1);
+//        Inoculation inoculation1 = babydao.queryBuilder().where(InoculationDao.Properties.Id.eq(Long.valueOf(1002))).unique();
+//        inoculation1.setParentId(3L);
+//        babydao.update(inoculation1);
+        mbtnUpdate.setText("已失效");
+        mbtnUpdate.setEnabled(false);
     }
 
 }

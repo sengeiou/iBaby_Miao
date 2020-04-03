@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.VaccinDao;
+import com.atyume.ibabym.Model.VaccinModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.Vaccin;
@@ -52,7 +53,7 @@ public class MiaoAllInfo extends AppCompatActivity {
     String MiaoName,MiaoDetail,MiaoNo,MiaoFactory,MiaoProperAge,MiaoCertiProcess,MiaoAttention,MiaoEffect;
     Double MiaoPrice;
     Long MiaoAmount;
-    private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
+    VaccinModel vaccinModel = new VaccinModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class MiaoAllInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getEditText();
-                updateData();
+                updateData(MiaoName,MiaoDetail,MiaoEffect,MiaoProperAge,MiaoCertiProcess,MiaoPrice,MiaoFactory,MiaoNo,MiaoAmount);
                 Intent intent = new Intent(MiaoAllInfo.this, MiaoViewActivity.class);
                 startActivity(intent);//返回页面1
                 finish();
@@ -95,7 +96,7 @@ public class MiaoAllInfo extends AppCompatActivity {
         MiaoEffect = mEditMiaoEffect.getText().toString();
     }
     private void setEditText(){
-        Vaccin vaccin = getThis();
+        Vaccin vaccin = getVaccin();
         mEditMiaoName.setText(vaccin.getVaccinName());
         mEditMiaoDetail.setText(vaccin.getVaccinEffect());
         mEditMiaoNo.setText(vaccin.getVaccinNo());
@@ -107,25 +108,18 @@ public class MiaoAllInfo extends AppCompatActivity {
         mEditMiaoAttention.setText(vaccin.getVaccinAttention());
         mEditMiaoEffect.setText(vaccin.getVaccinDisadv());
     }
-    private void updateData() {
-        Vaccin vaccin = getThis();
-        vaccin.setVaccinName(MiaoName);
-        vaccin.setVaccinEffect(MiaoDetail);
-        vaccin.setVaccinNo(MiaoNo);
-        vaccin.setProduceCompany(MiaoFactory);
-        vaccin.setVaccinAge(MiaoProperAge);
-        vaccin.setVaccinProcess(MiaoCertiProcess);
-        vaccin.setVaccinPrice(MiaoPrice);
-        vaccin.setVaccinAmount(MiaoAmount);
-        vaccin.setVaccinDisadv(MiaoEffect);
-
-        vaccinDao.update(vaccin);
+    private void updateData(String MiaoName, String MiaoDetail, String MiaoEffect, String MiaoProperAge, String MiaoCertiProcess, Double MiaoPrice,String MiaoFactory,String MiaoNo,Long MiaoAmount) {
+        Vaccin vaccin = new Vaccin();
+        vaccin = getVaccin();
+        vaccinModel.updateVaccin(vaccin,MiaoName,MiaoDetail,MiaoEffect,MiaoProperAge,MiaoCertiProcess,MiaoPrice,MiaoFactory,MiaoNo,MiaoAmount);
         Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
     }
-    private Vaccin getThis(){
+
+    private Vaccin getVaccin(){
         Intent intentGetId = getIntent();
         Long miaoId = intentGetId.getLongExtra("manageMiaoId",0L);
-        Vaccin vaccin = vaccinDao.queryBuilder().where(VaccinDao.Properties.Id.eq(miaoId)).unique();
+        Vaccin vaccin = new Vaccin();
+        vaccin = vaccinModel.getVaccin(miaoId);
         return vaccin;
     }
 

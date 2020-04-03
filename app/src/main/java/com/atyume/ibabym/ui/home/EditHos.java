@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.HosInfoDao;
 import com.atyume.greendao.gen.VaccinDao;
+import com.atyume.ibabym.Model.HosInfoModel;
+import com.atyume.ibabym.Model.VaccinModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.HosInfo;
 import com.atyume.ibabym.basics.MyApplication;
@@ -44,8 +46,8 @@ public class EditHos extends AppCompatActivity {
     String hosName,hosAdress;
     Long hosMiaoId,hosMiaoAmount;
 
-    private HosInfoDao hosInfoDao = MyApplication.getInstances().getDaoSession().getHosInfoDao();
-    private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
+    HosInfoModel hosInfoModel = new HosInfoModel();
+    VaccinModel vaccinModel = new VaccinModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class EditHos extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getEditText();
+
                 if(TextUtils.isEmpty(hosName)){
                     Toast.makeText(EditHos.this, "请输入医院名称", Toast.LENGTH_SHORT).show();
                     return;
@@ -71,18 +74,20 @@ public class EditHos extends AppCompatActivity {
                     Toast.makeText(EditHos.this, "请输入医院地址", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!judgeMiaoExist(hosMiaoId)){
+                if(!vaccinModel.judgeMiaoExist(hosMiaoId)){
                     Toast.makeText(EditHos.this, "输入的疫苗编号不存在", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!judgeIsExist(hosName,hosAdress,hosMiaoId)){
-                    insertData();
+                if(!hosInfoModel.judgeHosIsExist(hosName,hosAdress,hosMiaoId)){
+
+                    hosInfoModel.insertHosInfo(hosName,hosAdress,hosMiaoId,hosMiaoAmount);
+
                     Intent intent = new Intent(EditHos.this, HosViewActivity.class);
                     startActivity(intent);
                     finish();
                 }
                 else{
-                    updateData(hosName,hosAdress,hosMiaoId,hosMiaoAmount);
+                    hosInfoModel.updateHosInfo(hosName,hosAdress,hosMiaoId,hosMiaoAmount);
                     Intent intent = new Intent(EditHos.this, HosViewActivity.class);
                     startActivity(intent);
                     finish();
@@ -95,36 +100,6 @@ public class EditHos extends AppCompatActivity {
         hosAdress = mEditHosAdress.getText().toString();
         hosMiaoId = Long.parseLong(mEditMiaoIdHos.getText().toString());
         hosMiaoAmount = Long.parseLong((mEditMiaoAmountHos.getText().toString()));
-    }
-
-    private void insertData() {
-        HosInfo hosInfo = new HosInfo(hosName,hosAdress,hosMiaoId,hosMiaoAmount);
-        long insert = hosInfoDao.insert(hosInfo);
-        if (insert > 0) {
-            Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
-        }
-    }
-    private void updateData(String hosName,String hosAdress,Long hosMiaoId,Long hosMiaoAmount){
-       HosInfo hosInfo = hosInfoDao.queryBuilder().where(HosInfoDao.Properties.HosName.eq(hosName),
-                HosInfoDao.Properties.HosAdress.eq(hosAdress),HosInfoDao.Properties.VaccinId.eq(hosMiaoId)).unique();
-       Long newAmount = hosInfo.getVaccinAmount()+hosMiaoAmount;
-       hosInfo.setVaccinAmount(newAmount);
-       hosInfoDao.update(hosInfo);
-    }
-    private boolean judgeIsExist(String hosName,String hosAdress,Long hosMiaoId){
-        List<HosInfo> hosInfoList = hosInfoDao.queryBuilder().where(HosInfoDao.Properties.HosName.eq(hosName),
-                HosInfoDao.Properties.HosAdress.eq(hosAdress),HosInfoDao.Properties.VaccinId.eq(hosMiaoId)).list();
-        if (hosInfoList==null || hosInfoList.size()==0){
-            return false;    //不存在
-        }
-        return true;
-    }
-    private boolean judgeMiaoExist(Long MiaoId){
-        List<Vaccin> vaccinList = vaccinDao.queryBuilder().where(VaccinDao.Properties.Id.eq(MiaoId)).list();
-        if(vaccinList==null || vaccinList.size()==0){
-            return false;
-        }
-        return true;
     }
 
 }

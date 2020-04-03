@@ -11,12 +11,17 @@ import com.atyume.greendao.gen.HosInfoDao;
 import com.atyume.greendao.gen.InoculationDao;
 import com.atyume.greendao.gen.OrderVaccinDao;
 import com.atyume.greendao.gen.VaccinDao;
+import com.atyume.ibabym.Model.HosInfoModel;
+import com.atyume.ibabym.Model.InoculationModel;
+import com.atyume.ibabym.Model.OrderVaccinModel;
+import com.atyume.ibabym.Model.VaccinModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.HosInfo;
 import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.OrderVaccin;
 import com.atyume.ibabym.basics.Vaccin;
+import com.qmuiteam.qmui.layout.QMUIRelativeLayout;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 import butterknife.BindView;
@@ -46,11 +51,19 @@ public class ShowOrderMiaoInfo extends AppCompatActivity {
     TextView mShowCertiArea;
     @BindView(R.id.show_OrderCertiTime)
     TextView mShowCertiTime;
+    @BindView(R.id.count_wait)
+    TextView mCountWait;
+    @BindView(R.id.sure_Succeed)
+    QMUIRoundButton mSureSucceed;
+    @BindView(R.id.sure_Cancel)
+    QMUIRoundButton mSureCancel;
+    @BindView(R.id.relative_show_other)
+    QMUIRelativeLayout mRelative;
 
-    private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
-    private OrderVaccinDao orderVaccinDao = MyApplication.getInstances().getDaoSession().getOrderVaccinDao();
-    private InoculationDao inoculationDao = MyApplication.getInstances().getDaoSession().getInoculationDao();
-    private HosInfoDao hosInfoDao = MyApplication.getInstances().getDaoSession().getHosInfoDao();
+    VaccinModel vaccinModel = new VaccinModel();
+    OrderVaccinModel orderVaccinModel = new OrderVaccinModel();
+    InoculationModel inoculationModel = new InoculationModel();
+    HosInfoModel hosInfoModel = new HosInfoModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,23 +80,37 @@ public class ShowOrderMiaoInfo extends AppCompatActivity {
             }
         });
 
+        mSureSucceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderVaccinModel.updateSucceed(getOrderVaccin());
+                mSureSucceed.setText("已完成");
+                mSureSucceed.setVisibility(View.INVISIBLE);
+                mSureCancel.setVisibility(View.INVISIBLE);
+                mRelative.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        mSureCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderVaccinModel.updateCancel(getOrderVaccin());
+                hosInfoModel.updateVaccinAmount(getOrderVaccin().getHosId());
+                mSureSucceed.setVisibility(View.INVISIBLE);
+                mSureCancel.setVisibility(View.INVISIBLE);
+                mRelative.setVisibility(View.INVISIBLE);
+            }
+        });
+
     }
 
-    private OrderVaccin getThis(){
-        OrderVaccin orderVaccin = new OrderVaccin();
-        orderVaccin = orderVaccinDao.load(getOrderId());
-        return orderVaccin;
-    }
-    private Long getOrderId(){
-        Intent intentGetId = getIntent();
-        Long orderMiaoId = intentGetId.getLongExtra("clickOrderMiaoId",0L);
-        return orderMiaoId;
-    }
     private void setMiaoText(){
         OrderVaccin orderVaccin = new OrderVaccin();
-        orderVaccin = getThis();
+        orderVaccin = getOrderVaccin();
+
         Vaccin vaccin = new Vaccin();
-        vaccin = getVaccin();
+        vaccin = getVaccin(orderVaccin.getVaccinId());
+
         mShowMiaoName.setText(vaccin.getVaccinName());
         mShowMiaoAge.setText(vaccin.getVaccinAge());
         mShowMiaoAttention.setText(vaccin.getVaccinAttention());
@@ -91,23 +118,58 @@ public class ShowOrderMiaoInfo extends AppCompatActivity {
         mShowMiaoDisadv.setText(vaccin.getVaccinDisadv());
         mShowMiaoPrice.setText(vaccin.getVaccinPrice().toString());
         mShowMiaoProcess.setText(vaccin.getVaccinProcess());
-        mShowBabyName.setText(getBabyName());
-        mShowCertiArea.setText(getHos());
+        mShowBabyName.setText(getBabyName(orderVaccin.getInocluId()));
+        mShowCertiArea.setText(getHos(orderVaccin.getHosId()));
         mShowCertiTime.setText(orderVaccin.getInocluTime());
+//        显示排队人数
+        int waitCount = getCountWait(orderVaccin.getInocluTime())-1;
+        if(waitCount < 0){
+            mRelative.setVisibility(View.INVISIBLE);
+        }
+        else{
+            String wait = String.valueOf(waitCount);
+            mCountWait.setText(wait);
+        }
+//         按钮的显示
+        if(orderVaccin.getIsSucceed()==1){
+            mSureSucceed.setVisibility(View.INVISIBLE);
+            mSureCancel.setVisibility(View.INVISIBLE);
+            mRelative.setVisibility(View.INVISIBLE);
+        }
+        else if(orderVaccin.getIsSucceed()==2){
+            mSureSucceed.setVisibility(View.INVISIBLE);
+            mSureCancel.setVisibility(View.INVISIBLE);
+            mRelative.setVisibility(View.INVISIBLE);
+        }
+
     }
-    private Vaccin getVaccin(){
-        Vaccin vaccin = new Vaccin();
-        vaccin = vaccinDao.load(getThis().getVaccinId());
-        return vaccin;
+
+    private OrderVaccin getOrderVaccin(){
+        OrderVaccin orderVaccin = new OrderVaccin();
+        Long orderVaccinId = getOrderId();
+        orderVaccin = orderVaccinModel.getOrderVaccin(getOrderId());
+        return orderVaccin;
     }
-    private String getBabyName(){
-        Inoculation inoculation = new Inoculation();
-        inoculation = inoculationDao.load(getThis().getInocluId());
-        return inoculation.getInoculBaby();
+
+    private Long getOrderId(){
+        Intent intentGetId = getIntent();
+        Long orderMiaoId = intentGetId.getLongExtra("clickOrderMiaoId",0L);
+        return orderMiaoId;
     }
-    private String getHos(){
-        HosInfo hosInfo = new HosInfo();
-        hosInfo = hosInfoDao.load(getThis().getHosId());
-        return hosInfo.getHosName();
+
+    private Vaccin getVaccin(Long vaccinId){
+        return vaccinModel.getVaccin(vaccinId);
+    }
+
+    private String getBabyName(Long babyId){
+        return inoculationModel.getBabyNameByBaby(babyId);
+    }
+
+    private String getHos(Long hosId){
+        return hosInfoModel.getHosName(hosId);
+    }
+
+    private int getCountWait(String orderTime){
+        return orderVaccinModel.getOrderCountByDate(orderTime);
     }
 }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.ExamProjectDao;
+import com.atyume.ibabym.Model.ExamProjectModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.ExamProject;
 import com.atyume.ibabym.basics.MyApplication;
@@ -34,7 +35,8 @@ public class EditProject extends AppCompatActivity {
     QMUIRoundButton mbtnAddProject;
     String ProjectName,ProjectDetail;
     Double ProjectPrice;
-    private ExamProjectDao examProjectDao = MyApplication.getInstances().getDaoSession().getExamProjectDao();
+    ExamProjectModel examProjectModel = new ExamProjectModel();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class EditProject extends AppCompatActivity {
                 if(TextUtils.isEmpty(ProjectName)){
                     Toast.makeText(EditProject.this, "请输入体检项目名称", Toast.LENGTH_SHORT).show();
                 }
-                insertProject(ProjectName,ProjectDetail,ProjectPrice);
+                examProjectModel.insertProject(ProjectName,ProjectDetail,ProjectPrice);
                 Intent intent = new Intent(EditProject.this, ProjectViewActivity.class);
                 startActivity(intent);//返回页面1
                 finish();
@@ -68,14 +70,7 @@ public class EditProject extends AppCompatActivity {
         ProjectPrice = Double.parseDouble(mEditProjectPrice.getText().toString());
     }
 
-    private void insertProject(String projectName,String projectDetail,Double projectPrice){
-        ExamProject examProject = new ExamProject(projectName,projectDetail,projectPrice);
-        long insert = examProjectDao.insert(examProject);
-        if(insert > 0){
-            Toast.makeText(this, "插入成功", Toast.LENGTH_SHORT).show();
-        }
 
-    }
     private void initTop(){
         mTopBar.setText("新增体检项目");
     }

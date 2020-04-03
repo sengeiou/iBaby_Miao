@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.atyume.greendao.gen.VaccinDao;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.VaccinModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
 import com.atyume.ibabym.adapter.RecyclerAdapter;
@@ -65,7 +66,7 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
     private boolean editorStatus = false;
     private int index = 0;
 
-    private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
+    VaccinModel vaccinModel = new VaccinModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
     private void initView(){
         //数据
         List<Vaccin> vaccinList = new ArrayList<Vaccin>();
-        vaccinList = getData();
+        vaccinList = vaccinModel.geVaccinList();
         if(vaccinList!=null){
             for (int i = 0; i < vaccinList.size(); i++) {
                 MyLiveList myLiveList = new MyLiveList();
@@ -111,12 +112,6 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
             }
         }
 
-    }
-
-    private List<Vaccin> getData(){
-        List<Vaccin> vList = new ArrayList<Vaccin>();
-        vList = vaccinDao.loadAll();
-        return vList;
     }
 
     protected void makeClicked(){
@@ -251,7 +246,7 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
                     MyLiveList myLive = mRadioAdapter.getMyLiveList().get(i-1);
                     if (myLive.isSelect()) {
                         //数据库中删除
-                        vaccinDao.deleteByKey(myLive.getId());
+                        vaccinModel.deleteVaccinById(myLive.getId());
 
                         mRadioAdapter.getMyLiveList().remove(myLive);
                         index--;

@@ -1,6 +1,5 @@
 package com.atyume.ibabym.ui.dashboard;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.atyume.ibabym.Model.VaccinModel;
+import com.atyume.ibabym.Model.ExamInfoModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.RecyclerAdapter;
-import com.atyume.ibabym.basics.Vaccin;
+import com.atyume.ibabym.basics.ExamInfo;
 import com.atyume.ibabym.ui.RecyclerViewList.DividerItemDecoration;
 import com.atyume.ibabym.utils.MyLiveList;
 
@@ -25,48 +24,33 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecyclerMiaoActivity extends AppCompatActivity {
+public class SelectExamShowList extends AppCompatActivity {
 
     @BindView(R.id.comeBack)
     TextView mComeBack;
-    @BindView(R.id.tv_select_text)
-    EditText mEditSelect;
-    @BindView(R.id.tv_sure)
-    TextView mSureSelect;
 
     private List<MyLiveList> mDatas = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private RecyclerAdapter recyclerAdapter;
-    String selectText;
-    VaccinModel vaccinModel = new VaccinModel();
+
+    ExamInfoModel examInfoModel = new ExamInfoModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_view_miao);
-
+        setContentView(R.layout.activity_show_list);
         ButterKnife.bind(this);
 
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecyclerMiaoActivity.this.finish();
-            }
-        });
-
-        mSureSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectText = mEditSelect.getText().toString();
-                Intent intent = new Intent(RecyclerMiaoActivity.this, SelectMiaoShowList.class);
-                intent.putExtra("selectText",selectText);
-                startActivity(intent);
+                SelectExamShowList.this.finish();
             }
         });
 
         initView();
-
         initData();
+
         recyclerAdapter = new RecyclerAdapter(this,mDatas);
         mRecyclerView.setAdapter(recyclerAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
@@ -74,39 +58,57 @@ public class RecyclerMiaoActivity extends AppCompatActivity {
         recyclerAdapter.setOnMyItemClickListener(new RecyclerAdapter.OnMyItemClickListener() {
             @Override
             public void myClick(View v, int pos) {
-                Toast.makeText(RecyclerMiaoActivity.this,"onClick---"+pos+"mDatas:"+mDatas.get(pos).toString(),Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(RecyclerMiaoActivity.this, ViewMiaoDetail.class);
-                intent.putExtra("clickMiaoId",(mDatas.get(pos)).getId());
+                Toast.makeText(SelectExamShowList.this,"onClick---"+pos,Toast.LENGTH_LONG).show();
+                System.out.println("onClick---"+pos);
+                Intent intent = new Intent(SelectExamShowList.this, ViewExamDetail.class);
+                intent.putExtra("clickExamId",(mDatas.get(pos)).getId());
                 startActivity(intent);
+
+                /*recyclerAdapter.addItem(pos);*/
+
             }
 
             @Override
             public void mLongClick(View v, int pos) {
-                Toast.makeText(RecyclerMiaoActivity.this,"onLongClick---"+pos,Toast.LENGTH_LONG).show();
-
+                Toast.makeText(SelectExamShowList.this,"onLongClick---"+pos,Toast.LENGTH_LONG).show();
+                System.out.println("onLongClick---"+pos);
                 /*recyclerAdapter.removeData(pos);*/
             }
         });
-
     }
 
     private void initData() {
-        List<Vaccin> vaccinList = new ArrayList<Vaccin>();
-        vaccinList = vaccinModel.geVaccinList();
-        if(vaccinList!=null || !vaccinList.isEmpty()){
-            for (int i = 0; i < vaccinList.size(); i++) {
-                MyLiveList myLiveList = new MyLiveList();
-                myLiveList.setTitle(vaccinList.get(i).getVaccinName());
-                myLiveList.setSource("适用：" + vaccinList.get(i).getVaccinAge());
-                myLiveList.setId(vaccinList.get(i).getId());
-                mDatas.add(myLiveList);
+        List<ExamInfo> examInfoList = new ArrayList<ExamInfo>();
+        examInfoList = getExamList();
+        //数据
+        if(examInfoList!=null || !examInfoList.isEmpty()){
+            for (int i = 0; i < examInfoList.size(); i++) {
+                MyLiveList myExamList = new MyLiveList();
+                myExamList.setTitle(examInfoList.get(i).getExamName());
+                myExamList.setSource(examInfoList.get(i).getExamHosName());
+                myExamList.setId(examInfoList.get(i).getId());
+                mDatas.add(myExamList);
             }
         }
+
+    }
+
+    private List<ExamInfo> getExamList(){
+        if(getSelectTect()==null || getSelectTect().equals("")){
+            return examInfoModel.getExamList();
+        }
+        return examInfoModel.getExamListByName(getSelectTect());
+    }
+
+    private String getSelectTect(){
+        Intent intent = getIntent();
+        String selectText = intent.getStringExtra("selectText");
+        return selectText;
     }
 
     private void initView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         TextView mShowTitle = (TextView) findViewById(R.id.list_title);
-        mShowTitle.setText("疫苗预约");
+        mShowTitle.setText("体检套餐");
     }
 }

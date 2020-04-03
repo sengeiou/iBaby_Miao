@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.ParentInfoDao;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.ParentModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.ParentInfo;
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     String userTell,userPwd;
 
-    private ParentInfoDao parentDao = MyApplication.getInstances().getDaoSession().getParentInfoDao();
+    ParentModel parentModel = new ParentModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,16 +91,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     myToast("请输入密码");
                     return;
                 }
-                if(!judgeHaveUser(userTell)){
+                if(!parentModel.judgeHaveUser(userTell)){
                     myToast("该账号还没注册");
                     return;
                 }
-                if(!judgeTellPwd(userTell,userPwd)){
+                if(!parentModel.judgeTellPwd(userTell,userPwd)){
                     myToast("密码输入错误");
                     return;
                 }
                 else{
-                    Long userId = getUserId(userTell);
+                    Long userId = parentModel.getUserId(userTell);
                     //保存登陆状态到SharedPreferences中
                     saveLoginStatus(true,userId);
                     myToast(userId+"成功");
@@ -156,25 +157,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return false;
             }
         }
-    }
-    protected boolean judgeHaveUser(String userTell){
-        /*if(parentDao.load())*/
-        List<ParentInfo> parentList = parentDao.queryBuilder().where(ParentInfoDao.Properties.ParentTell.eq(userTell)).list();
-       if(parentList.size()==0){
-            return false;                 //没有注册过
-        }
-        return true;                      //注册过
-    }
-    protected boolean judgeTellPwd(String userTell, String userPwd){
-        ParentInfo parentInfo = parentDao.queryBuilder().where(ParentInfoDao.Properties.ParentTell.eq(userTell)).unique();
-        Log.d("parentInfo:",parentInfo.getId()+" "+parentInfo.getParentPwd());
-        //加密
-        String md5Pwd = MD5Utils.md5(userPwd);
-        return parentInfo.getParentPwd().equals(md5Pwd);
-    }
-    private Long getUserId(String userTell){
-        ParentInfo parentInfo = parentDao.queryBuilder().where(ParentInfoDao.Properties.ParentTell.eq(userTell)).unique();
-        return parentInfo.getId();
     }
 
     /**

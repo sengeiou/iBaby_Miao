@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.ParentInfoDao;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.ParentModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.ParentInfo;
@@ -36,7 +37,7 @@ public class ViewUser extends AppCompatActivity {
     @BindView(R.id.show_myWork)
     TextView mShowMyWork;
 
-    private ParentInfoDao parentDao = MyApplication.getInstances().getDaoSession().getParentInfoDao();
+    ParentModel parentModel = new ParentModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,7 @@ public class ViewUser extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("loginInfo", MODE_PRIVATE);
         Long userId = sharedPreferences.getLong("loginUserId",0L);
 
-        ParentInfo parentInfo = selectMySelf(userId);
-        initView(parentInfo);
+        initView(userId);
 
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,21 +63,21 @@ public class ViewUser extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ViewUser.this, EditUser.class);
                 startActivity(intent);
+                finish();
             }
         });
 
     }
 
-    private void initView(ParentInfo parentInfo){
+    private void initView(Long userId){
+        ParentInfo parentInfo = new ParentInfo();
+        parentInfo = parentModel.selectById(userId);
         mShowMyNick.setText(parentInfo.getParentNick());
         mShowMyName.setText(parentInfo.getParentName());
         mShowMyTell.setText(parentInfo.getParentTell());
         mShowMyWork.setText(parentInfo.getParentWorkAdress());
     }
 
-    private ParentInfo selectMySelf(Long userId){
-        ParentInfo parentInfo = parentDao.queryBuilder().where(ParentInfoDao.Properties.Id.eq(userId)).unique();
-        return parentInfo;
-    }
+
 
 }

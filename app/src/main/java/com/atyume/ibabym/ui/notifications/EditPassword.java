@@ -3,6 +3,7 @@ package com.atyume.ibabym.ui.notifications;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.ParentInfoDao;
+import com.atyume.ibabym.Model.ParentModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.ParentInfo;
@@ -37,8 +39,7 @@ public class EditPassword extends AppCompatActivity {
 
     String oldPwd,newPwd,newRePwd;
 
-    private ParentInfoDao parentDao = MyApplication.getInstances().getDaoSession().getParentInfoDao();
-
+    ParentModel parentModel = new ParentModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,25 +62,25 @@ public class EditPassword extends AppCompatActivity {
             public void onClick(View v) {
                 getEditText();
                 if (TextUtils.isEmpty(oldPwd)){
-                    Toast.makeText(EditPassword.this, "请输入旧密码", Toast.LENGTH_SHORT).show();
+                    myToast("请输入旧密码");
                     return;
                 }
                 if (TextUtils.isEmpty(newPwd)||TextUtils.isEmpty(newRePwd)){
-                    Toast.makeText(EditPassword.this, "请输入新密码", Toast.LENGTH_SHORT).show();
+                    myToast("请输入新密码");
                     return;
                 }
-                if (!judgePwd(userId, oldPwd)){
-                    Toast.makeText(EditPassword.this, "旧密码输入有误", Toast.LENGTH_SHORT).show();
+                if (!parentModel.judgePwd(userId, oldPwd)){
+                    myToast("旧密码输入有误");
                     return;
                 }
                 else{
                     if(!newPwd.equals(newRePwd)){
-                        Toast.makeText(EditPassword.this, "两次新密码不符", Toast.LENGTH_SHORT).show();
+                        myToast("两次密码输入不符");
                         return;
                     }
                     else {
-                        judgeUpdatePwd(userId, newPwd);
-                        Toast.makeText(EditPassword.this, "修改成功", Toast.LENGTH_SHORT).show();
+                        parentModel.judgeUpdatePwd(userId, newPwd);
+                        myToast("修改成功");
                         Intent intent = new Intent(EditPassword.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
@@ -94,18 +95,14 @@ public class EditPassword extends AppCompatActivity {
         newPwd = mEditNewPwd.getText().toString();
         newRePwd = mEditNewRePwd.getText().toString();
     }
-
-    //判断旧密码是否正确
-    private boolean judgePwd(Long userId, String userPwd){
-        ParentInfo parentInfo = parentDao.queryBuilder().where(ParentInfoDao.Properties.Id.eq(userId)).unique();
-        String md5Pwd = MD5Utils.md5(userPwd);
-        return md5Pwd.equals(parentInfo.getParentPwd());
+    private void myToast(final String s) {
+        new Thread() {
+            public void run() {
+                Looper.prepare();
+                Toast.makeText(EditPassword.this, "" + s, Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+        }.start();
     }
 
-    protected void judgeUpdatePwd(Long userId, String userNewPwd){
-        ParentInfo parentInfo = parentDao.queryBuilder().where(ParentInfoDao.Properties.Id.eq(userId)).unique();
-        String md5Pwd = MD5Utils.md5(userNewPwd);
-        parentInfo.setParentPwd(md5Pwd);
-        parentDao.update(parentInfo);
-    }
 }

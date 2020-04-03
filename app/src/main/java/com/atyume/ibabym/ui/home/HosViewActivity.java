@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.atyume.greendao.gen.HosInfoDao;
 import com.atyume.greendao.gen.VaccinDao;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.HosInfoModel;
+import com.atyume.ibabym.Model.VaccinModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.adapter.MineRadioAdapter;
 import com.atyume.ibabym.basics.HosInfo;
@@ -63,8 +65,8 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
     private boolean editorStatus = false;
     private int index = 0;
 
-    private HosInfoDao hosInfoDao = MyApplication.getInstances().getDaoSession().getHosInfoDao();
-    private VaccinDao vaccinDao = MyApplication.getInstances().getDaoSession().getVaccinDao();
+    HosInfoModel hosInfoModel = new HosInfoModel();
+    VaccinModel vaccinModel = new VaccinModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,12 +99,12 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
     private void initView(){
         //数据
         List<HosInfo> hosInfoList = new ArrayList<HosInfo>();
-        hosInfoList = getData();
+        hosInfoList = hosInfoModel.getAllHos();
         if(hosInfoList!=null){
             for (int i = 0; i < hosInfoList.size(); i++) {
                 MyLiveList myLiveList = new MyLiveList();
                 myLiveList.setTitle(hosInfoList.get(i).getHosName());
-                String MiaoName = getVaccinName(hosInfoList.get(i).getVaccinId());
+                String MiaoName = vaccinModel.getVaccinNameById(hosInfoList.get(i).getVaccinId());
                 myLiveList.setSource(MiaoName+"剩余数量:"+hosInfoList.get(i).getVaccinAmount());
                 myLiveList.setId(hosInfoList.get(i).getId());
                 mList.add(myLiveList);
@@ -110,15 +112,6 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
             }
         }
 
-    }
-    private List<HosInfo> getData(){
-        List<HosInfo> hosInfoList = new ArrayList<HosInfo>();
-        hosInfoList = hosInfoDao.loadAll();
-        return hosInfoList;
-    }
-    private String getVaccinName(Long MiaoId){
-        Vaccin vaccin = vaccinDao.load(MiaoId);
-        return vaccin.getVaccinName();
     }
 
     /**
@@ -249,7 +242,7 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
                         mRadioAdapter.getMyLiveList().remove(myLive);
                         index--;
 
-                        hosInfoDao.deleteByKey(myLive.getId());
+                        hosInfoModel.deleteHosById(myLive.getId());
                     }
                 }
                 index = 0;

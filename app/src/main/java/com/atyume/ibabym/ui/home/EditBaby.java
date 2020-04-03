@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.atyume.greendao.gen.InoculationDao;
 
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.InoculationModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
@@ -62,8 +63,7 @@ public class EditBaby extends AppCompatActivity{
     EditText mEditNowAd;
 
     String babyName,babySex,babyDate,babyAdreess,babyHome;
-    private InoculationDao babydao = MyApplication.getInstances().getDaoSession().getInoculationDao();
-
+    InoculationModel inoculationModel = new InoculationModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,8 @@ public class EditBaby extends AppCompatActivity{
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("loginInfo", MODE_PRIVATE);
         Long userId = sharedPreferences.getLong("loginUserId",0L);
+
+        initView(userId);
 
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,10 +98,11 @@ public class EditBaby extends AppCompatActivity{
                     return;
                 }
                 else{
-                    insertBaby(babyName,babyDate,babySex,babyAdreess,babyHome,userId);
+                    inoculationModel.insertBaby(babyName,babyDate,babySex,babyAdreess,babyHome,userId);
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putLong("babyId",selectBabyId(babyName));
+                    Long babyId = inoculationModel.getBabyIdByName(babyName);
+                    editor.putLong("babyId",babyId);
                     editor.apply();
 
                     Intent intent = new Intent(EditBaby.this, MainActivity.class);
@@ -108,8 +111,25 @@ public class EditBaby extends AppCompatActivity{
                     finish();
                 }
             }
-
         });
+    }
+    private void initView(Long userId){
+        Inoculation inoculation = new Inoculation();
+        if(inoculationModel.judgeBabyIsExit(userId)){
+            inoculation = inoculationModel.selectBabyByParent(userId);
+            mEditBabyName.setText(inoculation.getInoculBaby());
+            mEditBabyBirth.setText(inoculation.getBabyData());
+            mEditAdress.setText(inoculation.getBabyAdress());
+            mEditNowAd.setText(inoculation.getBabyHome());
+            if((inoculation.getBabySex()).equals("男")){
+                mMale.setChecked(true);
+                mFemale.setChecked(false);
+            }
+            if((inoculation.getBabySex()).equals("女")){
+                mMale.setChecked(false);
+                mFemale.setChecked(true);
+            }
+        }
 
     }
 
@@ -125,13 +145,7 @@ public class EditBaby extends AppCompatActivity{
             babySex = "女";
         }
     }
-    private void insertBaby(String babyName,String babyDate,String babySex,String babyAdreess,String babyHome,Long userId){
-        babydao.insert(new Inoculation(babyName,babyDate,babySex,babyAdreess,babyHome,userId));
-    }
-    private Long selectBabyId(String babyName){
-        Inoculation inoculation = babydao.queryBuilder().where(InoculationDao.Properties.InoculBaby.eq(babyName)).unique();
-        return inoculation.getId();
-    }
+
     private String getTime(Date date) {//可根据需要自行截取数据显示
         Log.d("getTime()", "choice date millis: " + date.getTime());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

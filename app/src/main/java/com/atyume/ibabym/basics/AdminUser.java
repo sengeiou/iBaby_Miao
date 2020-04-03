@@ -14,6 +14,12 @@ public class AdminUser {        //管理员信息
     @NotNull
     private String adminPwd;         /*管理员密码*/
 
+    @Keep
+    public AdminUser(String adminName, String adminPwd) {
+        this.adminName = adminName;
+        this.adminPwd = adminPwd;
+    }
+
     @Generated(hash = 844780728) @Keep
     public AdminUser(Long id, String adminName, @NotNull String adminPwd) {
         this.id = id;

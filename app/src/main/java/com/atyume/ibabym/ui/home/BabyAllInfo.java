@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.InoculationDao;
 import com.atyume.greendao.gen.ParentInfoDao;
+import com.atyume.ibabym.Model.InoculationModel;
+import com.atyume.ibabym.Model.ParentModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.Inoculation;
 import com.atyume.ibabym.basics.MyApplication;
@@ -52,8 +54,8 @@ public class BabyAllInfo extends AppCompatActivity {
 
     String babyName,babyBirth,babySex,babyHomead,babyNowad,parentName,parentTell,parentWork;
 
-    private InoculationDao babydao = MyApplication.getInstances().getDaoSession().getInoculationDao();
-    private ParentInfoDao parentInfoDao = MyApplication.getInstances().getDaoSession().getParentInfoDao();
+    InoculationModel inoculationModel = new InoculationModel();
+    ParentModel parentModel = new ParentModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,7 @@ public class BabyAllInfo extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Inoculation inoculation = getBaby();
-        ParentInfo parentInfo = getParent(inoculation.getParentId());
+        ParentInfo parentInfo = parentModel.selectById(inoculation.getParentId());
         initView(inoculation,parentInfo);
 
         mComeBack.setOnClickListener(new View.OnClickListener() {
@@ -75,8 +77,10 @@ public class BabyAllInfo extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 getEditText();
-                updateBaby(inoculation);
-                updateParent(parentInfo);
+
+                inoculationModel.updateBaby(inoculation,babyName,babyBirth,babySex,babyHomead,babyNowad);
+                parentModel.updateParent(parentInfo,parentName,parentTell,parentWork);
+
                 Intent intent = new Intent(BabyAllInfo.this, BabyViewActivity.class);
                 Toast.makeText(BabyAllInfo.this,"修改了"+babyName+"宝宝",Toast.LENGTH_LONG).show();
                 startActivity(intent);
@@ -88,17 +92,10 @@ public class BabyAllInfo extends AppCompatActivity {
     private Inoculation getBaby(){
         Intent intentGetId = getIntent();
         Long babyId = intentGetId.getLongExtra("manageBabyId",0L);
-        return selectBabyBySelf(babyId);
-    }
-    private ParentInfo getParent(Long parentId){
-        ParentInfo parentInfo = parentInfoDao.load(parentId);
-        return parentInfo;
+        return inoculationModel.selectBabyByBabyId(babyId);
     }
 
-    private Inoculation selectBabyBySelf(Long babyId){
-        Inoculation inoculation = babydao.load(babyId);
-        return inoculation;
-    }
+
     private void initView(Inoculation inoculation, ParentInfo parentInfo){
         mShowBabyName.setText(inoculation.getInoculBaby());
         mShowBabyBirth.setText(inoculation.getBabyData());
@@ -122,9 +119,11 @@ public class BabyAllInfo extends AppCompatActivity {
         babyBirth = mShowBabyBirth.getText().toString();
         babyHomead = mShowBabyHome.getText().toString();
         babyNowad = mShowBabyNow.getText().toString();
+
         parentName = mShowParentName.getText().toString();
         parentTell = mShowParentTell.getText().toString();
         parentWork = mShowParentWork.getText().toString();
+
         if(mMale.isChecked()){
             babySex = "男";
         }
@@ -132,19 +131,6 @@ public class BabyAllInfo extends AppCompatActivity {
             babySex = "女";
         }
     }
-    private void updateBaby(Inoculation inoculation){
-        inoculation.setInoculBaby(babyName);
-        inoculation.setBabyData(babyBirth);
-        inoculation.setBabySex(babySex);
-        inoculation.setBabyHome(babyHomead);
-        inoculation.setBabyAdress(babyNowad);
-        babydao.update(inoculation);
-    }
-    private void updateParent(ParentInfo parentInfo){
-        parentInfo.setParentName(parentName);
-        parentInfo.setParentTell(parentTell);
-        parentInfo.setParentWorkAdress(parentWork);
-        parentInfoDao.update(parentInfo);
-    }
+
 }
 
