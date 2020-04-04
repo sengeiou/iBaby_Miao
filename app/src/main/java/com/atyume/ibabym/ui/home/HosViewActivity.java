@@ -171,8 +171,7 @@ public class HosViewActivity extends Activity implements View.OnClickListener, M
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HosViewActivity.this,EditHos.class);
-                startActivity(intent);
+                HosViewActivity.this.finish();
             }
         });
     }

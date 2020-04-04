@@ -135,9 +135,7 @@ public class ExamViewActivity extends Activity implements View.OnClickListener, 
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ExamViewActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                ExamViewActivity.this.finish();
             }
         });
         mRadioAdapter.setOnItemClickListener(this);

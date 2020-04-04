@@ -131,8 +131,7 @@ public class ProjectViewActivity extends Activity implements View.OnClickListene
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProjectViewActivity.this, MainActivity.class);
-                startActivity(intent);
+                ProjectViewActivity.this.finish();
             }
         });
         mRadioAdapter.setOnItemClickListener(this);

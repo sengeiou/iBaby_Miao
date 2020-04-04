@@ -13,10 +13,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.atyume.greendao.gen.ParentInfoDao;
+import com.atyume.ibabym.Model.AdminModel;
 import com.atyume.ibabym.Model.ParentModel;
 import com.atyume.ibabym.R;
 import com.atyume.ibabym.basics.MyApplication;
 import com.atyume.ibabym.basics.ParentInfo;
+import com.atyume.ibabym.ui.AdminLogin;
 import com.atyume.ibabym.ui.LoginActivity;
 import com.atyume.ibabym.utils.MD5Utils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
@@ -40,6 +42,7 @@ public class EditPassword extends AppCompatActivity {
     String oldPwd,newPwd,newRePwd;
 
     ParentModel parentModel = new ParentModel();
+    AdminModel adminModel = new AdminModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,8 @@ public class EditPassword extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("loginInfo", MODE_PRIVATE);
         Long userId = sharedPreferences.getLong("loginUserId",0L);
+        Boolean isParent = sharedPreferences.getBoolean("isParent", true);
+
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,16 +84,28 @@ public class EditPassword extends AppCompatActivity {
                         return;
                     }
                     else {
-                        parentModel.judgeUpdatePwd(userId, newPwd);
-                        myToast("修改成功");
-                        Intent intent = new Intent(EditPassword.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        UpdatePwd(isParent, userId, newPwd);
                     }
                 }
             }
         });
 
+    }
+    private void UpdatePwd(Boolean isParent, Long userId, String userPwd){
+        if(isParent){
+            parentModel.judgeUpdatePwd(userId, userPwd);
+            myToast("修改成功");
+            Intent intent = new Intent(EditPassword.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else{
+            adminModel.judgeUpdatePwd(userId, userPwd);
+            myToast("修改成功");
+            Intent intent = new Intent(EditPassword.this, AdminLogin.class);
+            startActivity(intent);
+            finish();
+        }
     }
     private void getEditText(){
         oldPwd = mEditOldPwd.getText().toString();

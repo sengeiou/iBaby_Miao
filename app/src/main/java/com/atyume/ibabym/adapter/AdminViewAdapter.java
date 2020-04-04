@@ -5,8 +5,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.atyume.ibabym.R;
 
-
-public class MainViewAdapter extends BaseAdapter {
+public class AdminViewAdapter extends BaseAdapter {
     private Fragment[] fragmentArray;
     private FragmentManager fragmentManager;
     private int hasMsgIndex=0;
@@ -15,14 +14,14 @@ public class MainViewAdapter extends BaseAdapter {
         this.hasMsgIndex = hasMsgIndex;
     }
 
-    public MainViewAdapter(FragmentManager fragmentManager, Fragment[] fragmentArray) {
+    public AdminViewAdapter(FragmentManager fragmentManager, Fragment[] fragmentArray) {
         this.fragmentManager = fragmentManager;
         this.fragmentArray = fragmentArray;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     @Override
@@ -32,7 +31,7 @@ public class MainViewAdapter extends BaseAdapter {
 
     @Override
     public String[] getTextArray() {
-        return new String[] {"首页", "我的预约","个人中心"};
+        return new String[] {"管理中心","个人中心"};
     }
 
     @Override
@@ -42,12 +41,12 @@ public class MainViewAdapter extends BaseAdapter {
 
     @Override
     public int[] getIconImageArray() {
-        return new int[] {R.mipmap.home_grey, R.mipmap.read_grey, R.mipmap.mine_grey};
+        return new int[] {R.mipmap.home_grey, R.mipmap.mine_grey};
     }
 
     @Override
     public int[] getSelectedIconImageArray() {
-        return new int[] {R.mipmap.home, R.mipmap.read, R.mipmap.mine};
+        return new int[] {R.mipmap.home, R.mipmap.mine};
     }
 
     @Override

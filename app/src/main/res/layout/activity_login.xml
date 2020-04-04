@@ -6,15 +6,25 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/change_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
         >
+        <TextView
+            android:id="@+id/login_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="管理员"
+            android:layout_toLeftOf="@+id/login_admin"
+            android:textColor="@color/qmui_btn_blue_text"
+            />
         <ImageView
-            android:id="@+id/change_admin"
+            android:id="@+id/login_admin"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
+            android:contentDescription="管理员"
             android:background="@mipmap/icon_admin"
             />
     </RelativeLayout>
@@ -76,30 +86,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="1">
+        >
+        <Button
+            android:id="@+id/btn_go_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/qmui_s_transparent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="注册"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+       >
         <Button
             android:id="@+id/login_error"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
             android:layout_below="@+id/btn_login"
+            android:layout_gravity="center"
             android:text="忘记密码"
             android:background="@color/qmui_s_transparent"
             android:textSize="15sp" />
-        <Button
-            android:id="@+id/btn_go_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_below="@+id/btn_login"
-            android:background="@color/qmui_s_transparent"
-            android:gravity="center_vertical"
-            android:text="注册"
-            android:textSize="15sp"
-            android:visibility="visible" />
     </LinearLayout>
-
-    <LinearLayout
+    <!--<LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -110,7 +124,7 @@
             android:textSize="19dp"
             android:textColor="#4A4A4D"
             android:gravity="center"
-            android:text="-----第三方登录-----" />
+            android:text="-&#45;&#45;&#45;&#45;第三方登录-&#45;&#45;&#45;&#45;" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -162,5 +176,5 @@
                     />
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout>-->
 </LinearLayout>

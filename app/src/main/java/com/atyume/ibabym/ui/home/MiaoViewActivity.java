@@ -141,8 +141,7 @@ public class MiaoViewActivity extends Activity implements View.OnClickListener, 
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MiaoViewActivity.this, MainActivity.class);
-                startActivity(intent);
+                MiaoViewActivity.this.finish();
             }
         });
 

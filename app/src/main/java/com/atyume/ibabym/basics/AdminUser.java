@@ -55,4 +55,13 @@ public class AdminUser {        //管理员信息
     public void setAdminPwd(String adminPwd) {
         this.adminPwd = adminPwd;
     }
+
+    @Override
+    public String toString() {
+        return "AdminUser{" +
+                "id=" + id +
+                ", adminName='" + adminName + '\'' +
+                ", adminPwd='" + adminPwd + '\'' +
+                '}';
+    }
 }

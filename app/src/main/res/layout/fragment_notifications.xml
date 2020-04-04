@@ -107,22 +107,8 @@
             >
         </com.atyume.ibabym.ui.navbar_title.nav_bar>
 
-        <View
-            style="@style/bg_line"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="10dp"
-            />
 
-        <com.atyume.ibabym.ui.navbar_title.nav_bar
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:id="@+id/user_order"
-            app:icon="@mipmap/myorder"
-            android:padding="@dimen/qmui_tab_segment_indicator_height"
-            app:hint="我的预约"
-            android:background="@color/nav_bar"
-            >
-        </com.atyume.ibabym.ui.navbar_title.nav_bar>
+
 
     </LinearLayout>
 

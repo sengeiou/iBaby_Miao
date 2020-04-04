@@ -131,8 +131,7 @@ public class BabyViewActivity extends Activity implements View.OnClickListener, 
         mComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BabyViewActivity.this, MainActivity.class);
-                startActivity(intent);
+                BabyViewActivity.this.finish();
             }
         });
         mRadioAdapter.setOnItemClickListener(this);

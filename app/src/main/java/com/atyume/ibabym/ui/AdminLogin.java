@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,20 +15,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.atyume.greendao.gen.ParentInfoDao;
 import com.atyume.ibabym.MainActivity;
+import com.atyume.ibabym.Model.AdminModel;
 import com.atyume.ibabym.Model.ParentModel;
 import com.atyume.ibabym.R;
-import com.atyume.ibabym.basics.MyApplication;
-import com.atyume.ibabym.basics.ParentInfo;
-import com.atyume.ibabym.utils.MD5Utils;
-
-import java.util.List;
+import com.atyume.ibabym.ui.admin.AdminActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class AdminLogin extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.btn_login)
     Button mBtnLogin;
     @BindView(R.id.btn_go_register)
@@ -47,17 +42,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     RelativeLayout mbtnChangeAdmin;
     String userTell,userPwd;
 
-    ParentModel parentModel = new ParentModel();
+    AdminModel adminModel = new AdminModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        loginIdentify.setText("管理员");
+        loginIdentify.setText("普通用户");
         mBtnLogin.setOnClickListener(this);
         mBtnGoRegister.setOnClickListener(this);
-        mBtnLoginError.setOnClickListener(this);
+        mBtnLoginError.setVisibility(View.INVISIBLE);
         mbtnChangeAdmin.setOnClickListener(this);
 
     }
@@ -71,9 +66,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btn_go_register:
                 goToRegister();
                 break;
-            case R.id.login_error:
-                loginError();
-                break;
             case R.id.change_admin:
                 changeAdmin();
                 break;
@@ -85,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         new Thread() {
             public void run() {
                 Looper.prepare();
-                Toast.makeText(LoginActivity.this, "" + s, Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminLogin.this, "" + s, Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
         }.start();
@@ -101,20 +93,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     myToast("请输入密码");
                     return;
                 }
-                if(!parentModel.judgeHaveUser(userTell)){
+                if(!adminModel.judgeHaveUser(userTell)){
                     myToast("该账号还没注册");
                     return;
                 }
-                if(!parentModel.judgeTellPwd(userTell,userPwd)){
+                if(!adminModel.judgeTellPwd(userTell,userPwd)){
                     myToast("密码输入错误");
                     return;
                 }
                 else{
-                    Long userId = parentModel.getUserId(userTell);
+                    Long userId = adminModel.getUserId(userTell);
                     //保存登陆状态到SharedPreferences中
-                    saveLoginStatus(true,userId);
+                    saveLoginStatus(false,userId);      //不是家长所以为false
                     myToast(userId+"成功");
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(AdminLogin.this, AdminActivity.class);
                     startActivity(intent);
                 }
             }
@@ -125,18 +117,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
                 myToast("点击了注册");
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent intent = new Intent(AdminLogin.this, AdminRegister.class);
                 startActivityForResult(intent, 1);
-            }
-        });
-    }
-    protected void loginError(){
-        mBtnLoginError.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myToast("点击了忘记密码");
-                Intent intent = new Intent(LoginActivity.this, ResetPwd.class);
-                startActivity(intent);
             }
         });
     }
@@ -145,8 +127,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mbtnChangeAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myToast("前往管理员页面");
-                Intent intent = new Intent(LoginActivity.this, AdminLogin.class);
+                myToast("前往用户页面");
+                Intent intent = new Intent(AdminLogin.this, LoginActivity.class);
                 startActivity(intent);
             }
         });

@@ -28,6 +28,7 @@ import com.atyume.ibabym.basics.OrderVaccin;
 import com.atyume.ibabym.basics.ParentInfo;
 import com.atyume.ibabym.basics.Vaccin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -58,6 +59,7 @@ public class testActivity extends AppCompatActivity {
     private OrderVaccinDao orderVaccinDao = MyApplication.getInstances().getDaoSession().getOrderVaccinDao();
     OrderExamModel orderExamModel = new OrderExamModel();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -84,6 +86,7 @@ public class testActivity extends AppCompatActivity {
     }
     private void selectData() {
         mtextShow.setText("");
+        List<AdminUser> adminUserList = adminUserDao.loadAll();
         List<ParentInfo> parentInfos = parentDao.loadAll();
         List<Inoculation> inoculations = babydao.loadAll();
         List<Vaccin> vaccinList = vaccinDao.loadAll();
@@ -94,10 +97,10 @@ public class testActivity extends AppCompatActivity {
         /*for(ParentInfo parentInfo:parentInfos){]
             all=all.concat(parentInfo.toString());
         }*/
+        mtextShow.setText(adminUserList.toString());
 //        mtextShow.setText(parentInfos.toString()+"baby:"+inoculations.toString());
 //        mtextShow.setText(parentInfos.toString()+"vaccin:"+vaccinList.toString()+"hos:"+hosInfoList.toString()+"exam:"+examInfoList.toString());
-        mtextShow.setText(orderExamInfoList.toString()+"----------"+orderVaccinList.toString()+"--------waitting people:"+orderExamModel.getOrderCountByDate("2020-03-31"));
-
+//        mtextShow.setText(orderExamInfoList.toString()+"----------"+orderVaccinList.toString()+"--------waitting people:"+orderExamModel.getOrderCountByDate("2020-03-31"));
     }
 
     private void insertData() {
@@ -135,7 +138,8 @@ public class testActivity extends AppCompatActivity {
         //hosInfoDao.deleteByKey(id3);
 //        orderExamInfoDao.deleteByKey(id1);
 //        orderVaccinDao.deleteByKey(id3);
-        parentDao.deleteByKey(id3);
+        adminUserDao.deleteByKey(id1);
+        adminUserDao.deleteByKey(id2);
 
     }
 
